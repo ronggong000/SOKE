@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 ## Data
 ### Continuous Sign Language Datasets
-How2Sign: [raw videos](https://how2sign.github.io/) and [split files](https://drive.google.com/drive/folders/1sPhBwmiWCXLZSHtM3fpotbz3BDgoYmco?usp=sharing).
+How2Sign: [raw videos](https://how2sign.github.io/)(Green Screen RGB clips (frontal view)) and [split files](https://drive.google.com/drive/folders/1sPhBwmiWCXLZSHtM3fpotbz3BDgoYmco?usp=sharing).
 
 CSL-Daily: [raw videos](http://home.ustc.edu.cn/~zhouh156/dataset/csl-daily/) and [split files](https://drive.google.com/drive/folders/17uPm6r5_DQ9CIYZonfwQLpw1XI8LeNEr?usp=drive_link). 
 
@@ -65,11 +65,11 @@ python -m test --cfg configs/soke.yaml --task t2m  #you can set SAVE_PREDICTIONS
 ```
 
 ## Visualizations
-Simple visualizations if meshes can be done by running
+Simple visualizations for meshes can be done by running
 ```
 python -m vis_mesh --cfg=configs/soke.yaml --demo_dataset=csl
 ```
-For colorful visualiations, please refer to the configurations of [BlenderToolbox](https://github.com/HTDerekLiu/BlenderToolbox), and run
+For colorful visualizations, please refer to the configurations of [BlenderToolbox](https://github.com/HTDerekLiu/BlenderToolbox), and run
 ```
 python vis_blender.py
 ```
