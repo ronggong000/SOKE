@@ -2,11 +2,19 @@ import argparse
 import os
 import torch
 from os.path import join as pjoin
-#from utils import paramUtil
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'tools'))
-from joints_list import SMPLX_JOINT_LANDMARK_NAMES, SELECTED_JOINT_INDICES,SELECTED_JOINT_LANDMARK_INDICES,SELECTED_JOINT_LANDMARK_BODY_EVAL,SELECTED_JOINT_LANDMARK_LHAND_EVAL,SELECTED_JOINT_LANDMARK_RHAND_EVAL, SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST,SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX,SELECTED_JOINT_INDICES_BODY_ONLY,SELECTED_JOINT_INDICES_NEIGHBOR_LIST
-from smplx_vertex_group import LEFT_HAND_VERTEX,RIGHT_HAND_VERTEX,UPPER_BODY_VERTEX
+from mGPT.utils.joints_list import (
+    SMPLX_JOINT_LANDMARK_NAMES,
+    SELECTED_JOINT_INDICES,
+    SELECTED_JOINT_LANDMARK_INDICES,
+    SELECTED_JOINT_LANDMARK_BODY_EVAL,
+    SELECTED_JOINT_LANDMARK_LHAND_EVAL,
+    SELECTED_JOINT_LANDMARK_RHAND_EVAL,
+    SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST,
+    SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX,
+    SELECTED_JOINT_INDICES_BODY_ONLY,
+    SELECTED_JOINT_INDICES_NEIGHBOR_LIST,
+)
+from mGPT.utils.human_models import smpl_x
 def arg_parse(is_train=False):
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     
@@ -14,6 +22,26 @@ def arg_parse(is_train=False):
     parser.add_argument("--name", type=str, default="vae_rod3_fixed_length_h2s", help="Name of this trial")
     parser.add_argument("--seed", default=1234, type=int)
     parser.add_argument("--gpu_id", type=int, default=0, help="GPU id")
+    parser.add_argument("--cfg", type=str, default="", help="Unused (compatibility).")
+    parser.add_argument(
+        "--smplx_model_path",
+        type=str,
+        default="deps/smpl_models",
+        help="Path to SMPL-X model assets (same as SOKE deps).",
+    )
+    parser.add_argument(
+        "--ckpt_path",
+        type=str,
+        default="",
+        help="Checkpoint path for evaluation scripts.",
+    )
+    parser.add_argument(
+        "--split",
+        type=str,
+        default="test",
+        choices=["train", "val", "test"],
+        help="Dataset split for evaluation scripts.",
+    )
 
     ## dataloader
     parser.add_argument("--dataset_name", type=str, default="SMPLX_SL", help="dataset directory", choices=['SMPLX_SL','HAND_CENTRIC','HIERARCHICAL'])
@@ -119,9 +147,9 @@ def arg_parse(is_train=False):
     opt.SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST = SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST
     opt.SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX=SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX
     opt.SELECTED_JOINT_INDICES_BODY_ONLY=SELECTED_JOINT_INDICES_BODY_ONLY
-    opt.UPPER_BODY_VERTEX = UPPER_BODY_VERTEX
-    opt.LEFT_HAND_VERTEX = LEFT_HAND_VERTEX
-    opt.RIGHT_HAND_VERTEX = RIGHT_HAND_VERTEX
+    opt.UPPER_BODY_VERTEX = smpl_x.vertex_part2idx["upper_body"]
+    opt.LEFT_HAND_VERTEX = smpl_x.vertex_part2idx["lhand"]
+    opt.RIGHT_HAND_VERTEX = smpl_x.vertex_part2idx["rhand"]
     opt.SELECTED_JOINT_INDICES_NEIGHBOR_LIST = SELECTED_JOINT_INDICES_NEIGHBOR_LIST
     opt.joints_landmark_num = len(SELECTED_JOINT_LANDMARK_INDICES)
     opt.joints_num = len(SELECTED_JOINT_INDICES)

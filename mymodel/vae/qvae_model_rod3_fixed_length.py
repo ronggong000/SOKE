@@ -1,12 +1,6 @@
-import os
-import sys
 import torch
 import torch.nn as nn
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'tools'))
-from rotation_convert import svd_orthogonalize_rot9
-from qvae_skeleton_rod3_fixed_length import MultiLinear, MotionEncoder, MotionDecoder, STConvEncoder, STConvDecoder,VectorQuantizer
+from qvae_skeleton_rod3_fixed_length import MultiLinear, MotionEncoder, MotionDecoder, STConvEncoder, STConvDecoder, VectorQuantizer
 
 
 class VAE(nn.Module):

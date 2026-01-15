@@ -16,9 +16,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
 
-import sys
-smplx_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'smplx')
-sys.path.append(smplx_path)
 import smplx
 from torch.cuda.amp import autocast, GradScaler
 
@@ -191,8 +188,12 @@ class VAETrainer:
         # --- 2. 加载 SMPL-X 模型 ---
         try:
             self.smplx_model = smplx.create(
-                model_path=smplx_path, model_type='smplx', gender='neutral', use_pca=False,
-                flat_hand_mean=True, batch_size=opt.batch_size * opt.max_length
+                model_path=opt.smplx_model_path,
+                model_type='smplx',
+                gender='neutral',
+                use_pca=False,
+                flat_hand_mean=True,
+                batch_size=opt.batch_size * opt.max_length,
             ).to(self.device).eval()
         except Exception as e:
             print(f"SMPLX模型加载失败: {e}")
