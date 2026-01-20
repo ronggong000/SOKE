@@ -1,4 +1,5 @@
 import argparse
+import ast
 import os
 
 import smplx
@@ -29,6 +30,30 @@ def parse_args():
     return parser.parse_args()
 
 
+def _coerce_value(value: str):
+    try:
+        return ast.literal_eval(value)
+    except (ValueError, SyntaxError):
+        return value
+
+
+def load_opt_from_txt(opt, opt_path: str):
+    if not os.path.exists(opt_path):
+        return opt
+    with open(opt_path, "r", encoding="utf-8") as opt_file:
+        for line in opt_file:
+            line = line.strip()
+            if not line or line.startswith("-"):
+                continue
+            if ":" not in line:
+                continue
+            key, raw_value = line.split(":", 1)
+            key = key.strip()
+            value = _coerce_value(raw_value.strip())
+            setattr(opt, key, value)
+    return opt
+
+
 def load_checkpoint(vae, ckpt_path, device):
     checkpoint = torch.load(ckpt_path, map_location=device)
     state_dict = checkpoint["vae"] if isinstance(checkpoint, dict) and "vae" in checkpoint else checkpoint
@@ -39,6 +64,10 @@ def main():
     cli_args = parse_args()
     opt = arg_parse(False)
     opt.ckpt_path = cli_args.ckpt_path
+    opt.split = cli_args.split
+
+    opt_path = os.path.join(os.path.dirname(os.path.dirname(cli_args.ckpt_path)), "opt.txt")
+    opt = load_opt_from_txt(opt, opt_path)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     opt.device = device
