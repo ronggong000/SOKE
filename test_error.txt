@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/fs04/scratch2/ar85/singyu/SOKE/test_my_vae.py", line 7, in <module>
+    from mymodel.tools.evaluator_rod3_fixed_length import MotionEvaluator
+  File "/fs04/scratch2/ar85/singyu/SOKE/mymodel/tools/evaluator_rod3_fixed_length.py", line 9, in <module>
+    from mGPT.metrics.mr import MRMetrics
+  File "/fs04/scratch2/ar85/singyu/SOKE/mGPT/metrics/__init__.py", line 1, in <module>
+    from .base import BaseMetrics
+  File "/fs04/scratch2/ar85/singyu/SOKE/mGPT/metrics/base.py", line 3, in <module>
+    from .mr import MRMetrics
+  File "/fs04/scratch2/ar85/singyu/SOKE/mGPT/metrics/mr.py", line 8, in <module>
+    from .utils import *
+  File "/fs04/scratch2/ar85/singyu/SOKE/mGPT/metrics/utils.py", line 6, in <module>
+    from mGPT.utils.human_models import get_coord
+  File "/fs04/scratch2/ar85/singyu/SOKE/mGPT/utils/human_models.py", line 213, in <module>
+    smpl_x = SMPLX()
+  File "/fs04/scratch2/ar85/singyu/SOKE/mGPT/utils/human_models.py", line 15, in __init__
+    self.layer = {'neutral': smplx.create(human_model_path, 'smplx', gender='NEUTRAL', use_pca=False, use_face_contour=True, **self.layer_arg),
+  File "/fs04/scratch2/ar85/singyu/unet/smplx/smplx/body_models.py", line 2417, in create
+    return SMPL(model_path, **kwargs)
+  File "/fs04/scratch2/ar85/singyu/unet/smplx/smplx/body_models.py", line 138, in __init__
+    assert osp.exists(smpl_path), 'Path {} does not exist!'.format(
+AssertionError: Path deps/smpl_models does not exist!

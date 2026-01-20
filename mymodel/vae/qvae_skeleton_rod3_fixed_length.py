@@ -3,8 +3,8 @@ import torch.nn as nn
 import math
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'tools'))
-from rotation_utils import CorrectionTransform, axis_angle_to_matrix, matrix_to_axis_angle,rotation_6d_to_matrix
+#sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'tools'))
+from mGPT.utils.rotation_utils import CorrectionTransform, axis_angle_to_matrix, matrix_to_axis_angle,rotation_6d_to_matrix
 
 from torch.amp import autocast 
 

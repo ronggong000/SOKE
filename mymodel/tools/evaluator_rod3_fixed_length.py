@@ -70,15 +70,15 @@ class MotionEvaluator:
         expression = torch.zeros(batch_size * seq_len, 10, device=full_pose.device)
         zero_pose = torch.zeros(batch_size * seq_len, 3, device=full_pose.device)
         output = smplx_model(
-            betas=betas,
+            #betas=betas,
             body_pose=body_pose,
-            global_orient=global_orient,
+            #global_orient=global_orient,
             left_hand_pose=lhand_pose,
             right_hand_pose=rhand_pose,
-            jaw_pose=jaw_pose,
-            leye_pose=zero_pose,
-            reye_pose=zero_pose,
-            expression=expression,
+            #jaw_pose=jaw_pose,
+            #leye_pose=zero_pose,
+            #reye_pose=zero_pose,
+            #expression=expression,
         )
         return output.vertices, output.joints
 

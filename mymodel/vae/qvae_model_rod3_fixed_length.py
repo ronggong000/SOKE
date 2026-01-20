@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from qvae_skeleton_rod3_fixed_length import MultiLinear, MotionEncoder, MotionDecoder, STConvEncoder, STConvDecoder, VectorQuantizer
+from mymodel.vae.qvae_skeleton_rod3_fixed_length import MultiLinear, MotionEncoder, MotionDecoder, STConvEncoder, STConvDecoder, VectorQuantizer
 
 
 class VAE(nn.Module):

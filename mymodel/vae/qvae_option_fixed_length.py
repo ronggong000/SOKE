@@ -44,7 +44,7 @@ def arg_parse(is_train=False):
     )
 
     ## dataloader
-    parser.add_argument("--dataset_name", type=str, default="SMPLX_SL", help="dataset directory", choices=['SMPLX_SL','HAND_CENTRIC','HIERARCHICAL'])
+    parser.add_argument("--dataset_name", type=str, default="HIERARCHICAL", help="dataset directory", choices=['SMPLX_SL','HAND_CENTRIC','HIERARCHICAL'])
     parser.add_argument("--batch_size", default=32, type=int, help="batch size")
     parser.add_argument("--max_length", type=int, default=256, help="training motion length")
     parser.add_argument("--num_workers", type=int, default=0, help="number of workers for dataloader")
@@ -81,7 +81,7 @@ def arg_parse(is_train=False):
     parser.add_argument("--lambda_quant", type=float, default=1.0, help="quant loss weight") # used when vqvae
     
     ## vae arch
-    parser.add_argument("--latent_dim", type=int, default=64, help="embedding dimension")
+    parser.add_argument("--latent_dim", type=int, default=128, help="embedding dimension")
     parser.add_argument("--kernel_size", type=int, default=3, help="kernel size")
     parser.add_argument("--n_layers", type=int, default=2, help="num of layers")
     parser.add_argument("--n_extra_layers", type=int, default=1, help="num of extra layers")

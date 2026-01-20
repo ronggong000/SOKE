@@ -18,7 +18,8 @@ slurm/job
 slurm/job/
 slurm/out
 slurm/out/
-
+data
+data
 *.csv
 *.zip
 *.png
