@@ -14,10 +14,7 @@ from torch.cuda.amp import autocast, GradScaler
 from qvae_option_fixed_length import arg_parse
 from qvae_model_rod3_fixed_length import VAE
 from qvae_trainer_rod3_fixed_length import VAETrainer
-
-
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'tools'))
-from evaluator_rod3_fixed_length import MotionEvaluator
+from mymodel.tools.evaluator_rod3_fixed_length import MotionEvaluator
 #from motion_dataset_rod3_fixed_length import create_data_loaders
 
 #os.environ["OMP_NUM_THREADS"] = "1"
