@@ -1,0 +1,65 @@
+Fri Jan 23 15:48:39 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.195.03             Driver Version: 570.195.03     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:C1:00.0 Off |                    0 |
+| N/A   28C    P0             58W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+🚀 MaskGIT Training Started
+   K=13
+   slots=['upper_body', 'l_arm', 'r_arm', 'l_index', 'l_middle', 'l_pinky', 'l_ring', 'l_thumb', 'r_index', 'r_middle', 'r_pinky', 'r_ring', 'r_thumb']
+   Text embedding dirs (train): ['data/text_embedding/train', 'data/gloss_embedding/train']
+   Text embedding dirs (val):   ['data/text_embedding/val', 'data/gloss_embedding/val']
+[Preflight] OK: checked 50 samples, all embedding files exist in 2 dirs.
+[Preflight] OK: checked 50 samples, all embedding files exist in 2 dirs.
+
+🧪 [HealthScan:train] Checking data integrity...
+✅ Scanned 2000 samples. All good.
+
+🧪 [HealthScan:val] Checking data integrity...
+✅ Scanned 1711 samples. All good.
+   slot_weights override: {'l_arm': 2.0, 'r_arm': 2.0, 'l_index': 0.6, 'l_middle': 0.6, 'l_pinky': 0.6, 'l_ring': 0.6, 'l_thumb': 0.6, 'r_index': 0.6, 'r_middle': 0.6, 'r_pinky': 0.6, 'r_ring': 0.6, 'r_thumb': 0.6}
+resume_path = '/home/smuk0019/ar85_scratch2/singyu/SOKE/checkpoints/maskgit_v1_double_emb_24depth/maskgit_best.tar'
+resume_exists = True
+[load_ckpt] ⚠️ Loaded checkpoint with strict=False (bp_/rag keys mismatched).
+  missing bp/rag keys: 28
+  unexpected bp/rag keys: 0
+  => blueprint modules will use random init (this is expected when loading old non-RAG ckpt).
+↩️ Resumed from: /home/smuk0019/ar85_scratch2/singyu/SOKE/checkpoints/maskgit_v1_double_emb_24depth/maskgit_best.tar (start_epoch=10)
+[Epoch 11] train_loss=5.3541 train_macc=2.4% rank=0.0097 len=0.0000 | rmin=0.25 ptxt=0.05
+[Epoch 12] train_loss=5.2003 train_macc=2.7% rank=0.0079 len=0.0000 | rmin=0.27 ptxt=0.05
+[Epoch 13] train_loss=5.1362 train_macc=3.0% rank=0.0078 len=0.0000 | rmin=0.29 ptxt=0.06
+[Epoch 14] train_loss=5.0795 train_macc=3.4% rank=0.0075 len=0.0000 | rmin=0.31 ptxt=0.07
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth/maskgit_best.tar
+[Epoch 15] train_loss=5.0159 train_macc=3.9% rank=0.0074 len=0.0000 | rmin=0.33 ptxt=0.07 | val_loss=5.0329 val_macc=3.6% | textonly=5.5945 | shuf=5.0334 zero=5.0189 | diag=USING_TEXT
+[Epoch 16] train_loss=4.9841 train_macc=4.2% rank=0.0076 len=0.0000 | rmin=0.35 ptxt=0.07
+[Epoch 17] train_loss=4.9447 train_macc=4.7% rank=0.0079 len=0.0000 | rmin=0.37 ptxt=0.08
+[Epoch 18] train_loss=4.9441 train_macc=4.8% rank=0.0085 len=0.0000 | rmin=0.39 ptxt=0.08
+[Epoch 19] train_loss=4.9314 train_macc=5.0% rank=0.0088 len=0.0000 | rmin=0.41 ptxt=0.09
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth/maskgit_best.tar
+[Epoch 20] train_loss=4.9331 train_macc=5.0% rank=0.0091 len=0.0000 | rmin=0.43 ptxt=0.09 | val_loss=5.0190 val_macc=4.2% | textonly=5.6052 | shuf=5.0558 zero=4.9756 | diag=USING_TEXT
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth/maskgit_ep20.tar
+[Epoch 21] train_loss=4.9089 train_macc=5.2% rank=0.0092 len=0.0000 | rmin=0.45 ptxt=0.10
+[Epoch 22] train_loss=4.8866 train_macc=5.4% rank=0.0092 len=0.0000 | rmin=0.47 ptxt=0.10
+[Epoch 23] train_loss=4.8643 train_macc=5.6% rank=0.0097 len=0.0000 | rmin=0.48 ptxt=0.11
+[Epoch 24] train_loss=4.8343 train_macc=5.9% rank=0.0097 len=0.0000 | rmin=0.50 ptxt=0.12
+[Epoch 25] train_loss=4.8097 train_macc=6.1% rank=0.0100 len=0.0000 | rmin=0.51 ptxt=0.12 | val_loss=5.0885 val_macc=3.9% | textonly=5.7078 | shuf=5.1338 zero=5.0053 | diag=USING_TEXT
+[Epoch 26] train_loss=4.7803 train_macc=6.3% rank=0.0106 len=0.0000 | rmin=0.52 ptxt=0.12
+[Epoch 27] train_loss=4.7525 train_macc=6.5% rank=0.0108 len=0.0000 | rmin=0.53 ptxt=0.13
+[Epoch 28] train_loss=4.7165 train_macc=6.8% rank=0.0114 len=0.0000 | rmin=0.54 ptxt=0.14
+[Epoch 29] train_loss=4.6734 train_macc=7.1% rank=0.0116 len=0.0000 | rmin=0.55 ptxt=0.14
+[Epoch 30] train_loss=4.6286 train_macc=7.5% rank=0.0123 len=0.0000 | rmin=0.55 ptxt=0.14 | val_loss=5.2303 val_macc=3.4% | textonly=5.8268 | shuf=5.3187 zero=5.0046 | diag=USING_TEXT
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth/maskgit_ep30.tar

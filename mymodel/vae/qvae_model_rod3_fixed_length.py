@@ -234,3 +234,40 @@ class VAE(nn.Module):
                 total_resets += n_reset
                 
         return total_resets, reset_stats
+    @torch.no_grad()
+    def decode_from_tokens(self, tokens):
+        """
+        从离散 tokens 恢复出 3D 动作。
+        tokens: [B, T, 13] (int64)
+        """
+        B, T, K = tokens.shape
+        # 13 个节点必须对应
+        assert K == 13, f"Expected 13 tokens (Hierarchical nodes), got {K}"
+        
+        # 准备一个全 0 的连续潜变量 z [B, T, 13, D]
+        z_quant = torch.zeros(B, T, K, self.latent_dim, device=tokens.device)
+
+        # 遍历分组策略 (finger_distinct 下只有 7 个组，循环开销忽略不计)
+        for group in self.grouping_schedule:
+            # ids: list, e.g., [1, 2] (Arms)
+            ids = group['ids'] 
+            q_idx = group['q_idx']
+            
+            # 获取对应量化器的 Embedding 权重 [CodebookSize, D]
+            quantizer = self.quantizers[q_idx]
+            emb_weight = quantizer._embedding.weight
+
+            # 1. 提取当前组对应的 tokens: [B, T, len(ids)]
+            #    例如 Arms 组，取出第 1 和 第 2 列 token
+            group_tokens = tokens[..., ids]
+
+            # 2. 查表 (Vector Lookup): [B, T, len(ids)] -> [B, T, len(ids), D]
+            #    F.embedding 支持任意维度的输入，非常快
+            group_vectors = torch.nn.functional.embedding(group_tokens, emb_weight)
+
+            # 3. 填回 z_quant
+            z_quant[..., ids, :] = group_vectors
+
+        # 解码得到动作 [B, T, J, 3]
+        motion = self.decode(z_quant)
+        return motion

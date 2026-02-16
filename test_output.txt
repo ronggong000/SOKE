@@ -1,4 +1,4 @@
-Thu Jan 15 21:41:09 2026       
+Fri Jan 23 03:35:18 2026       
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 570.195.03             Driver Version: 570.195.03     CUDA Version: 12.8     |
 |-----------------------------------------+------------------------+----------------------+
@@ -7,7 +7,7 @@ Thu Jan 15 21:41:09 2026
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
 |   0  NVIDIA L40S                    On  |   00000000:82:00.0 Off |                    0 |
-| N/A   33C    P8             47W /  350W |       0MiB /  46068MiB |      0%      Default |
+| N/A   27C    P8             32W /  350W |       0MiB /  46068MiB |      0%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
                                                                                          
@@ -18,4 +18,10 @@ Thu Jan 15 21:41:09 2026
 |=========================================================================================|
 |  No running processes found                                                             |
 +-----------------------------------------------------------------------------------------+
+MotionEncoder: Initializing in UNIFORM mode.
+MotionDecoder: Initializing in UNIFORM mode.
+Codebook Strategy [finger_distinct]: Created 7 quantizers.
+Loaded model from /home/smuk0019/ar85_scratch2/singyu/SOKE/checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/model/latest.tar
+🚀 Extracting tokens using 'finger_distinct' strategy...
+✅ Saved to /home/smuk0019/ar85_scratch2/singyu/SOKE/checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/aslcitizen_qvae_tokens.json
 Task  finished.

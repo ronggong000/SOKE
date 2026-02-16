@@ -1,0 +1,2784 @@
+{"alias": "#ok", "canonical": "ok"}
+{"alias": "1", "canonical": "one"}
+{"alias": "1 dollar", "canonical": "1 dollar"}
+{"alias": "1 dollars", "canonical": "1 dollar"}
+{"alias": "1 more", "canonical": "one more"}
+{"alias": "1 year ago", "canonical": "one year ago"}
+{"alias": "11", "canonical": "eleven"}
+{"alias": "2", "canonical": "two"}
+{"alias": "2 more", "canonical": "two more"}
+{"alias": "2 mouth", "canonical": "2 mouth"}
+{"alias": "2 of us", "canonical": "two of us"}
+{"alias": "2 weeks", "canonical": "two weeks"}
+{"alias": "3", "canonical": "three"}
+{"alias": "4", "canonical": "four"}
+{"alias": "5 dollar", "canonical": "5 dollars"}
+{"alias": "5 dollars", "canonical": "5 dollars"}
+{"alias": "6", "canonical": "six"}
+{"alias": "7", "canonical": "seven"}
+{"alias": "8", "canonical": "eight"}
+{"alias": "8 hour", "canonical": "8 hour"}
+{"alias": "9", "canonical": "nine"}
+{"alias": "9 oclock", "canonical": "9 oclock"}
+{"alias": "a goal", "canonical": "a goal"}
+{"alias": "a line bob", "canonical": "a line bob"}
+{"alias": "a little bit", "canonical": "a little bit"}
+{"alias": "a thing", "canonical": "a thing"}
+{"alias": "abbreviate", "canonical": "abbreviate"}
+{"alias": "able", "canonical": "can"}
+{"alias": "about", "canonical": "about"}
+{"alias": "above", "canonical": "above"}
+{"alias": "absolutely none", "canonical": "absolutely nothing"}
+{"alias": "absolutely nothing", "canonical": "absolutely nothing"}
+{"alias": "accent", "canonical": "accent"}
+{"alias": "accept", "canonical": "accept"}
+{"alias": "access", "canonical": "access"}
+{"alias": "accident", "canonical": "accident"}
+{"alias": "accident plane", "canonical": "crash plane"}
+{"alias": "accomplish", "canonical": "accomplish"}
+{"alias": "accordion", "canonical": "accordion"}
+{"alias": "accountable", "canonical": "accountable"}
+{"alias": "accountant", "canonical": "accountant"}
+{"alias": "acquire", "canonical": "acquire"}
+{"alias": "acquire lesson", "canonical": "learn lesson"}
+{"alias": "act", "canonical": "act"}
+{"alias": "action", "canonical": "action"}
+{"alias": "actor", "canonical": "actor"}
+{"alias": "actress", "canonical": "actor"}
+{"alias": "add", "canonical": "add"}
+{"alias": "addict", "canonical": "addict"}
+{"alias": "address", "canonical": "address"}
+{"alias": "admire", "canonical": "admire"}
+{"alias": "admit", "canonical": "admit"}
+{"alias": "adopt", "canonical": "adopt"}
+{"alias": "adult", "canonical": "adult"}
+{"alias": "advantage", "canonical": "advantage"}
+{"alias": "adventure", "canonical": "adventure"}
+{"alias": "advertise", "canonical": "advertise"}
+{"alias": "afraid", "canonical": "scared"}
+{"alias": "africa", "canonical": "africa"}
+{"alias": "after", "canonical": "after"}
+{"alias": "afternoon", "canonical": "afternoon"}
+{"alias": "again", "canonical": "again"}
+{"alias": "against", "canonical": "against"}
+{"alias": "age", "canonical": "age"}
+{"alias": "agency", "canonical": "agency"}
+{"alias": "ago", "canonical": "ago"}
+{"alias": "agreement", "canonical": "agreement"}
+{"alias": "ahead", "canonical": "ahead"}
+{"alias": "aid", "canonical": "aid"}
+{"alias": "airplane", "canonical": "airplane"}
+{"alias": "alarm", "canonical": "alarm"}
+{"alias": "alaska", "canonical": "alaska"}
+{"alias": "alcohol", "canonical": "alcohol"}
+{"alias": "align", "canonical": "align"}
+{"alias": "all", "canonical": "all"}
+{"alias": "all day", "canonical": "all day"}
+{"alias": "all go steady", "canonical": "all together"}
+{"alias": "all gone", "canonical": "all gone"}
+{"alias": "all of sudden", "canonical": "all of sudden"}
+{"alias": "all over", "canonical": "all over"}
+{"alias": "all over body", "canonical": "all over body"}
+{"alias": "all path", "canonical": "all way"}
+{"alias": "all road", "canonical": "all way"}
+{"alias": "all street", "canonical": "all way"}
+{"alias": "all together", "canonical": "all together"}
+{"alias": "all way", "canonical": "all way"}
+{"alias": "alone", "canonical": "alone"}
+{"alias": "alphabet", "canonical": "alphabet"}
+{"alias": "alright", "canonical": "alright"}
+{"alias": "altogether", "canonical": "total"}
+{"alias": "always", "canonical": "always"}
+{"alias": "amazed", "canonical": "surprise"}
+{"alias": "amazing", "canonical": "amazing"}
+{"alias": "america", "canonical": "america"}
+{"alias": "analyze", "canonical": "analyze"}
+{"alias": "and", "canonical": "and"}
+{"alias": "angel", "canonical": "angel"}
+{"alias": "angry", "canonical": "angry"}
+{"alias": "animal", "canonical": "animal"}
+{"alias": "animals", "canonical": "animal"}
+{"alias": "announce", "canonical": "announce"}
+{"alias": "annoy", "canonical": "bother"}
+{"alias": "annoying", "canonical": "bother"}
+{"alias": "answer", "canonical": "answer"}
+{"alias": "antlers", "canonical": "antlers"}
+{"alias": "any", "canonical": "any"}
+{"alias": "anyone", "canonical": "anyone"}
+{"alias": "apart", "canonical": "apart"}
+{"alias": "appear", "canonical": "appear"}
+{"alias": "appearance", "canonical": "appearance"}
+{"alias": "apple", "canonical": "apple"}
+{"alias": "apply", "canonical": "volunteer"}
+{"alias": "appointment", "canonical": "appointment"}
+{"alias": "approximately", "canonical": "around"}
+{"alias": "april", "canonical": "april"}
+{"alias": "archeology", "canonical": "archeology"}
+{"alias": "area", "canonical": "area"}
+{"alias": "argue", "canonical": "argue"}
+{"alias": "argument", "canonical": "argue"}
+{"alias": "arizona", "canonical": "arizona"}
+{"alias": "arm", "canonical": "arm"}
+{"alias": "army", "canonical": "army"}
+{"alias": "around", "canonical": "around"}
+{"alias": "arrest", "canonical": "arrest"}
+{"alias": "arrive", "canonical": "arrive"}
+{"alias": "art", "canonical": "art"}
+{"alias": "article", "canonical": "article"}
+{"alias": "articulate sign", "canonical": "articulate sign"}
+{"alias": "articulate signs", "canonical": "articulate sign"}
+{"alias": "asia", "canonical": "asia"}
+{"alias": "aside", "canonical": "aside"}
+{"alias": "ask", "canonical": "ask"}
+{"alias": "asleep", "canonical": "asleep"}
+{"alias": "assembly", "canonical": "assembly"}
+{"alias": "assign", "canonical": "assign"}
+{"alias": "assist", "canonical": "assist"}
+{"alias": "assistant", "canonical": "assistant"}
+{"alias": "astronaut", "canonical": "astronaut"}
+{"alias": "at", "canonical": "at"}
+{"alias": "at all", "canonical": "at all"}
+{"alias": "athlete", "canonical": "athlete"}
+{"alias": "atlanta", "canonical": "atlanta"}
+{"alias": "attention", "canonical": "attention"}
+{"alias": "attitude", "canonical": "attitude"}
+{"alias": "audience", "canonical": "audience"}
+{"alias": "auditorium", "canonical": "auditorium"}
+{"alias": "aunt", "canonical": "aunt"}
+{"alias": "australia", "canonical": "australia"}
+{"alias": "autism", "canonical": "autism"}
+{"alias": "automatic", "canonical": "automatic"}
+{"alias": "autumn", "canonical": "fall"}
+{"alias": "average", "canonical": "average"}
+{"alias": "avoid", "canonical": "avoid"}
+{"alias": "awake", "canonical": "awake"}
+{"alias": "awake 24hrs", "canonical": "awake 24hrs"}
+{"alias": "award", "canonical": "award"}
+{"alias": "away", "canonical": "away"}
+{"alias": "awkward", "canonical": "awkward"}
+{"alias": "axe", "canonical": "axe"}
+{"alias": "baby", "canonical": "baby"}
+{"alias": "babysitter", "canonical": "babysitter"}
+{"alias": "bachelor", "canonical": "bachelor"}
+{"alias": "back", "canonical": "back"}
+{"alias": "back and forth", "canonical": "back and forth"}
+{"alias": "back forth", "canonical": "back and forth"}
+{"alias": "back out", "canonical": "back out"}
+{"alias": "back outside", "canonical": "back out"}
+{"alias": "back up", "canonical": "back up"}
+{"alias": "back upstairs", "canonical": "back up"}
+{"alias": "backpack", "canonical": "backpack"}
+{"alias": "backyard", "canonical": "backyard"}
+{"alias": "bacon", "canonical": "bacon"}
+{"alias": "bad", "canonical": "bad"}
+{"alias": "badge", "canonical": "badge"}
+{"alias": "bag", "canonical": "bag"}
+{"alias": "bake", "canonical": "bake"}
+{"alias": "balance", "canonical": "balance"}
+{"alias": "bald", "canonical": "bald"}
+{"alias": "ball", "canonical": "ball"}
+{"alias": "balloon", "canonical": "balloon"}
+{"alias": "banana", "canonical": "banana"}
+{"alias": "band aid", "canonical": "band aid"}
+{"alias": "band help", "canonical": "band aid"}
+{"alias": "bandage", "canonical": "bandage"}
+{"alias": "bandaid", "canonical": "bandaid"}
+{"alias": "bank", "canonical": "bank"}
+{"alias": "bar", "canonical": "bar"}
+{"alias": "barely", "canonical": "barely"}
+{"alias": "bark", "canonical": "bark"}
+{"alias": "barrette", "canonical": "barrette"}
+{"alias": "baseball", "canonical": "baseball"}
+{"alias": "baseball cap", "canonical": "baseball cap"}
+{"alias": "basement", "canonical": "basement"}
+{"alias": "basic", "canonical": "basic"}
+{"alias": "basket", "canonical": "basket"}
+{"alias": "basketball", "canonical": "basketball"}
+{"alias": "bat", "canonical": "bat"}
+{"alias": "bath", "canonical": "bath"}
+{"alias": "bathroom", "canonical": "bathroom"}
+{"alias": "bathtub", "canonical": "bathtub"}
+{"alias": "battery", "canonical": "battery"}
+{"alias": "beach", "canonical": "beach"}
+{"alias": "beak", "canonical": "beak"}
+{"alias": "beanie", "canonical": "beanie"}
+{"alias": "beans", "canonical": "beans"}
+{"alias": "bear", "canonical": "bear"}
+{"alias": "beard", "canonical": "beard"}
+{"alias": "beat", "canonical": "beat"}
+{"alias": "beater", "canonical": "beater"}
+{"alias": "beautiful", "canonical": "pretty"}
+{"alias": "beaver", "canonical": "beaver"}
+{"alias": "because", "canonical": "because"}
+{"alias": "become", "canonical": "become"}
+{"alias": "bed", "canonical": "bed"}
+{"alias": "bedroom", "canonical": "bedroom"}
+{"alias": "bee", "canonical": "bee"}
+{"alias": "beer", "canonical": "beer"}
+{"alias": "before", "canonical": "before"}
+{"alias": "beg", "canonical": "beg"}
+{"alias": "begin", "canonical": "start"}
+{"alias": "behavior", "canonical": "behavior"}
+{"alias": "behind", "canonical": "behind"}
+{"alias": "believe", "canonical": "believe"}
+{"alias": "bell", "canonical": "bell"}
+{"alias": "belt", "canonical": "belt"}
+{"alias": "bend", "canonical": "bend"}
+{"alias": "benefit", "canonical": "benefit"}
+{"alias": "berry", "canonical": "berry"}
+{"alias": "best", "canonical": "best"}
+{"alias": "bet", "canonical": "bet"}
+{"alias": "better", "canonical": "better"}
+{"alias": "between", "canonical": "between"}
+{"alias": "bib", "canonical": "bib"}
+{"alias": "bicycle", "canonical": "bicycle"}
+{"alias": "big", "canonical": "big"}
+{"alias": "big deal", "canonical": "big deal"}
+{"alias": "bike", "canonical": "bicycle"}
+{"alias": "bind", "canonical": "bind"}
+{"alias": "binoculars", "canonical": "binoculars"}
+{"alias": "biology", "canonical": "biology"}
+{"alias": "bird", "canonical": "bird"}
+{"alias": "birth", "canonical": "birth"}
+{"alias": "birthday", "canonical": "birthday"}
+{"alias": "bison", "canonical": "bison"}
+{"alias": "bitch", "canonical": "bitch"}
+{"alias": "bite", "canonical": "bite"}
+{"alias": "bite on arm", "canonical": "bite on arm"}
+{"alias": "bite on neck", "canonical": "bite on neck"}
+{"alias": "black", "canonical": "black"}
+{"alias": "blackbird", "canonical": "blackbird"}
+{"alias": "blame", "canonical": "blame"}
+{"alias": "blank", "canonical": "blank"}
+{"alias": "blanket", "canonical": "blanket"}
+{"alias": "bleed", "canonical": "bleed"}
+{"alias": "bless", "canonical": "bless"}
+{"alias": "blind", "canonical": "blind"}
+{"alias": "blinds", "canonical": "blinds"}
+{"alias": "blink", "canonical": "blink"}
+{"alias": "blond", "canonical": "blond"}
+{"alias": "blood", "canonical": "blood"}
+{"alias": "bloom", "canonical": "bloom"}
+{"alias": "blouse", "canonical": "blouse"}
+{"alias": "blow", "canonical": "blow"}
+{"alias": "blow candle", "canonical": "blow candle"}
+{"alias": "blow candles", "canonical": "blow candle"}
+{"alias": "blow mind", "canonical": "blow mind"}
+{"alias": "blow up", "canonical": "blow up"}
+{"alias": "blow upstairs", "canonical": "blow up"}
+{"alias": "blue", "canonical": "blue"}
+{"alias": "blur", "canonical": "blur"}
+{"alias": "blush", "canonical": "blush"}
+{"alias": "board", "canonical": "board"}
+{"alias": "boat", "canonical": "boat"}
+{"alias": "boating", "canonical": "boat"}
+{"alias": "body", "canonical": "body"}
+{"alias": "boil", "canonical": "boil"}
+{"alias": "boiling mad", "canonical": "boiling mad"}
+{"alias": "bolt", "canonical": "bolt"}
+{"alias": "bomb", "canonical": "bomb"}
+{"alias": "bone", "canonical": "bone"}
+{"alias": "book", "canonical": "book"}
+{"alias": "boot", "canonical": "boots"}
+{"alias": "boots", "canonical": "boots"}
+{"alias": "bored", "canonical": "bored"}
+{"alias": "boring", "canonical": "bored"}
+{"alias": "born", "canonical": "birth"}
+{"alias": "borrow", "canonical": "borrow"}
+{"alias": "boss", "canonical": "boss"}
+{"alias": "boston", "canonical": "boston"}
+{"alias": "both", "canonical": "both"}
+{"alias": "bother", "canonical": "bother"}
+{"alias": "bottle", "canonical": "bottle"}
+{"alias": "bottom", "canonical": "bottom"}
+{"alias": "bounce", "canonical": "bounce"}
+{"alias": "bow", "canonical": "bow"}
+{"alias": "bowl", "canonical": "bowl"}
+{"alias": "bowling", "canonical": "bowling"}
+{"alias": "bowtie", "canonical": "bowtie"}
+{"alias": "box", "canonical": "box"}
+{"alias": "boxing", "canonical": "boxing"}
+{"alias": "boy", "canonical": "boy"}
+{"alias": "boyfriend", "canonical": "boyfriend"}
+{"alias": "bra", "canonical": "bra"}
+{"alias": "bracelet", "canonical": "bracelet"}
+{"alias": "brag", "canonical": "brag"}
+{"alias": "braids", "canonical": "braids"}
+{"alias": "braille", "canonical": "braille"}
+{"alias": "brainstorm", "canonical": "brainstorm"}
+{"alias": "brainwash", "canonical": "brainwash"}
+{"alias": "brave", "canonical": "brave"}
+{"alias": "bread", "canonical": "bread"}
+{"alias": "break", "canonical": "break"}
+{"alias": "break down", "canonical": "break down"}
+{"alias": "breakdown", "canonical": "breakdown"}
+{"alias": "breakfast", "canonical": "breakfast"}
+{"alias": "breaktime", "canonical": "breaktime"}
+{"alias": "breathe", "canonical": "breathe"}
+{"alias": "breeze", "canonical": "cool"}
+{"alias": "brick", "canonical": "brick"}
+{"alias": "bridesmaid", "canonical": "bridesmaid"}
+{"alias": "bridge", "canonical": "bridge"}
+{"alias": "bright", "canonical": "bright"}
+{"alias": "bring", "canonical": "bring"}
+{"alias": "broom", "canonical": "sweep"}
+{"alias": "brother", "canonical": "brother"}
+{"alias": "brown", "canonical": "brown"}
+{"alias": "brush", "canonical": "brush"}
+{"alias": "bubbles", "canonical": "bubbles"}
+{"alias": "buckle", "canonical": "buckle"}
+{"alias": "budget", "canonical": "budget"}
+{"alias": "buffalo", "canonical": "buffalo"}
+{"alias": "bug", "canonical": "bug"}
+{"alias": "build", "canonical": "building"}
+{"alias": "building", "canonical": "building"}
+{"alias": "bull", "canonical": "bull"}
+{"alias": "bulldozer", "canonical": "bulldozer"}
+{"alias": "bullshit", "canonical": "bullshit"}
+{"alias": "bumpy", "canonical": "bumpy"}
+{"alias": "bun", "canonical": "bun"}
+{"alias": "burn", "canonical": "burn"}
+{"alias": "burp", "canonical": "burp"}
+{"alias": "bury", "canonical": "bury"}
+{"alias": "bus", "canonical": "bus"}
+{"alias": "business", "canonical": "business"}
+{"alias": "busted", "canonical": "busted"}
+{"alias": "busy", "canonical": "busy"}
+{"alias": "but", "canonical": "but"}
+{"alias": "but situation", "canonical": "different situation"}
+{"alias": "butter", "canonical": "butter"}
+{"alias": "butterfly", "canonical": "butterfly"}
+{"alias": "buttons", "canonical": "buttons"}
+{"alias": "buy", "canonical": "buy"}
+{"alias": "bye", "canonical": "bye"}
+{"alias": "ca", "canonical": "ca"}
+{"alias": "cabbage", "canonical": "lettuce"}
+{"alias": "cabinet", "canonical": "cabinet"}
+{"alias": "cabinets", "canonical": "cabinet"}
+{"alias": "cafe", "canonical": "cafeteria"}
+{"alias": "cafeteria", "canonical": "cafeteria"}
+{"alias": "cake", "canonical": "cake"}
+{"alias": "calculator", "canonical": "calculator"}
+{"alias": "calendar", "canonical": "calendar"}
+{"alias": "california", "canonical": "california"}
+{"alias": "call", "canonical": "call"}
+{"alias": "call attention", "canonical": "call attention"}
+{"alias": "call tty", "canonical": "call tty"}
+{"alias": "calm", "canonical": "calm"}
+{"alias": "camcorder", "canonical": "camcorder"}
+{"alias": "camel", "canonical": "camel"}
+{"alias": "camera", "canonical": "camera"}
+{"alias": "cameraman", "canonical": "cameraman"}
+{"alias": "camping", "canonical": "camping"}
+{"alias": "can", "canonical": "can"}
+{"alias": "canada", "canonical": "canada"}
+{"alias": "cancel", "canonical": "cancel"}
+{"alias": "cancellation", "canonical": "cancellation"}
+{"alias": "cancer", "canonical": "cancer"}
+{"alias": "candle", "canonical": "candle"}
+{"alias": "candles", "canonical": "candle"}
+{"alias": "candy", "canonical": "candy"}
+{"alias": "cannon", "canonical": "cannon"}
+{"alias": "cannot", "canonical": "cannot"}
+{"alias": "canoe", "canonical": "canoe"}
+{"alias": "cap", "canonical": "cap"}
+{"alias": "cape", "canonical": "cape"}
+{"alias": "caption", "canonical": "caption"}
+{"alias": "capture", "canonical": "capture"}
+{"alias": "car", "canonical": "car"}
+{"alias": "car accident", "canonical": "car accident"}
+{"alias": "car battery", "canonical": "car battery"}
+{"alias": "car crash", "canonical": "car accident"}
+{"alias": "card", "canonical": "card"}
+{"alias": "cards", "canonical": "cards"}
+{"alias": "care", "canonical": "care"}
+{"alias": "careful", "canonical": "careful"}
+{"alias": "carousel", "canonical": "carousel"}
+{"alias": "carrot", "canonical": "carrot"}
+{"alias": "carrots", "canonical": "carrot"}
+{"alias": "carry", "canonical": "carry"}
+{"alias": "carve", "canonical": "carve"}
+{"alias": "castle", "canonical": "castle"}
+{"alias": "casual", "canonical": "casual"}
+{"alias": "cat", "canonical": "cat"}
+{"alias": "catapult", "canonical": "catapult"}
+{"alias": "catch", "canonical": "catch"}
+{"alias": "catch baseball", "canonical": "catch baseball"}
+{"alias": "category", "canonical": "category"}
+{"alias": "catepillar", "canonical": "catepillar"}
+{"alias": "catholic", "canonical": "catholic"}
+{"alias": "caught", "canonical": "caught"}
+{"alias": "cause", "canonical": "cause"}
+{"alias": "ceiling", "canonical": "ceiling"}
+{"alias": "celebrate", "canonical": "celebrate"}
+{"alias": "celebration", "canonical": "celebrate"}
+{"alias": "celery", "canonical": "celery"}
+{"alias": "cellphone", "canonical": "cellphone"}
+{"alias": "cemetery", "canonical": "cemetery"}
+{"alias": "center", "canonical": "center"}
+{"alias": "cereal", "canonical": "cereal"}
+{"alias": "certificate", "canonical": "certificate"}
+{"alias": "chain", "canonical": "chain"}
+{"alias": "chair", "canonical": "chair"}
+{"alias": "challenge", "canonical": "challenge"}
+{"alias": "challenged", "canonical": "challenge"}
+{"alias": "champ", "canonical": "champ"}
+{"alias": "champion", "canonical": "champion"}
+{"alias": "chance", "canonical": "chance"}
+{"alias": "change", "canonical": "change"}
+{"alias": "channel", "canonical": "channel"}
+{"alias": "chaos", "canonical": "chaos"}
+{"alias": "character", "canonical": "character"}
+{"alias": "charge", "canonical": "charge"}
+{"alias": "charge card", "canonical": "charge card"}
+{"alias": "charge check", "canonical": "charge card"}
+{"alias": "chase", "canonical": "chase"}
+{"alias": "chat", "canonical": "chat"}
+{"alias": "cheap", "canonical": "cheap"}
+{"alias": "cheat", "canonical": "cheat"}
+{"alias": "check", "canonical": "check"}
+{"alias": "cheek", "canonical": "cheek"}
+{"alias": "cheer", "canonical": "cheer"}
+{"alias": "cheerful", "canonical": "friendly"}
+{"alias": "cheerleader", "canonical": "cheerleader"}
+{"alias": "cheese", "canonical": "cheese"}
+{"alias": "cheese grater", "canonical": "cheese grater"}
+{"alias": "cherish", "canonical": "cherish"}
+{"alias": "cherry", "canonical": "cherry"}
+{"alias": "chew", "canonical": "chew"}
+{"alias": "chew 2 mouth", "canonical": "chew 2 mouth"}
+{"alias": "chew two mouth", "canonical": "chew 2 mouth"}
+{"alias": "chicago", "canonical": "chicago"}
+{"alias": "chicken", "canonical": "bird"}
+{"alias": "child", "canonical": "child"}
+{"alias": "children", "canonical": "children"}
+{"alias": "chimney", "canonical": "chimney"}
+{"alias": "chin", "canonical": "chin"}
+{"alias": "china", "canonical": "china"}
+{"alias": "chinese", "canonical": "china"}
+{"alias": "chocolate", "canonical": "chocolate"}
+{"alias": "choke", "canonical": "choke"}
+{"alias": "chop", "canonical": "chop"}
+{"alias": "chopsticks", "canonical": "chopsticks"}
+{"alias": "christmas", "canonical": "christmas"}
+{"alias": "church", "canonical": "church"}
+{"alias": "churn", "canonical": "churn"}
+{"alias": "cigar", "canonical": "cigar"}
+{"alias": "cigarette", "canonical": "cigarette"}
+{"alias": "circle", "canonical": "circle"}
+{"alias": "circuswheel", "canonical": "circuswheel"}
+{"alias": "citizen", "canonical": "citizen"}
+{"alias": "city", "canonical": "city"}
+{"alias": "clap", "canonical": "clap"}
+{"alias": "clash", "canonical": "clash"}
+{"alias": "class", "canonical": "class"}
+{"alias": "clause", "canonical": "clause"}
+{"alias": "claw", "canonical": "claw"}
+{"alias": "clean", "canonical": "clean"}
+{"alias": "clear", "canonical": "clear"}
+{"alias": "cleftchin", "canonical": "cleftchin"}
+{"alias": "click", "canonical": "click"}
+{"alias": "client", "canonical": "client"}
+{"alias": "climb ladder", "canonical": "climb ladder"}
+{"alias": "clip", "canonical": "clip"}
+{"alias": "clipper", "canonical": "clipper"}
+{"alias": "clock", "canonical": "clock"}
+{"alias": "close", "canonical": "close"}
+{"alias": "close door", "canonical": "close door"}
+{"alias": "close eyes", "canonical": "close eyes"}
+{"alias": "closed", "canonical": "close"}
+{"alias": "closed door", "canonical": "close door"}
+{"alias": "closed eyes", "canonical": "close eyes"}
+{"alias": "closet", "canonical": "closet"}
+{"alias": "clothes", "canonical": "clothes"}
+{"alias": "cloud", "canonical": "cloud"}
+{"alias": "clouds", "canonical": "cloud"}
+{"alias": "clown", "canonical": "clown"}
+{"alias": "clueless", "canonical": "clueless"}
+{"alias": "clumsy", "canonical": "awkward"}
+{"alias": "coach", "canonical": "coach"}
+{"alias": "coat", "canonical": "jacket"}
+{"alias": "cocacola", "canonical": "cocacola"}
+{"alias": "cocaine", "canonical": "cocaine"}
+{"alias": "coconut", "canonical": "coconut"}
+{"alias": "coffee", "canonical": "coffee"}
+{"alias": "coins", "canonical": "coins"}
+{"alias": "cold", "canonical": "cold"}
+{"alias": "college", "canonical": "college"}
+{"alias": "color", "canonical": "color"}
+{"alias": "colors", "canonical": "color"}
+{"alias": "comb", "canonical": "comb"}
+{"alias": "come", "canonical": "come"}
+{"alias": "come here", "canonical": "come here"}
+{"alias": "come out", "canonical": "come out"}
+{"alias": "come outside", "canonical": "come out"}
+{"alias": "comfortable", "canonical": "comfortable"}
+{"alias": "comment", "canonical": "comment"}
+{"alias": "committee", "canonical": "committee"}
+{"alias": "communication", "canonical": "communication"}
+{"alias": "community", "canonical": "community"}
+{"alias": "commute", "canonical": "commute"}
+{"alias": "compass", "canonical": "compass"}
+{"alias": "competition", "canonical": "competition"}
+{"alias": "complain", "canonical": "complain"}
+{"alias": "complaining", "canonical": "complain"}
+{"alias": "complains", "canonical": "complain"}
+{"alias": "complex", "canonical": "complex"}
+{"alias": "comprehend", "canonical": "understand"}
+{"alias": "computer", "canonical": "computer"}
+{"alias": "computer mouse", "canonical": "computer mouse"}
+{"alias": "concept", "canonical": "concept"}
+{"alias": "concerned", "canonical": "concerned"}
+{"alias": "conduct", "canonical": "conduct"}
+{"alias": "confident", "canonical": "confident"}
+{"alias": "confidential", "canonical": "confidential"}
+{"alias": "conflict", "canonical": "conflict"}
+{"alias": "confused", "canonical": "confused"}
+{"alias": "congratulations", "canonical": "congratulations"}
+{"alias": "connect", "canonical": "connect"}
+{"alias": "connection", "canonical": "connection"}
+{"alias": "conscience", "canonical": "guilty"}
+{"alias": "consume", "canonical": "consume"}
+{"alias": "contact", "canonical": "contact"}
+{"alias": "contact lens", "canonical": "contact lens"}
+{"alias": "continue", "canonical": "continue"}
+{"alias": "control", "canonical": "control"}
+{"alias": "convince", "canonical": "convince"}
+{"alias": "cook", "canonical": "cook"}
+{"alias": "cookie", "canonical": "cookie"}
+{"alias": "cookies", "canonical": "cookie"}
+{"alias": "cooking", "canonical": "cook"}
+{"alias": "cool", "canonical": "cool"}
+{"alias": "cooperate", "canonical": "cooperate"}
+{"alias": "copy", "canonical": "copy"}
+{"alias": "corkscrew", "canonical": "corkscrew"}
+{"alias": "corn", "canonical": "corn"}
+{"alias": "corner", "canonical": "corner"}
+{"alias": "correct", "canonical": "right"}
+{"alias": "cost", "canonical": "cost"}
+{"alias": "couch", "canonical": "couch"}
+{"alias": "cough", "canonical": "cough"}
+{"alias": "counselor", "canonical": "counselor"}
+{"alias": "count", "canonical": "count"}
+{"alias": "country", "canonical": "country"}
+{"alias": "courage", "canonical": "brave"}
+{"alias": "courageous", "canonical": "brave"}
+{"alias": "cousin", "canonical": "cousin"}
+{"alias": "cover up", "canonical": "cover up"}
+{"alias": "cover upstairs", "canonical": "cover up"}
+{"alias": "cow", "canonical": "cow"}
+{"alias": "cowboy", "canonical": "cowboy"}
+{"alias": "crab", "canonical": "lobster"}
+{"alias": "crack", "canonical": "crack"}
+{"alias": "cracker", "canonical": "cracker"}
+{"alias": "crackers", "canonical": "cracker"}
+{"alias": "cranky", "canonical": "cranky"}
+{"alias": "crash", "canonical": "crash"}
+{"alias": "crash plane", "canonical": "crash plane"}
+{"alias": "crawl", "canonical": "crawl"}
+{"alias": "crazy", "canonical": "crazy"}
+{"alias": "cream", "canonical": "cream"}
+{"alias": "create", "canonical": "create"}
+{"alias": "credit card", "canonical": "credit card"}
+{"alias": "credit check", "canonical": "credit card"}
+{"alias": "crewcut", "canonical": "crewcut"}
+{"alias": "crocodile", "canonical": "crocodile"}
+{"alias": "cross", "canonical": "cross"}
+{"alias": "cross heart", "canonical": "cross heart"}
+{"alias": "crossed", "canonical": "crossed"}
+{"alias": "crown", "canonical": "crown"}
+{"alias": "crucial", "canonical": "important"}
+{"alias": "crumple", "canonical": "crumple"}
+{"alias": "cry", "canonical": "cry"}
+{"alias": "culpa", "canonical": "culpa"}
+{"alias": "culture", "canonical": "culture"}
+{"alias": "cup", "canonical": "cup"}
+{"alias": "curious", "canonical": "curious"}
+{"alias": "curl", "canonical": "curl"}
+{"alias": "curly hair", "canonical": "curly hair"}
+{"alias": "curtain", "canonical": "curtain"}
+{"alias": "curtains", "canonical": "curtain"}
+{"alias": "curtsey", "canonical": "curtsey"}
+{"alias": "cut", "canonical": "cut"}
+{"alias": "cut remove vid", "canonical": "cut remove vid"}
+{"alias": "cute", "canonical": "cute"}
+{"alias": "cutter", "canonical": "cutter"}
+{"alias": "dad", "canonical": "father"}
+{"alias": "daddy", "canonical": "father"}
+{"alias": "damn", "canonical": "damn"}
+{"alias": "dance", "canonical": "dance"}
+{"alias": "dancer", "canonical": "dancer"}
+{"alias": "dancing", "canonical": "dance"}
+{"alias": "danger", "canonical": "danger"}
+{"alias": "dark", "canonical": "dark"}
+{"alias": "dart", "canonical": "dart"}
+{"alias": "date", "canonical": "date"}
+{"alias": "dating", "canonical": "date"}
+{"alias": "daughter", "canonical": "daughter"}
+{"alias": "day", "canonical": "day"}
+{"alias": "dead", "canonical": "death"}
+{"alias": "deaf", "canonical": "deaf"}
+{"alias": "deaf school", "canonical": "deaf school"}
+{"alias": "deal cards", "canonical": "deal cards"}
+{"alias": "dean", "canonical": "boss"}
+{"alias": "death", "canonical": "death"}
+{"alias": "decide", "canonical": "decide"}
+{"alias": "decline", "canonical": "decline"}
+{"alias": "decorate", "canonical": "decorate"}
+{"alias": "dedicate", "canonical": "dedicate"}
+{"alias": "deep", "canonical": "deep"}
+{"alias": "deer", "canonical": "deer"}
+{"alias": "defeat", "canonical": "defeat"}
+{"alias": "deflate", "canonical": "deflate"}
+{"alias": "degree", "canonical": "degree"}
+{"alias": "delegate", "canonical": "delegate"}
+{"alias": "deliberate", "canonical": "deliberate"}
+{"alias": "delicious", "canonical": "delicious"}
+{"alias": "delinquent", "canonical": "delinquent"}
+{"alias": "demand", "canonical": "demand"}
+{"alias": "demote", "canonical": "demote"}
+{"alias": "dent", "canonical": "dent"}
+{"alias": "dentist", "canonical": "dentist"}
+{"alias": "deny", "canonical": "deny"}
+{"alias": "deodorant", "canonical": "deodorant"}
+{"alias": "department", "canonical": "department"}
+{"alias": "depend on", "canonical": "depend on"}
+{"alias": "depress", "canonical": "depress"}
+{"alias": "depth", "canonical": "depth"}
+{"alias": "desert", "canonical": "desert"}
+{"alias": "design", "canonical": "design"}
+{"alias": "desk", "canonical": "table"}
+{"alias": "dessert", "canonical": "dessert"}
+{"alias": "desserts", "canonical": "dessert"}
+{"alias": "destroy", "canonical": "destroy"}
+{"alias": "develop", "canonical": "develop"}
+{"alias": "devil", "canonical": "devil"}
+{"alias": "devour", "canonical": "devour"}
+{"alias": "diamond", "canonical": "diamond"}
+{"alias": "diaper", "canonical": "diaper"}
+{"alias": "dice", "canonical": "dice"}
+{"alias": "dictionary", "canonical": "dictionary"}
+{"alias": "die", "canonical": "die"}
+{"alias": "different", "canonical": "different"}
+{"alias": "different situation", "canonical": "different situation"}
+{"alias": "dig", "canonical": "dig"}
+{"alias": "dig up", "canonical": "dig up"}
+{"alias": "dig upstairs", "canonical": "dig up"}
+{"alias": "dilemma", "canonical": "dilemma"}
+{"alias": "dining box", "canonical": "dining room"}
+{"alias": "dining room", "canonical": "dining room"}
+{"alias": "dinner", "canonical": "dinner"}
+{"alias": "dinosaur", "canonical": "dinosaur"}
+{"alias": "dip", "canonical": "dip"}
+{"alias": "director", "canonical": "director"}
+{"alias": "dirty", "canonical": "dirty"}
+{"alias": "disagreement", "canonical": "disagreement"}
+{"alias": "disappear", "canonical": "disappear"}
+{"alias": "disappoint", "canonical": "disappoint"}
+{"alias": "disappointed", "canonical": "disappoint"}
+{"alias": "disconnect", "canonical": "disconnect"}
+{"alias": "discuss", "canonical": "discuss"}
+{"alias": "dish", "canonical": "plate"}
+{"alias": "dishes", "canonical": "dishes"}
+{"alias": "dislike", "canonical": "dislike"}
+{"alias": "disney", "canonical": "disney"}
+{"alias": "dispatch", "canonical": "dispatch"}
+{"alias": "disrupt", "canonical": "disrupt"}
+{"alias": "dissect", "canonical": "dissect"}
+{"alias": "dissolve", "canonical": "dissolve"}
+{"alias": "distance", "canonical": "distance"}
+{"alias": "distracted", "canonical": "distracted"}
+{"alias": "dive", "canonical": "dive"}
+{"alias": "divide", "canonical": "divide"}
+{"alias": "divorce", "canonical": "divorce"}
+{"alias": "divorced", "canonical": "divorce"}
+{"alias": "dizzy", "canonical": "dizzy"}
+{"alias": "do", "canonical": "do"}
+{"alias": "do do", "canonical": "do do"}
+{"alias": "doctor", "canonical": "doctor"}
+{"alias": "document", "canonical": "document"}
+{"alias": "doesnt matter", "canonical": "doesnt matter"}
+{"alias": "dog", "canonical": "dog"}
+{"alias": "doll", "canonical": "doll"}
+{"alias": "dollar", "canonical": "dollar"}
+{"alias": "dollars", "canonical": "dollars"}
+{"alias": "dolphin", "canonical": "dolphin"}
+{"alias": "dominant", "canonical": "dominant"}
+{"alias": "don't", "canonical": "not"}
+{"alias": "don't a thing", "canonical": "not a thing"}
+{"alias": "don't care", "canonical": "not care"}
+{"alias": "don't interested", "canonical": "not interested"}
+{"alias": "don't mind", "canonical": "not mind"}
+{"alias": "don't understand", "canonical": "not understand"}
+{"alias": "don't used to", "canonical": "not used to"}
+{"alias": "don't yet", "canonical": "not yet"}
+{"alias": "donkey", "canonical": "donkey"}
+{"alias": "dont care", "canonical": "dont care"}
+{"alias": "dont feel like", "canonical": "dont feel like"}
+{"alias": "dont know", "canonical": "dont know"}
+{"alias": "dont like", "canonical": "dont like"}
+{"alias": "dont mind", "canonical": "dont mind"}
+{"alias": "dont must", "canonical": "dont need"}
+{"alias": "dont need", "canonical": "dont need"}
+{"alias": "dont should", "canonical": "dont need"}
+{"alias": "dont want", "canonical": "dont want"}
+{"alias": "donut", "canonical": "donut"}
+{"alias": "door", "canonical": "door"}
+{"alias": "dorm", "canonical": "dormitory"}
+{"alias": "dormitory", "canonical": "dormitory"}
+{"alias": "double", "canonical": "double"}
+{"alias": "doubt", "canonical": "doubt"}
+{"alias": "down", "canonical": "down"}
+{"alias": "downhill", "canonical": "downhill"}
+{"alias": "download", "canonical": "download"}
+{"alias": "downsize", "canonical": "downsize"}
+{"alias": "drag", "canonical": "drag"}
+{"alias": "dragon", "canonical": "dragon"}
+{"alias": "draw", "canonical": "draw"}
+{"alias": "drawer", "canonical": "drawer"}
+{"alias": "drawing", "canonical": "art"}
+{"alias": "dreadlocks", "canonical": "dreadlocks"}
+{"alias": "dream", "canonical": "dream"}
+{"alias": "dress", "canonical": "dress"}
+{"alias": "dress up", "canonical": "dress up"}
+{"alias": "dress upstairs", "canonical": "dress up"}
+{"alias": "dresser", "canonical": "dresser"}
+{"alias": "dribble", "canonical": "dribble"}
+{"alias": "drill", "canonical": "drill"}
+{"alias": "drink", "canonical": "drink"}
+{"alias": "drip", "canonical": "drip"}
+{"alias": "drive", "canonical": "drive"}
+{"alias": "drop", "canonical": "drop"}
+{"alias": "drown", "canonical": "drown"}
+{"alias": "drug", "canonical": "drug"}
+{"alias": "drum", "canonical": "drum"}
+{"alias": "drunk", "canonical": "drunk"}
+{"alias": "dry", "canonical": "dry"}
+{"alias": "dryer", "canonical": "dryer"}
+{"alias": "duck", "canonical": "duck"}
+{"alias": "due", "canonical": "due"}
+{"alias": "dumb", "canonical": "dumb"}
+{"alias": "duty", "canonical": "duty"}
+{"alias": "dye", "canonical": "dye"}
+{"alias": "each", "canonical": "each"}
+{"alias": "each other", "canonical": "each other"}
+{"alias": "eagle", "canonical": "eagle"}
+{"alias": "ear", "canonical": "ear"}
+{"alias": "ear up", "canonical": "ears up"}
+{"alias": "early", "canonical": "early"}
+{"alias": "earmuffs", "canonical": "earmuffs"}
+{"alias": "earn", "canonical": "earn"}
+{"alias": "earring", "canonical": "earring"}
+{"alias": "ears", "canonical": "ear"}
+{"alias": "ears up", "canonical": "ears up"}
+{"alias": "ears upstairs", "canonical": "ears up"}
+{"alias": "earth", "canonical": "earth"}
+{"alias": "earthquake", "canonical": "earthquake"}
+{"alias": "easel", "canonical": "easel"}
+{"alias": "east", "canonical": "east"}
+{"alias": "easter", "canonical": "easter"}
+{"alias": "easy", "canonical": "easy"}
+{"alias": "easy to do", "canonical": "easy to do"}
+{"alias": "eat", "canonical": "eat"}
+{"alias": "eclipse", "canonical": "eclipse"}
+{"alias": "edge", "canonical": "edge"}
+{"alias": "edit", "canonical": "edit"}
+{"alias": "educate", "canonical": "teach"}
+{"alias": "effect", "canonical": "effect"}
+{"alias": "egg", "canonical": "egg"}
+{"alias": "egg beater", "canonical": "egg beater"}
+{"alias": "eggs", "canonical": "egg"}
+{"alias": "eggs beater", "canonical": "egg beater"}
+{"alias": "ego", "canonical": "ego"}
+{"alias": "egypt", "canonical": "egypt"}
+{"alias": "eight", "canonical": "eight"}
+{"alias": "eight hour", "canonical": "8 hour"}
+{"alias": "either", "canonical": "either"}
+{"alias": "electrician", "canonical": "electrician"}
+{"alias": "electrocute", "canonical": "electrocute"}
+{"alias": "elegance", "canonical": "elegance"}
+{"alias": "elementary school", "canonical": "elementary school"}
+{"alias": "elephant", "canonical": "elephant"}
+{"alias": "elevator", "canonical": "elevator"}
+{"alias": "eleven", "canonical": "eleven"}
+{"alias": "email", "canonical": "email"}
+{"alias": "embarrass", "canonical": "embarrass"}
+{"alias": "embarrassed", "canonical": "embarrass"}
+{"alias": "emotion", "canonical": "emotion"}
+{"alias": "emperor", "canonical": "emperor"}
+{"alias": "emphasis", "canonical": "emphasis"}
+{"alias": "empty", "canonical": "empty"}
+{"alias": "end", "canonical": "end"}
+{"alias": "enemy", "canonical": "enemy"}
+{"alias": "energy", "canonical": "energy"}
+{"alias": "engagement", "canonical": "engagement"}
+{"alias": "engine begin", "canonical": "engine start"}
+{"alias": "engine start", "canonical": "engine start"}
+{"alias": "engineer", "canonical": "engineer"}
+{"alias": "england", "canonical": "english"}
+{"alias": "english", "canonical": "english"}
+{"alias": "enjoy", "canonical": "enjoy"}
+{"alias": "enough", "canonical": "enough"}
+{"alias": "enter", "canonical": "enter"}
+{"alias": "envelope", "canonical": "envelope"}
+{"alias": "environment", "canonical": "environment"}
+{"alias": "equal", "canonical": "equal"}
+{"alias": "erase", "canonical": "erase"}
+{"alias": "eraser", "canonical": "eraser"}
+{"alias": "error", "canonical": "wrong"}
+{"alias": "erupt", "canonical": "erupt"}
+{"alias": "escalate", "canonical": "escalate"}
+{"alias": "escalator", "canonical": "escalator"}
+{"alias": "escape", "canonical": "escape"}
+{"alias": "essential", "canonical": "important"}
+{"alias": "europe", "canonical": "europe"}
+{"alias": "evaluate", "canonical": "evaluate"}
+{"alias": "even", "canonical": "even"}
+{"alias": "evening", "canonical": "night"}
+{"alias": "event", "canonical": "event"}
+{"alias": "every evening", "canonical": "every night"}
+{"alias": "every night", "canonical": "every night"}
+{"alias": "every year", "canonical": "every year"}
+{"alias": "everyday", "canonical": "everyday"}
+{"alias": "everything", "canonical": "everything"}
+{"alias": "evidence", "canonical": "evidence"}
+{"alias": "exam", "canonical": "test"}
+{"alias": "example", "canonical": "example"}
+{"alias": "excited", "canonical": "excited"}
+{"alias": "excuse", "canonical": "excuse"}
+{"alias": "exercise", "canonical": "exercise"}
+{"alias": "expand", "canonical": "expand"}
+{"alias": "expect", "canonical": "expect"}
+{"alias": "expensive", "canonical": "expensive"}
+{"alias": "experience", "canonical": "experience"}
+{"alias": "experienced", "canonical": "experienced"}
+{"alias": "experiment", "canonical": "experiment"}
+{"alias": "expert", "canonical": "expert"}
+{"alias": "explanation", "canonical": "explanation"}
+{"alias": "explode", "canonical": "explode"}
+{"alias": "express", "canonical": "express"}
+{"alias": "eye turn", "canonical": "eye turn"}
+{"alias": "eyeglasses", "canonical": "eyeglasses"}
+{"alias": "eyes", "canonical": "eyes"}
+{"alias": "eyes awake", "canonical": "eyes awake"}
+{"alias": "face", "canonical": "face"}
+{"alias": "faced", "canonical": "faced"}
+{"alias": "faculty", "canonical": "faculty"}
+{"alias": "fade", "canonical": "fade"}
+{"alias": "fail", "canonical": "fail"}
+{"alias": "faint", "canonical": "faint"}
+{"alias": "fair", "canonical": "fair"}
+{"alias": "fake", "canonical": "fake"}
+{"alias": "fall", "canonical": "fall"}
+{"alias": "falling asleep", "canonical": "falling asleep"}
+{"alias": "false", "canonical": "fake"}
+{"alias": "family", "canonical": "family"}
+{"alias": "famous", "canonical": "famous"}
+{"alias": "fan", "canonical": "fan"}
+{"alias": "fantasy", "canonical": "fantasy"}
+{"alias": "far", "canonical": "far"}
+{"alias": "farm", "canonical": "farm"}
+{"alias": "fascinated", "canonical": "fascinated"}
+{"alias": "fashion", "canonical": "fashion"}
+{"alias": "fast", "canonical": "fast"}
+{"alias": "fat", "canonical": "fat"}
+{"alias": "father", "canonical": "father"}
+{"alias": "faucet", "canonical": "faucet"}
+{"alias": "fault", "canonical": "fault"}
+{"alias": "favorite", "canonical": "favorite"}
+{"alias": "february", "canonical": "february"}
+{"alias": "fed up", "canonical": "fed up"}
+{"alias": "fed upstairs", "canonical": "fed up"}
+{"alias": "feed", "canonical": "feed"}
+{"alias": "feedback", "canonical": "feedback"}
+{"alias": "feel", "canonical": "feel"}
+{"alias": "feel like", "canonical": "feel like"}
+{"alias": "female", "canonical": "woman"}
+{"alias": "fence", "canonical": "fence"}
+{"alias": "fencing", "canonical": "fencing"}
+{"alias": "few", "canonical": "few"}
+{"alias": "fiance", "canonical": "fiance"}
+{"alias": "fifth", "canonical": "fifth"}
+{"alias": "fight", "canonical": "fight"}
+{"alias": "figure", "canonical": "figure"}
+{"alias": "file", "canonical": "file"}
+{"alias": "fill out", "canonical": "fill out"}
+{"alias": "fill outside", "canonical": "fill out"}
+{"alias": "film", "canonical": "film"}
+{"alias": "filter", "canonical": "filter"}
+{"alias": "finally", "canonical": "finally"}
+{"alias": "finance", "canonical": "finance"}
+{"alias": "find", "canonical": "find"}
+{"alias": "fine", "canonical": "fine"}
+{"alias": "finger", "canonical": "finger"}
+{"alias": "fingers crossed", "canonical": "fingers crossed"}
+{"alias": "fingerspell", "canonical": "fingerspell"}
+{"alias": "fingerspelling", "canonical": "fingerspelling"}
+{"alias": "finish", "canonical": "finish"}
+{"alias": "finished", "canonical": "finish"}
+{"alias": "fins", "canonical": "fins"}
+{"alias": "fire", "canonical": "fire"}
+{"alias": "fired", "canonical": "fired"}
+{"alias": "firefighter", "canonical": "fireman"}
+{"alias": "fireman", "canonical": "fireman"}
+{"alias": "firetruck", "canonical": "firetruck"}
+{"alias": "first", "canonical": "first"}
+{"alias": "fish", "canonical": "fish"}
+{"alias": "fishing", "canonical": "fishing"}
+{"alias": "fist", "canonical": "fist"}
+{"alias": "fit", "canonical": "fit"}
+{"alias": "five dollars", "canonical": "5 dollars"}
+{"alias": "fix", "canonical": "fix"}
+{"alias": "flag", "canonical": "flag"}
+{"alias": "flame", "canonical": "fire"}
+{"alias": "flashlight", "canonical": "flashlight"}
+{"alias": "flip", "canonical": "flip"}
+{"alias": "flip switch", "canonical": "flip switch"}
+{"alias": "flip transfer", "canonical": "flip switch"}
+{"alias": "flipflops", "canonical": "flipflops"}
+{"alias": "float", "canonical": "float"}
+{"alias": "floor", "canonical": "floor"}
+{"alias": "flower", "canonical": "flower"}
+{"alias": "fluently", "canonical": "fluently"}
+{"alias": "flute", "canonical": "flute"}
+{"alias": "fly", "canonical": "fly"}
+{"alias": "focus", "canonical": "focus"}
+{"alias": "fold", "canonical": "fold"}
+{"alias": "follow", "canonical": "follow"}
+{"alias": "fond", "canonical": "fond"}
+{"alias": "food", "canonical": "eat"}
+{"alias": "fool", "canonical": "fool"}
+{"alias": "football", "canonical": "football"}
+{"alias": "for", "canonical": "for"}
+{"alias": "forbid", "canonical": "forbid"}
+{"alias": "foreigner", "canonical": "foreigner"}
+{"alias": "forest", "canonical": "forest"}
+{"alias": "forever", "canonical": "forever"}
+{"alias": "forfeit", "canonical": "forfeit"}
+{"alias": "forgetful", "canonical": "forgetful"}
+{"alias": "fork", "canonical": "fork"}
+{"alias": "form", "canonical": "form"}
+{"alias": "former", "canonical": "former"}
+{"alias": "forward", "canonical": "forward"}
+{"alias": "foul", "canonical": "foul"}
+{"alias": "four", "canonical": "four"}
+{"alias": "fourth", "canonical": "fourth"}
+{"alias": "fox", "canonical": "fox"}
+{"alias": "fraction", "canonical": "fraction"}
+{"alias": "frame", "canonical": "frame"}
+{"alias": "france", "canonical": "france"}
+{"alias": "fraud", "canonical": "fraud"}
+{"alias": "freak out", "canonical": "freak out"}
+{"alias": "freak outside", "canonical": "freak out"}
+{"alias": "freckles", "canonical": "freckles"}
+{"alias": "free", "canonical": "free"}
+{"alias": "freedom", "canonical": "freedom"}
+{"alias": "freeway", "canonical": "freeway"}
+{"alias": "freeze", "canonical": "freeze"}
+{"alias": "french", "canonical": "french"}
+{"alias": "frenchfries", "canonical": "frenchfries"}
+{"alias": "frequently", "canonical": "often"}
+{"alias": "friday", "canonical": "friday"}
+{"alias": "friend", "canonical": "friend"}
+{"alias": "friend no more", "canonical": "friends no more"}
+{"alias": "friendly", "canonical": "friendly"}
+{"alias": "friends", "canonical": "friend"}
+{"alias": "friends no more", "canonical": "friends no more"}
+{"alias": "fringe", "canonical": "fringe"}
+{"alias": "frisk", "canonical": "frisk"}
+{"alias": "frog", "canonical": "frog"}
+{"alias": "from", "canonical": "from"}
+{"alias": "from then on", "canonical": "from then on"}
+{"alias": "front", "canonical": "front"}
+{"alias": "frown", "canonical": "frown"}
+{"alias": "frozen", "canonical": "freeze"}
+{"alias": "fruit", "canonical": "fruit"}
+{"alias": "fruits", "canonical": "fruit"}
+{"alias": "frustrate", "canonical": "frustrate"}
+{"alias": "fry", "canonical": "fry"}
+{"alias": "full", "canonical": "full"}
+{"alias": "fun", "canonical": "fun"}
+{"alias": "function", "canonical": "function"}
+{"alias": "funny", "canonical": "funny"}
+{"alias": "furniture", "canonical": "furniture"}
+{"alias": "future", "canonical": "future"}
+{"alias": "future go", "canonical": "will go"}
+{"alias": "future see", "canonical": "will see"}
+{"alias": "fuzzy", "canonical": "fuzzy"}
+{"alias": "gallaudet", "canonical": "gallaudet"}
+{"alias": "gamble", "canonical": "gamble"}
+{"alias": "game", "canonical": "game"}
+{"alias": "games", "canonical": "game"}
+{"alias": "garage", "canonical": "garage"}
+{"alias": "garden", "canonical": "grow"}
+{"alias": "garden up", "canonical": "grow up"}
+{"alias": "garlic", "canonical": "garlic"}
+{"alias": "gas", "canonical": "gas"}
+{"alias": "gasoline", "canonical": "gas"}
+{"alias": "gate", "canonical": "gate"}
+{"alias": "gate close", "canonical": "gate close"}
+{"alias": "gate closed", "canonical": "gate close"}
+{"alias": "gay", "canonical": "gay"}
+{"alias": "generation", "canonical": "generation"}
+{"alias": "german", "canonical": "germany"}
+{"alias": "germany", "canonical": "germany"}
+{"alias": "gesture", "canonical": "gesture"}
+{"alias": "get", "canonical": "get"}
+{"alias": "get go steady", "canonical": "get together"}
+{"alias": "get in bed", "canonical": "get in bed"}
+{"alias": "get information out of", "canonical": "get information out of"}
+{"alias": "get information outside of", "canonical": "get information out of"}
+{"alias": "get inside bed", "canonical": "get in bed"}
+{"alias": "get off", "canonical": "get off"}
+{"alias": "get through", "canonical": "get through"}
+{"alias": "get together", "canonical": "get together"}
+{"alias": "ghost", "canonical": "ghost"}
+{"alias": "gift", "canonical": "gift"}
+{"alias": "giraffe", "canonical": "giraffe"}
+{"alias": "girl", "canonical": "girl"}
+{"alias": "give", "canonical": "give"}
+{"alias": "give ticket", "canonical": "ticket"}
+{"alias": "give up", "canonical": "give up"}
+{"alias": "give upstairs", "canonical": "give up"}
+{"alias": "give you", "canonical": "give"}
+{"alias": "give you up", "canonical": "give up"}
+{"alias": "glass", "canonical": "glass"}
+{"alias": "glasses", "canonical": "glasses"}
+{"alias": "glove", "canonical": "glove"}
+{"alias": "gloves", "canonical": "gloves"}
+{"alias": "glow", "canonical": "glow"}
+{"alias": "glue", "canonical": "glue"}
+{"alias": "go", "canonical": "go"}
+{"alias": "go ahead", "canonical": "go ahead"}
+{"alias": "go back and forth", "canonical": "go back and forth"}
+{"alias": "go steady", "canonical": "together"}
+{"alias": "go through", "canonical": "go through"}
+{"alias": "go to jail", "canonical": "go to jail"}
+{"alias": "go to prison", "canonical": "go to jail"}
+{"alias": "goal", "canonical": "goal"}
+{"alias": "goat", "canonical": "goat"}
+{"alias": "goatee", "canonical": "goatee"}
+{"alias": "god", "canonical": "god"}
+{"alias": "going through a hard time", "canonical": "going through a hard time"}
+{"alias": "gold", "canonical": "gold"}
+{"alias": "golf", "canonical": "golf"}
+{"alias": "gone", "canonical": "gone"}
+{"alias": "good", "canonical": "good"}
+{"alias": "goodbye", "canonical": "bye"}
+{"alias": "goody", "canonical": "goody"}
+{"alias": "goody goody", "canonical": "goody goody"}
+{"alias": "goody goody shoe opposite", "canonical": "goody goody shoe opposite"}
+{"alias": "goody goody shoes opposite", "canonical": "goody goody shoe opposite"}
+{"alias": "goody shoe opposite", "canonical": "goody shoe opposite"}
+{"alias": "goody shoes opposite", "canonical": "goody shoe opposite"}
+{"alias": "goosebumps", "canonical": "goosebumps"}
+{"alias": "gorilla", "canonical": "gorilla"}
+{"alias": "gossip", "canonical": "gossip"}
+{"alias": "gotcha", "canonical": "gotcha"}
+{"alias": "government", "canonical": "government"}
+{"alias": "grab", "canonical": "grab"}
+{"alias": "grade", "canonical": "grade"}
+{"alias": "graduate", "canonical": "graduate"}
+{"alias": "graduate school", "canonical": "graduate school"}
+{"alias": "grammar", "canonical": "grammar"}
+{"alias": "grandfather", "canonical": "grandfather"}
+{"alias": "grandma", "canonical": "grandmother"}
+{"alias": "grandmother", "canonical": "grandmother"}
+{"alias": "grandpa", "canonical": "grandfather"}
+{"alias": "grandparents", "canonical": "grandparents"}
+{"alias": "grape", "canonical": "grapes"}
+{"alias": "grapes", "canonical": "grapes"}
+{"alias": "grasp", "canonical": "grasp"}
+{"alias": "grass", "canonical": "grass"}
+{"alias": "grater", "canonical": "grater"}
+{"alias": "gray", "canonical": "gray"}
+{"alias": "great", "canonical": "great"}
+{"alias": "greece", "canonical": "greece"}
+{"alias": "green", "canonical": "green"}
+{"alias": "green beans", "canonical": "green beans"}
+{"alias": "greet", "canonical": "greet"}
+{"alias": "grenade", "canonical": "grenade"}
+{"alias": "grieve", "canonical": "grieve"}
+{"alias": "grind", "canonical": "grind"}
+{"alias": "group", "canonical": "group"}
+{"alias": "grow", "canonical": "grow"}
+{"alias": "grow up", "canonical": "grow up"}
+{"alias": "grow upstairs", "canonical": "grow up"}
+{"alias": "guess", "canonical": "guess"}
+{"alias": "guide", "canonical": "guide"}
+{"alias": "guillotine", "canonical": "guillotine"}
+{"alias": "guilt", "canonical": "guilty"}
+{"alias": "guilty", "canonical": "guilty"}
+{"alias": "guitar", "canonical": "guitar"}
+{"alias": "gullible", "canonical": "gullible"}
+{"alias": "gum", "canonical": "gum"}
+{"alias": "gun", "canonical": "gun"}
+{"alias": "gym", "canonical": "gym"}
+{"alias": "habit", "canonical": "habit"}
+{"alias": "had enough", "canonical": "had enough"}
+{"alias": "haha", "canonical": "haha"}
+{"alias": "hair", "canonical": "hair"}
+{"alias": "hair clipper", "canonical": "hair clipper"}
+{"alias": "haircut", "canonical": "haircut"}
+{"alias": "hairdresser", "canonical": "hairdresser"}
+{"alias": "hairdryer", "canonical": "hairdryer"}
+{"alias": "half", "canonical": "half"}
+{"alias": "half hour", "canonical": "half hour"}
+{"alias": "hall", "canonical": "hall"}
+{"alias": "halloween", "canonical": "halloween"}
+{"alias": "hamburger", "canonical": "hamburger"}
+{"alias": "hammer", "canonical": "hammer"}
+{"alias": "hamster", "canonical": "hamster"}
+{"alias": "hand soap", "canonical": "hand soap"}
+{"alias": "handcuffs", "canonical": "handcuffs"}
+{"alias": "hands", "canonical": "hands"}
+{"alias": "hands off", "canonical": "hands off"}
+{"alias": "handsome", "canonical": "handsome"}
+{"alias": "hang", "canonical": "hang"}
+{"alias": "hang clothes", "canonical": "hang clothes"}
+{"alias": "hanukkah", "canonical": "hanukkah"}
+{"alias": "happen", "canonical": "happen"}
+{"alias": "happy", "canonical": "happy"}
+{"alias": "hard", "canonical": "hard"}
+{"alias": "hard of hearing", "canonical": "hard of hearing"}
+{"alias": "harmonica", "canonical": "harmonica"}
+{"alias": "harp", "canonical": "harp"}
+{"alias": "hat", "canonical": "hat"}
+{"alias": "hatbrim", "canonical": "hatbrim"}
+{"alias": "hatch", "canonical": "hatch"}
+{"alias": "hate", "canonical": "hate"}
+{"alias": "have", "canonical": "have"}
+{"alias": "hawaii", "canonical": "hawaii"}
+{"alias": "he", "canonical": "he"}
+{"alias": "head", "canonical": "head"}
+{"alias": "head back", "canonical": "head back"}
+{"alias": "head grind", "canonical": "head grind"}
+{"alias": "headache", "canonical": "headache"}
+{"alias": "headcold", "canonical": "headcold"}
+{"alias": "headphones", "canonical": "headphones"}
+{"alias": "heal", "canonical": "brave"}
+{"alias": "health", "canonical": "health"}
+{"alias": "healthy", "canonical": "brave"}
+{"alias": "heap", "canonical": "heap"}
+{"alias": "hear", "canonical": "hear"}
+{"alias": "hearing", "canonical": "hearing"}
+{"alias": "hearing aid", "canonical": "hearing aid"}
+{"alias": "hearing help", "canonical": "hearing aid"}
+{"alias": "heart", "canonical": "heart"}
+{"alias": "heart touch", "canonical": "heart touch"}
+{"alias": "heartbody", "canonical": "heartbody"}
+{"alias": "heaven", "canonical": "heaven"}
+{"alias": "heavy", "canonical": "heavy"}
+{"alias": "heels", "canonical": "heels"}
+{"alias": "helicopter", "canonical": "helicopter"}
+{"alias": "hell", "canonical": "hell"}
+{"alias": "hello", "canonical": "hello"}
+{"alias": "helmet", "canonical": "helmet"}
+{"alias": "help", "canonical": "help"}
+{"alias": "hen", "canonical": "hen"}
+{"alias": "her", "canonical": "his"}
+{"alias": "here", "canonical": "here"}
+{"alias": "hers", "canonical": "his"}
+{"alias": "hid", "canonical": "hide"}
+{"alias": "hide", "canonical": "hide"}
+{"alias": "high", "canonical": "high"}
+{"alias": "high heels", "canonical": "high heels"}
+{"alias": "high school", "canonical": "high school"}
+{"alias": "highlighter", "canonical": "highlighter"}
+{"alias": "highway", "canonical": "freeway"}
+{"alias": "hinge", "canonical": "hinge"}
+{"alias": "hippo", "canonical": "hippo"}
+{"alias": "his", "canonical": "his"}
+{"alias": "history", "canonical": "history"}
+{"alias": "hit", "canonical": "hit"}
+{"alias": "hitchhike", "canonical": "hitchhike"}
+{"alias": "hockey", "canonical": "hockey"}
+{"alias": "hoddog", "canonical": "hotdog"}
+{"alias": "hoe", "canonical": "hoe"}
+{"alias": "hold", "canonical": "hold"}
+{"alias": "hold accountable", "canonical": "hold accountable"}
+{"alias": "hold go steady", "canonical": "hold together"}
+{"alias": "hold hands", "canonical": "hold hands"}
+{"alias": "hold together", "canonical": "hold together"}
+{"alias": "holiday", "canonical": "holiday"}
+{"alias": "holy", "canonical": "holy"}
+{"alias": "home", "canonical": "home"}
+{"alias": "homework", "canonical": "homework"}
+{"alias": "honest", "canonical": "honest"}
+{"alias": "honey", "canonical": "honey"}
+{"alias": "hongkong", "canonical": "hongkong"}
+{"alias": "honk", "canonical": "honk"}
+{"alias": "honor", "canonical": "honor"}
+{"alias": "hood", "canonical": "hood"}
+{"alias": "hoodie", "canonical": "hoodie"}
+{"alias": "hop", "canonical": "hop"}
+{"alias": "hope", "canonical": "hope"}
+{"alias": "horrible", "canonical": "horrible"}
+{"alias": "horse", "canonical": "horse"}
+{"alias": "hose", "canonical": "hose"}
+{"alias": "hospital", "canonical": "hospital"}
+{"alias": "hot", "canonical": "hot"}
+{"alias": "hot competition", "canonical": "hot competition"}
+{"alias": "hotdog", "canonical": "hotdog"}
+{"alias": "hotel", "canonical": "hotel"}
+{"alias": "hour", "canonical": "hour"}
+{"alias": "house", "canonical": "house"}
+{"alias": "how", "canonical": "how"}
+{"alias": "howl", "canonical": "howl"}
+{"alias": "hug", "canonical": "hug"}
+{"alias": "humble", "canonical": "humble"}
+{"alias": "hummingbird", "canonical": "hummingbird"}
+{"alias": "humor", "canonical": "humor"}
+{"alias": "hundred", "canonical": "hundred"}
+{"alias": "hungry", "canonical": "hungry"}
+{"alias": "hunt", "canonical": "hunt"}
+{"alias": "hurdle trip", "canonical": "hurdle trip"}
+{"alias": "hurdle/trip", "canonical": "hurdle/trip"}
+{"alias": "hurricane", "canonical": "hurricane"}
+{"alias": "hurry", "canonical": "hurry"}
+{"alias": "hurt", "canonical": "hurt"}
+{"alias": "husband", "canonical": "husband"}
+{"alias": "hypocrite", "canonical": "hypocrite"}
+{"alias": "i love you", "canonical": "i love you"}
+{"alias": "i see", "canonical": "i see"}
+{"alias": "i sight", "canonical": "i see"}
+{"alias": "ice", "canonical": "ice"}
+{"alias": "icecream", "canonical": "icecream"}
+{"alias": "icy", "canonical": "freeze"}
+{"alias": "idea", "canonical": "idea"}
+{"alias": "identity", "canonical": "identity"}
+{"alias": "idiot", "canonical": "idiot"}
+{"alias": "if", "canonical": "if"}
+{"alias": "ignore", "canonical": "ignore"}
+{"alias": "imagine", "canonical": "imagine"}
+{"alias": "immature", "canonical": "immature"}
+{"alias": "immerse", "canonical": "immerse"}
+{"alias": "impact", "canonical": "impact"}
+{"alias": "important", "canonical": "important"}
+{"alias": "impossible", "canonical": "impossible"}
+{"alias": "impress", "canonical": "impress"}
+{"alias": "improve", "canonical": "improve"}
+{"alias": "in", "canonical": "in"}
+{"alias": "in back mind", "canonical": "in back mind"}
+{"alias": "in bed", "canonical": "in bed"}
+{"alias": "in law", "canonical": "law"}
+{"alias": "in mind", "canonical": "in mind"}
+{"alias": "inch", "canonical": "inch"}
+{"alias": "incredible", "canonical": "incredible"}
+{"alias": "independent", "canonical": "independent"}
+{"alias": "index", "canonical": "index"}
+{"alias": "india", "canonical": "indian"}
+{"alias": "indian", "canonical": "indian"}
+{"alias": "inept", "canonical": "inept"}
+{"alias": "infection", "canonical": "infection"}
+{"alias": "influence", "canonical": "influence"}
+{"alias": "information out of", "canonical": "information out of"}
+{"alias": "information outside of", "canonical": "information out of"}
+{"alias": "inhale", "canonical": "inhale"}
+{"alias": "inject", "canonical": "inject"}
+{"alias": "innocent", "canonical": "innocent"}
+{"alias": "insect", "canonical": "bug"}
+{"alias": "inside", "canonical": "inside"}
+{"alias": "inside back mind", "canonical": "in back mind"}
+{"alias": "inside bed", "canonical": "in bed"}
+{"alias": "inside mind", "canonical": "in mind"}
+{"alias": "inspire", "canonical": "inspire"}
+{"alias": "inspiring", "canonical": "inspiring"}
+{"alias": "instagram", "canonical": "instagram"}
+{"alias": "instead", "canonical": "instead"}
+{"alias": "instinct", "canonical": "instinct"}
+{"alias": "institute", "canonical": "institute"}
+{"alias": "insult", "canonical": "insult"}
+{"alias": "insurance", "canonical": "insurance"}
+{"alias": "intelligent", "canonical": "intelligent"}
+{"alias": "intentional", "canonical": "intentional"}
+{"alias": "interest", "canonical": "interest"}
+{"alias": "interested", "canonical": "interested"}
+{"alias": "internet", "canonical": "internet"}
+{"alias": "interpret", "canonical": "interpret"}
+{"alias": "interpreter", "canonical": "interpreter"}
+{"alias": "intervene", "canonical": "intervene"}
+{"alias": "interview", "canonical": "interview"}
+{"alias": "into", "canonical": "into"}
+{"alias": "introduce", "canonical": "introduce"}
+{"alias": "intuitive", "canonical": "intuitive"}
+{"alias": "invest", "canonical": "invest"}
+{"alias": "investigate", "canonical": "research"}
+{"alias": "invisible", "canonical": "invisible"}
+{"alias": "invite", "canonical": "invite"}
+{"alias": "iphone", "canonical": "iphone"}
+{"alias": "iron", "canonical": "iron"}
+{"alias": "island", "canonical": "island"}
+{"alias": "isolated", "canonical": "isolated"}
+{"alias": "israel", "canonical": "israel"}
+{"alias": "it", "canonical": "it"}
+{"alias": "italy", "canonical": "italy"}
+{"alias": "itch", "canonical": "itch"}
+{"alias": "its", "canonical": "his"}
+{"alias": "jacket", "canonical": "jacket"}
+{"alias": "jail", "canonical": "prison"}
+{"alias": "jam", "canonical": "jelly"}
+{"alias": "japan", "canonical": "japan"}
+{"alias": "jar", "canonical": "jar"}
+{"alias": "jaw drop", "canonical": "jaw drop"}
+{"alias": "jealous", "canonical": "jealous"}
+{"alias": "jelly", "canonical": "jelly"}
+{"alias": "jellyfish", "canonical": "jellyfish"}
+{"alias": "jewelry", "canonical": "jewelry"}
+{"alias": "jewish", "canonical": "jewish"}
+{"alias": "jigsaw puzzle", "canonical": "jigsaw puzzle"}
+{"alias": "join", "canonical": "join"}
+{"alias": "joke", "canonical": "joke"}
+{"alias": "journey", "canonical": "journey"}
+{"alias": "joyful", "canonical": "happy"}
+{"alias": "judge", "canonical": "judge"}
+{"alias": "juggle", "canonical": "juggle"}
+{"alias": "juggler", "canonical": "juggler"}
+{"alias": "juice", "canonical": "juice"}
+{"alias": "jump", "canonical": "jump"}
+{"alias": "jump rope", "canonical": "jump rope"}
+{"alias": "junior", "canonical": "junior"}
+{"alias": "just one", "canonical": "only one"}
+{"alias": "kangaroo", "canonical": "kangaroo"}
+{"alias": "keep", "canonical": "keep"}
+{"alias": "key", "canonical": "key"}
+{"alias": "keyboard", "canonical": "keyboard"}
+{"alias": "keys", "canonical": "key"}
+{"alias": "kick", "canonical": "kick"}
+{"alias": "kid", "canonical": "kid"}
+{"alias": "kill", "canonical": "kill"}
+{"alias": "kindergarten", "canonical": "kindergarten"}
+{"alias": "king", "canonical": "king"}
+{"alias": "kiss", "canonical": "kiss"}
+{"alias": "kiss fist", "canonical": "kiss fist"}
+{"alias": "kiss on cheek", "canonical": "kiss on cheek"}
+{"alias": "kitchen", "canonical": "kitchen"}
+{"alias": "kite", "canonical": "kite"}
+{"alias": "kitten", "canonical": "kitten"}
+{"alias": "kneel", "canonical": "kneel"}
+{"alias": "knife", "canonical": "knife"}
+{"alias": "knight", "canonical": "knight"}
+{"alias": "knitting", "canonical": "knitting"}
+{"alias": "knock", "canonical": "knock"}
+{"alias": "knock off", "canonical": "knock off"}
+{"alias": "know", "canonical": "know"}
+{"alias": "know none", "canonical": "know nothing"}
+{"alias": "know nothing", "canonical": "know nothing"}
+{"alias": "label", "canonical": "label"}
+{"alias": "ladder", "canonical": "ladder"}
+{"alias": "lamp", "canonical": "lamp"}
+{"alias": "land", "canonical": "land"}
+{"alias": "language", "canonical": "language"}
+{"alias": "laptop", "canonical": "laptop"}
+{"alias": "large", "canonical": "big"}
+{"alias": "large deal", "canonical": "big deal"}
+{"alias": "last", "canonical": "last"}
+{"alias": "last week", "canonical": "last week"}
+{"alias": "late", "canonical": "late"}
+{"alias": "later", "canonical": "later"}
+{"alias": "laugh", "canonical": "laugh"}
+{"alias": "law", "canonical": "law"}
+{"alias": "lawnmower", "canonical": "lawnmower"}
+{"alias": "lawyer", "canonical": "lawyer"}
+{"alias": "lay down", "canonical": "lay down"}
+{"alias": "lazy", "canonical": "lazy"}
+{"alias": "lead", "canonical": "lead"}
+{"alias": "leaf", "canonical": "leaf"}
+{"alias": "league", "canonical": "league"}
+{"alias": "leak", "canonical": "leak"}
+{"alias": "learn", "canonical": "learn"}
+{"alias": "learn lesson", "canonical": "learn lesson"}
+{"alias": "leather", "canonical": "leather"}
+{"alias": "leave", "canonical": "leave"}
+{"alias": "leave alone", "canonical": "leave alone"}
+{"alias": "lecture", "canonical": "lecture"}
+{"alias": "left", "canonical": "left"}
+{"alias": "lemon", "canonical": "lemon"}
+{"alias": "lend", "canonical": "lend"}
+{"alias": "lens", "canonical": "lens"}
+{"alias": "lesbian", "canonical": "lesbian"}
+{"alias": "less", "canonical": "less"}
+{"alias": "low", "canonical": "less"}
+{"alias": "lesson", "canonical": "lesson"}
+{"alias": "let go", "canonical": "let go"}
+{"alias": "let know", "canonical": "let know"}
+{"alias": "let me see", "canonical": "let me see"}
+{"alias": "let me sight", "canonical": "let me see"}
+{"alias": "letter", "canonical": "letter"}
+{"alias": "letters", "canonical": "letter"}
+{"alias": "lettuce", "canonical": "lettuce"}
+{"alias": "library", "canonical": "library"}
+{"alias": "license", "canonical": "license"}
+{"alias": "lick", "canonical": "lick"}
+{"alias": "lick envelope", "canonical": "lick envelope"}
+{"alias": "lie", "canonical": "lie"}
+{"alias": "life", "canonical": "address"}
+{"alias": "lift", "canonical": "lift"}
+{"alias": "light", "canonical": "light"}
+{"alias": "light candle", "canonical": "light candle"}
+{"alias": "light candles", "canonical": "light candle"}
+{"alias": "light on", "canonical": "lights on"}
+{"alias": "light weight", "canonical": "light weight"}
+{"alias": "lighter", "canonical": "lighter"}
+{"alias": "lightning", "canonical": "lightning"}
+{"alias": "lights", "canonical": "light"}
+{"alias": "lights candle", "canonical": "light candle"}
+{"alias": "lights on", "canonical": "lights on"}
+{"alias": "lights weight", "canonical": "light weight"}
+{"alias": "like", "canonical": "like"}
+{"alias": "limited", "canonical": "limited"}
+{"alias": "line", "canonical": "line"}
+{"alias": "line bob", "canonical": "line bob"}
+{"alias": "linguistics", "canonical": "linguistics"}
+{"alias": "lion", "canonical": "lion"}
+{"alias": "lipread", "canonical": "lipread"}
+{"alias": "lips", "canonical": "lips"}
+{"alias": "lipstick", "canonical": "lipstick"}
+{"alias": "list", "canonical": "list"}
+{"alias": "listen", "canonical": "listen"}
+{"alias": "little bit", "canonical": "little bit"}
+{"alias": "live", "canonical": "live"}
+{"alias": "living box", "canonical": "living room"}
+{"alias": "living room", "canonical": "living room"}
+{"alias": "load", "canonical": "load"}
+{"alias": "loan", "canonical": "borrow"}
+{"alias": "lobster", "canonical": "lobster"}
+{"alias": "lock", "canonical": "lock"}
+{"alias": "locker", "canonical": "locker"}
+{"alias": "lollipop", "canonical": "lollipop"}
+{"alias": "lonely", "canonical": "lonely"}
+{"alias": "long", "canonical": "long"}
+{"alias": "long ago", "canonical": "long ago"}
+{"alias": "long line", "canonical": "long line"}
+{"alias": "long time", "canonical": "long time"}
+{"alias": "long word", "canonical": "long word"}
+{"alias": "look appearance", "canonical": "look appearance"}
+{"alias": "look at", "canonical": "look at"}
+{"alias": "look", "canonical": "look at"}
+{"alias": "look back", "canonical": "look back"}
+{"alias": "look face", "canonical": "look appearance"}
+{"alias": "look for", "canonical": "look for"}
+{"alias": "look forward", "canonical": "look forward"}
+{"alias": "look like", "canonical": "look like"}
+{"alias": "lose", "canonical": "lose"}
+{"alias": "lose game", "canonical": "lose game"}
+{"alias": "lose games", "canonical": "lose game"}
+{"alias": "lost", "canonical": "lost"}
+{"alias": "lost game", "canonical": "lose game"}
+{"alias": "lots of money", "canonical": "lots of money"}
+{"alias": "loud", "canonical": "loud"}
+{"alias": "lousy", "canonical": "lousy"}
+{"alias": "love", "canonical": "love"}
+{"alias": "love you", "canonical": "love you"}
+{"alias": "loyal", "canonical": "loyal"}
+{"alias": "luck", "canonical": "luck"}
+{"alias": "lucky", "canonical": "lucky"}
+{"alias": "lunch", "canonical": "lunch"}
+{"alias": "lungs", "canonical": "lungs"}
+{"alias": "machine", "canonical": "machine"}
+{"alias": "mad", "canonical": "mad"}
+{"alias": "magazine", "canonical": "magazine"}
+{"alias": "magic", "canonical": "magic"}
+{"alias": "magnet", "canonical": "magnet"}
+{"alias": "magnify", "canonical": "magnify"}
+{"alias": "maid", "canonical": "maid"}
+{"alias": "mail", "canonical": "mail"}
+{"alias": "mailman", "canonical": "mailman"}
+{"alias": "mainstream", "canonical": "mainstream"}
+{"alias": "mainstreamed", "canonical": "mainstream"}
+{"alias": "major", "canonical": "major"}
+{"alias": "make", "canonical": "make"}
+{"alias": "make believe", "canonical": "make believe"}
+{"alias": "male", "canonical": "man"}
+{"alias": "man", "canonical": "man"}
+{"alias": "manage", "canonical": "manage"}
+{"alias": "many", "canonical": "many"}
+{"alias": "maple", "canonical": "maple"}
+{"alias": "march", "canonical": "march"}
+{"alias": "marionette", "canonical": "marionette"}
+{"alias": "marriage", "canonical": "marry"}
+{"alias": "married", "canonical": "marry"}
+{"alias": "marry", "canonical": "marry"}
+{"alias": "mascara", "canonical": "mascara"}
+{"alias": "massage", "canonical": "massage"}
+{"alias": "match", "canonical": "match"}
+{"alias": "math", "canonical": "math"}
+{"alias": "matter", "canonical": "matter"}
+{"alias": "maybe", "canonical": "maybe"}
+{"alias": "mcdonalds", "canonical": "mcdonalds"}
+{"alias": "me", "canonical": "me"}
+{"alias": "i", "canonical": "me"}
+{"alias": "me see", "canonical": "me see"}
+{"alias": "me sight", "canonical": "me see"}
+{"alias": "mea culpa", "canonical": "mea culpa"}
+{"alias": "mean", "canonical": "mean"}
+{"alias": "measure", "canonical": "measure"}
+{"alias": "measurements", "canonical": "measure"}
+{"alias": "meat", "canonical": "meat"}
+{"alias": "mechanic", "canonical": "mechanic"}
+{"alias": "medicine", "canonical": "medicine"}
+{"alias": "meditate", "canonical": "meditate"}
+{"alias": "meet", "canonical": "meet"}
+{"alias": "meeting", "canonical": "meeting"}
+{"alias": "megaphone", "canonical": "megaphone"}
+{"alias": "melon", "canonical": "melon"}
+{"alias": "melt", "canonical": "melt"}
+{"alias": "member", "canonical": "member"}
+{"alias": "memorize", "canonical": "memorize"}
+{"alias": "memorize memorize", "canonical": "memorize memorize"}
+{"alias": "memory", "canonical": "memory"}
+{"alias": "mention", "canonical": "mention"}
+{"alias": "mess", "canonical": "mess"}
+{"alias": "metal", "canonical": "metal"}
+{"alias": "metaphor", "canonical": "metaphor"}
+{"alias": "mexican", "canonical": "mexican"}
+{"alias": "microphone", "canonical": "microphone"}
+{"alias": "microscope", "canonical": "microscope"}
+{"alias": "microwave", "canonical": "microwave"}
+{"alias": "middle", "canonical": "middle"}
+{"alias": "military", "canonical": "army"}
+{"alias": "milk", "canonical": "milk"}
+{"alias": "mime", "canonical": "mime"}
+{"alias": "mind", "canonical": "mind"}
+{"alias": "mind turned", "canonical": "mind turned"}
+{"alias": "mine", "canonical": "mine"}
+{"alias": "minimum", "canonical": "minimum"}
+{"alias": "minus", "canonical": "negative"}
+{"alias": "minute", "canonical": "minute"}
+{"alias": "mirror", "canonical": "mirror"}
+{"alias": "mischievous", "canonical": "mischievous"}
+{"alias": "miss", "canonical": "miss"}
+{"alias": "missing", "canonical": "missing"}
+{"alias": "mistake", "canonical": "wrong"}
+{"alias": "misunderstand", "canonical": "misunderstand"}
+{"alias": "mix", "canonical": "mix"}
+{"alias": "mock", "canonical": "mock"}
+{"alias": "model", "canonical": "model"}
+{"alias": "mom", "canonical": "mother"}
+{"alias": "mommy", "canonical": "mother"}
+{"alias": "monday", "canonical": "monday"}
+{"alias": "money", "canonical": "money"}
+{"alias": "monkey", "canonical": "monkey"}
+{"alias": "monster", "canonical": "monster"}
+{"alias": "month", "canonical": "month"}
+{"alias": "moon", "canonical": "moon"}
+{"alias": "moose", "canonical": "moose"}
+{"alias": "mop", "canonical": "mop"}
+{"alias": "more", "canonical": "more"}
+{"alias": "morning", "canonical": "morning"}
+{"alias": "mosquito", "canonical": "mosquito"}
+{"alias": "most", "canonical": "most"}
+{"alias": "mother", "canonical": "mother"}
+{"alias": "motivation", "canonical": "motivation"}
+{"alias": "motorcycle", "canonical": "motorcycle"}
+{"alias": "mountain", "canonical": "mountain"}
+{"alias": "mountains", "canonical": "mountain"}
+{"alias": "mouse", "canonical": "mouse"}
+{"alias": "mouth", "canonical": "mouth"}
+{"alias": "move", "canonical": "move"}
+{"alias": "move down", "canonical": "move down"}
+{"alias": "movie", "canonical": "movie"}
+{"alias": "much", "canonical": "much"}
+{"alias": "mummy", "canonical": "mummy"}
+{"alias": "murder", "canonical": "murder"}
+{"alias": "muscle", "canonical": "muscle"}
+{"alias": "museum", "canonical": "museum"}
+{"alias": "mushroom", "canonical": "mushroom"}
+{"alias": "mushrooms", "canonical": "mushroom"}
+{"alias": "music", "canonical": "music"}
+{"alias": "must", "canonical": "must"}
+{"alias": "mustache", "canonical": "mustache"}
+{"alias": "my", "canonical": "my"}
+{"alias": "myself", "canonical": "myself"}
+{"alias": "nail", "canonical": "nail"}
+{"alias": "nail clipper", "canonical": "nail clipper"}
+{"alias": "naive", "canonical": "innocent"}
+{"alias": "naked", "canonical": "naked"}
+{"alias": "name", "canonical": "name"}
+{"alias": "napkin", "canonical": "napkin"}
+{"alias": "navel", "canonical": "navel"}
+{"alias": "navy", "canonical": "navy"}
+{"alias": "near", "canonical": "near"}
+{"alias": "neck", "canonical": "neck"}
+{"alias": "necklace", "canonical": "necklace"}
+{"alias": "need", "canonical": "need"}
+{"alias": "needle", "canonical": "needle"}
+{"alias": "negative", "canonical": "negative"}
+{"alias": "nephew", "canonical": "nephew"}
+{"alias": "nerve", "canonical": "nerve"}
+{"alias": "net", "canonical": "net"}
+{"alias": "network", "canonical": "network"}
+{"alias": "neutral", "canonical": "neutral"}
+{"alias": "never", "canonical": "never"}
+{"alias": "new", "canonical": "new"}
+{"alias": "new york", "canonical": "new york"}
+{"alias": "news to me", "canonical": "news to me"}
+{"alias": "newspaper", "canonical": "newspaper"}
+{"alias": "next", "canonical": "next"}
+{"alias": "next down", "canonical": "next down"}
+{"alias": "next to", "canonical": "next to"}
+{"alias": "next year", "canonical": "next year"}
+{"alias": "nice", "canonical": "nice"}
+{"alias": "niece", "canonical": "niece"}
+{"alias": "night", "canonical": "night"}
+{"alias": "nine", "canonical": "nine"}
+{"alias": "nine oclock", "canonical": "9 oclock"}
+{"alias": "no", "canonical": "no"}
+{"alias": "no big deal", "canonical": "no big deal"}
+{"alias": "no large deal", "canonical": "no big deal"}
+{"alias": "no more", "canonical": "no more"}
+{"alias": "noise", "canonical": "noise"}
+{"alias": "none", "canonical": "none"}
+{"alias": "none at all", "canonical": "nothing at all"}
+{"alias": "nonsense", "canonical": "nonsense"}
+{"alias": "noodles", "canonical": "spaghetti"}
+{"alias": "noon", "canonical": "noon"}
+{"alias": "noose", "canonical": "noose"}
+{"alias": "normal", "canonical": "normal"}
+{"alias": "north", "canonical": "north"}
+{"alias": "nose", "canonical": "nose"}
+{"alias": "nose bleed", "canonical": "nose bleed"}
+{"alias": "not", "canonical": "not"}
+{"alias": "not a thing", "canonical": "not a thing"}
+{"alias": "not care", "canonical": "not care"}
+{"alias": "not comprehend", "canonical": "not understand"}
+{"alias": "not interested", "canonical": "not interested"}
+{"alias": "not mind", "canonical": "not mind"}
+{"alias": "not understand", "canonical": "not understand"}
+{"alias": "not used to", "canonical": "not used to"}
+{"alias": "not yet", "canonical": "not yet"}
+{"alias": "notes", "canonical": "notes"}
+{"alias": "nothing", "canonical": "nothing"}
+{"alias": "nothing at all", "canonical": "nothing at all"}
+{"alias": "now", "canonical": "now"}
+{"alias": "number", "canonical": "numbers"}
+{"alias": "numbers", "canonical": "numbers"}
+{"alias": "nurse", "canonical": "nurse"}
+{"alias": "nut", "canonical": "nut"}
+{"alias": "nuts", "canonical": "nut"}
+{"alias": "obese", "canonical": "fat"}
+{"alias": "obsess", "canonical": "obsess"}
+{"alias": "obvious", "canonical": "obvious"}
+{"alias": "ocean", "canonical": "ocean"}
+{"alias": "oclock", "canonical": "oclock"}
+{"alias": "octopus", "canonical": "octopus"}
+{"alias": "odd", "canonical": "strange"}
+{"alias": "of", "canonical": "of"}
+{"alias": "of hearing", "canonical": "of hearing"}
+{"alias": "of sudden", "canonical": "of sudden"}
+{"alias": "of us", "canonical": "of us"}
+{"alias": "off", "canonical": "off"}
+{"alias": "off bills", "canonical": "off bills"}
+{"alias": "off the point", "canonical": "off the point"}
+{"alias": "offend", "canonical": "offend"}
+{"alias": "offhand", "canonical": "offhand"}
+{"alias": "office", "canonical": "office"}
+{"alias": "often", "canonical": "often"}
+{"alias": "oh i see", "canonical": "oh i see"}
+{"alias": "oh i sight", "canonical": "oh i see"}
+{"alias": "oil", "canonical": "oil"}
+{"alias": "ok", "canonical": "ok"}
+{"alias": "old", "canonical": "old"}
+{"alias": "oldest", "canonical": "oldest"}
+{"alias": "on", "canonical": "on"}
+{"alias": "on arm", "canonical": "on arm"}
+{"alias": "on cheek", "canonical": "on cheek"}
+{"alias": "on neck", "canonical": "on neck"}
+{"alias": "on wall", "canonical": "on wall"}
+{"alias": "on you", "canonical": "on you"}
+{"alias": "once", "canonical": "once"}
+{"alias": "one", "canonical": "one"}
+{"alias": "one dollar", "canonical": "1 dollar"}
+{"alias": "one more", "canonical": "one more"}
+{"alias": "one year ago", "canonical": "one year ago"}
+{"alias": "onion", "canonical": "onion"}
+{"alias": "onions", "canonical": "onion"}
+{"alias": "only 1", "canonical": "only one"}
+{"alias": "only one", "canonical": "only one"}
+{"alias": "ooh", "canonical": "ooh"}
+{"alias": "oops", "canonical": "oops"}
+{"alias": "open", "canonical": "open"}
+{"alias": "open book", "canonical": "open book"}
+{"alias": "open wallet", "canonical": "open wallet"}
+{"alias": "operate machine", "canonical": "operate machine"}
+{"alias": "opinion", "canonical": "opinion"}
+{"alias": "opportunity", "canonical": "opportunity"}
+{"alias": "option", "canonical": "option"}
+{"alias": "or", "canonical": "or"}
+{"alias": "oral", "canonical": "oral"}
+{"alias": "orange", "canonical": "orange"}
+{"alias": "orange eyes", "canonical": "orange eyes"}
+{"alias": "orange throat", "canonical": "orange throat"}
+{"alias": "order", "canonical": "order"}
+{"alias": "organization", "canonical": "organization"}
+{"alias": "ostrich", "canonical": "ostrich"}
+{"alias": "other", "canonical": "other"}
+{"alias": "our", "canonical": "our"}
+{"alias": "ours", "canonical": "our"}
+{"alias": "out", "canonical": "out"}
+{"alias": "out of", "canonical": "out of"}
+{"alias": "outside", "canonical": "outside"}
+{"alias": "outside of", "canonical": "out of"}
+{"alias": "oven", "canonical": "bake"}
+{"alias": "over", "canonical": "over"}
+{"alias": "over body", "canonical": "over body"}
+{"alias": "overlook", "canonical": "overlook"}
+{"alias": "overnight", "canonical": "overnight"}
+{"alias": "overtake", "canonical": "overtake"}
+{"alias": "overwhelmed", "canonical": "overwhelmed"}
+{"alias": "owe", "canonical": "owe"}
+{"alias": "owl", "canonical": "owl"}
+{"alias": "own", "canonical": "own"}
+{"alias": "pack", "canonical": "pack"}
+{"alias": "page", "canonical": "page"}
+{"alias": "pageant", "canonical": "pageant"}
+{"alias": "pain", "canonical": "pain"}
+{"alias": "paint", "canonical": "paint"}
+{"alias": "paintbrush", "canonical": "paintbrush"}
+{"alias": "painting", "canonical": "paint"}
+{"alias": "pair", "canonical": "pair"}
+{"alias": "pancake", "canonical": "pancake"}
+{"alias": "pancakes", "canonical": "pancake"}
+{"alias": "pant", "canonical": "pants"}
+{"alias": "pants", "canonical": "pants"}
+{"alias": "paper", "canonical": "paper"}
+{"alias": "papercutter", "canonical": "papercutter"}
+{"alias": "parachute", "canonical": "parachute"}
+{"alias": "parade", "canonical": "parade"}
+{"alias": "paragraph", "canonical": "paragraph"}
+{"alias": "parallel", "canonical": "parallel"}
+{"alias": "paranoid", "canonical": "paranoid"}
+{"alias": "parent", "canonical": "parents"}
+{"alias": "parents", "canonical": "parents"}
+{"alias": "park", "canonical": "park"}
+{"alias": "participate", "canonical": "join"}
+{"alias": "party", "canonical": "party"}
+{"alias": "pass", "canonical": "pass"}
+{"alias": "pass out", "canonical": "pass out"}
+{"alias": "pass outside", "canonical": "pass out"}
+{"alias": "passport", "canonical": "passport"}
+{"alias": "past", "canonical": "past"}
+{"alias": "path", "canonical": "road"}
+{"alias": "patient", "canonical": "patient"}
+{"alias": "pay", "canonical": "pay"}
+{"alias": "pay off bills", "canonical": "pay off bills"}
+{"alias": "peace", "canonical": "peace"}
+{"alias": "peach", "canonical": "peach"}
+{"alias": "peacock", "canonical": "peacock"}
+{"alias": "peanut butter", "canonical": "peanut butter"}
+{"alias": "pear", "canonical": "pear"}
+{"alias": "peas", "canonical": "peas"}
+{"alias": "peck", "canonical": "peck"}
+{"alias": "peekaboo", "canonical": "peekaboo"}
+{"alias": "peel", "canonical": "peel"}
+{"alias": "peg", "canonical": "peg"}
+{"alias": "pen", "canonical": "pen"}
+{"alias": "pencil", "canonical": "pencil"}
+{"alias": "penetrate", "canonical": "penetrate"}
+{"alias": "penguin", "canonical": "penguin"}
+{"alias": "penis", "canonical": "penis"}
+{"alias": "penny", "canonical": "penny"}
+{"alias": "people", "canonical": "people"}
+{"alias": "pepper", "canonical": "pepper"}
+{"alias": "pepsi", "canonical": "pepsi"}
+{"alias": "perceive", "canonical": "perceive"}
+{"alias": "percent", "canonical": "percent"}
+{"alias": "perfect", "canonical": "perfect"}
+{"alias": "perfume", "canonical": "perfume"}
+{"alias": "period", "canonical": "period"}
+{"alias": "permission", "canonical": "permission"}
+{"alias": "persistent", "canonical": "persistent"}
+{"alias": "person", "canonical": "person"}
+{"alias": "perspective", "canonical": "perspective"}
+{"alias": "persuade", "canonical": "persuade"}
+{"alias": "pet", "canonical": "pet"}
+{"alias": "pets", "canonical": "pet"}
+{"alias": "pharmacist", "canonical": "pharmacist"}
+{"alias": "philadelphia", "canonical": "philadelphia"}
+{"alias": "philosophy", "canonical": "philosophy"}
+{"alias": "phone", "canonical": "phone"}
+{"alias": "phone attention", "canonical": "call attention"}
+{"alias": "phone tty", "canonical": "call tty"}
+{"alias": "photography", "canonical": "photography"}
+{"alias": "physics", "canonical": "physics"}
+{"alias": "piano", "canonical": "piano"}
+{"alias": "pick", "canonical": "pick"}
+{"alias": "pick up", "canonical": "find"}
+{"alias": "pickle", "canonical": "pickle"}
+{"alias": "picnic", "canonical": "picnic"}
+{"alias": "picture", "canonical": "picture"}
+{"alias": "pie", "canonical": "pie"}
+{"alias": "pig", "canonical": "pig"}
+{"alias": "pile", "canonical": "pile"}
+{"alias": "pill", "canonical": "pill"}
+{"alias": "pillow", "canonical": "pillow"}
+{"alias": "pin on", "canonical": "pin on"}
+{"alias": "pinch", "canonical": "pinch"}
+{"alias": "pineapple", "canonical": "pineapple"}
+{"alias": "pink", "canonical": "pink"}
+{"alias": "pipe", "canonical": "pipe"}
+{"alias": "pirate", "canonical": "pirate"}
+{"alias": "pissed off", "canonical": "pissed off"}
+{"alias": "pitcher", "canonical": "pitcher"}
+{"alias": "pity", "canonical": "pity"}
+{"alias": "pizza", "canonical": "pizza"}
+{"alias": "pizza cutter", "canonical": "pizza cutter"}
+{"alias": "pjs", "canonical": "pjs"}
+{"alias": "place", "canonical": "place"}
+{"alias": "plain", "canonical": "plain"}
+{"alias": "plan", "canonical": "plan"}
+{"alias": "plane", "canonical": "plane"}
+{"alias": "planet", "canonical": "planet"}
+{"alias": "plant", "canonical": "plant"}
+{"alias": "plant up", "canonical": "grow up"}
+{"alias": "plate", "canonical": "plate"}
+{"alias": "platform", "canonical": "platform"}
+{"alias": "play", "canonical": "play"}
+{"alias": "players", "canonical": "players"}
+{"alias": "playground", "canonical": "playground"}
+{"alias": "playing", "canonical": "play"}
+{"alias": "pleasant", "canonical": "friendly"}
+{"alias": "please", "canonical": "please"}
+{"alias": "plenty", "canonical": "plenty"}
+{"alias": "pliers", "canonical": "pliers"}
+{"alias": "plow", "canonical": "plow"}
+{"alias": "plug", "canonical": "plug"}
+{"alias": "plumber", "canonical": "mechanic"}
+{"alias": "plummet", "canonical": "plummet"}
+{"alias": "plunger", "canonical": "plunger"}
+{"alias": "plus", "canonical": "plus"}
+{"alias": "point", "canonical": "point"}
+{"alias": "point index", "canonical": "point index"}
+{"alias": "pole", "canonical": "pole"}
+{"alias": "policeman", "canonical": "policeman"}
+{"alias": "policy", "canonical": "policy"}
+{"alias": "polish", "canonical": "polish"}
+{"alias": "ponder", "canonical": "ponder"}
+{"alias": "pool game", "canonical": "pool game"}
+{"alias": "pool games", "canonical": "pool game"}
+{"alias": "poop", "canonical": "poop"}
+{"alias": "poor", "canonical": "poor"}
+{"alias": "pop", "canonical": "pop"}
+{"alias": "popcorn", "canonical": "popcorn"}
+{"alias": "pope", "canonical": "pope"}
+{"alias": "popular", "canonical": "popular"}
+{"alias": "porcupine", "canonical": "porcupine"}
+{"alias": "positive", "canonical": "positive"}
+{"alias": "possible", "canonical": "possible"}
+{"alias": "possum", "canonical": "possum"}
+{"alias": "postpone", "canonical": "postpone"}
+{"alias": "potato", "canonical": "potato"}
+{"alias": "pour", "canonical": "pour"}
+{"alias": "powder", "canonical": "powder"}
+{"alias": "power", "canonical": "power"}
+{"alias": "practice", "canonical": "practice"}
+{"alias": "prayer", "canonical": "prayer"}
+{"alias": "preacher", "canonical": "preacher"}
+{"alias": "precious", "canonical": "precious"}
+{"alias": "predict", "canonical": "predict"}
+{"alias": "prefer", "canonical": "prefer"}
+{"alias": "pregnant", "canonical": "pregnant"}
+{"alias": "presentation", "canonical": "lecture"}
+{"alias": "preserve", "canonical": "save"}
+{"alias": "preserve money", "canonical": "save money"}
+{"alias": "president", "canonical": "president"}
+{"alias": "press", "canonical": "press"}
+{"alias": "press in mind", "canonical": "press in mind"}
+{"alias": "press inside mind", "canonical": "press in mind"}
+{"alias": "pretend", "canonical": "pretend"}
+{"alias": "pretty", "canonical": "pretty"}
+{"alias": "price", "canonical": "price"}
+{"alias": "pride", "canonical": "pride"}
+{"alias": "priest", "canonical": "priest"}
+{"alias": "prince", "canonical": "prince"}
+{"alias": "principal", "canonical": "principal"}
+{"alias": "print", "canonical": "print"}
+{"alias": "prior to", "canonical": "before"}
+{"alias": "priority", "canonical": "priority"}
+{"alias": "prison", "canonical": "prison"}
+{"alias": "problem", "canonical": "problem"}
+{"alias": "process", "canonical": "process"}
+{"alias": "produce sign", "canonical": "produce sign"}
+{"alias": "produce signs", "canonical": "produce sign"}
+{"alias": "profoundly deaf", "canonical": "profoundly deaf"}
+{"alias": "program", "canonical": "program"}
+{"alias": "progress", "canonical": "progress"}
+{"alias": "project", "canonical": "project"}
+{"alias": "promise", "canonical": "promise"}
+{"alias": "promote", "canonical": "promote"}
+{"alias": "proof", "canonical": "proof"}
+{"alias": "propeller", "canonical": "propeller"}
+{"alias": "propose", "canonical": "propose"}
+{"alias": "protection", "canonical": "protection"}
+{"alias": "protest", "canonical": "protest"}
+{"alias": "proud", "canonical": "pride"}
+{"alias": "provide", "canonical": "provide"}
+{"alias": "proximalization", "canonical": "proximalization"}
+{"alias": "psychologist", "canonical": "psychologist"}
+{"alias": "psychology", "canonical": "psychology"}
+{"alias": "public", "canonical": "public"}
+{"alias": "pull", "canonical": "pull"}
+{"alias": "pull convince", "canonical": "pull convince"}
+{"alias": "pumpkin", "canonical": "pumpkin"}
+{"alias": "punch appearance", "canonical": "punch face"}
+{"alias": "punch face", "canonical": "punch face"}
+{"alias": "punish", "canonical": "punish"}
+{"alias": "purchase", "canonical": "buy"}
+{"alias": "purple", "canonical": "purple"}
+{"alias": "push", "canonical": "push"}
+{"alias": "put", "canonical": "put"}
+{"alias": "put aside", "canonical": "put aside"}
+{"alias": "put in back mind", "canonical": "put in back mind"}
+{"alias": "put inside back mind", "canonical": "put in back mind"}
+{"alias": "puzzle", "canonical": "puzzle"}
+{"alias": "puzzled", "canonical": "puzzled"}
+{"alias": "q tip", "canonical": "q tip"}
+{"alias": "qm", "canonical": "qm"}
+{"alias": "quality", "canonical": "quality"}
+{"alias": "quarter", "canonical": "quarter"}
+{"alias": "queen", "canonical": "queen"}
+{"alias": "quick", "canonical": "fast"}
+{"alias": "quiet", "canonical": "quiet"}
+{"alias": "quit", "canonical": "quit"}
+{"alias": "rabbit", "canonical": "rabbit"}
+{"alias": "race", "canonical": "race"}
+{"alias": "racecar track", "canonical": "racecar track"}
+{"alias": "radio", "canonical": "radio"}
+{"alias": "rain", "canonical": "rain"}
+{"alias": "rainbow", "canonical": "rainbow"}
+{"alias": "raisin", "canonical": "raisin"}
+{"alias": "rake", "canonical": "rake"}
+{"alias": "range", "canonical": "range"}
+{"alias": "rat", "canonical": "rat"}
+{"alias": "razor", "canonical": "razor"}
+{"alias": "reach", "canonical": "reach"}
+{"alias": "react", "canonical": "react"}
+{"alias": "read", "canonical": "read"}
+{"alias": "reading", "canonical": "read"}
+{"alias": "ready", "canonical": "ready"}
+{"alias": "real", "canonical": "true"}
+{"alias": "real business", "canonical": "true business"}
+{"alias": "real sick", "canonical": "real sick"}
+{"alias": "really", "canonical": "really"}
+{"alias": "really into", "canonical": "really into"}
+{"alias": "reason", "canonical": "reason"}
+{"alias": "receive", "canonical": "get"}
+{"alias": "receive in bed", "canonical": "get in bed"}
+{"alias": "receive information out of", "canonical": "get information out of"}
+{"alias": "receive off", "canonical": "get off"}
+{"alias": "receive through", "canonical": "get through"}
+{"alias": "receive together", "canonical": "get together"}
+{"alias": "recent", "canonical": "recent"}
+{"alias": "recite", "canonical": "recite"}
+{"alias": "record", "canonical": "record"}
+{"alias": "recording", "canonical": "recording"}
+{"alias": "red", "canonical": "red"}
+{"alias": "red faced", "canonical": "red faced"}
+{"alias": "reduce", "canonical": "reduce"}
+{"alias": "reflect", "canonical": "reflect"}
+{"alias": "refrigerator", "canonical": "refrigerator"}
+{"alias": "refuse", "canonical": "refuse"}
+{"alias": "register", "canonical": "register"}
+{"alias": "regret", "canonical": "sorry"}
+{"alias": "regular", "canonical": "regular"}
+{"alias": "relationship", "canonical": "relationship"}
+{"alias": "relax", "canonical": "relax"}
+{"alias": "release", "canonical": "release"}
+{"alias": "relief", "canonical": "relief"}
+{"alias": "religion", "canonical": "religion"}
+{"alias": "remember", "canonical": "remember"}
+{"alias": "remind", "canonical": "remind"}
+{"alias": "remote control", "canonical": "remote control"}
+{"alias": "remove", "canonical": "remove"}
+{"alias": "remove vid", "canonical": "remove vid"}
+{"alias": "repeat", "canonical": "again"}
+{"alias": "replace", "canonical": "replace"}
+{"alias": "request", "canonical": "request"}
+{"alias": "rescue", "canonical": "rescue"}
+{"alias": "research", "canonical": "research"}
+{"alias": "resent", "canonical": "resent"}
+{"alias": "resign", "canonical": "resign"}
+{"alias": "resist", "canonical": "resist"}
+{"alias": "respect", "canonical": "respect"}
+{"alias": "respond", "canonical": "answer"}
+{"alias": "response", "canonical": "answer"}
+{"alias": "responsibility", "canonical": "responsibility"}
+{"alias": "rest", "canonical": "rest"}
+{"alias": "rest all day", "canonical": "rest all day"}
+{"alias": "restaurant", "canonical": "restaurant"}
+{"alias": "restless", "canonical": "restless"}
+{"alias": "result", "canonical": "result"}
+{"alias": "retire", "canonical": "retire"}
+{"alias": "retired", "canonical": "retire"}
+{"alias": "retrieve", "canonical": "retrieve"}
+{"alias": "revenge", "canonical": "revenge"}
+{"alias": "rhino", "canonical": "rhino"}
+{"alias": "ribbon award", "canonical": "ribbon award"}
+{"alias": "rich", "canonical": "rich"}
+{"alias": "ride", "canonical": "ride"}
+{"alias": "right", "canonical": "right"}
+{"alias": "ring", "canonical": "ring"}
+{"alias": "ringing", "canonical": "alarm"}
+{"alias": "rip", "canonical": "rip"}
+{"alias": "risk", "canonical": "risk"}
+{"alias": "river", "canonical": "river"}
+{"alias": "road", "canonical": "road"}
+{"alias": "roar", "canonical": "roar"}
+{"alias": "roast", "canonical": "roast"}
+{"alias": "rob", "canonical": "rob"}
+{"alias": "robot", "canonical": "robot"}
+{"alias": "rock", "canonical": "rock"}
+{"alias": "rocket", "canonical": "rocket"}
+{"alias": "rocking chair", "canonical": "rocking chair"}
+{"alias": "rocking sit", "canonical": "rocking chair"}
+{"alias": "role", "canonical": "role"}
+{"alias": "roll", "canonical": "roll"}
+{"alias": "roll up sleeves", "canonical": "roll up sleeves"}
+{"alias": "roll upstairs sleeves", "canonical": "roll up sleeves"}
+{"alias": "rollerblading", "canonical": "rollerblading"}
+{"alias": "rollerskating", "canonical": "rollerskating"}
+{"alias": "roof", "canonical": "roof"}
+{"alias": "room", "canonical": "room"}
+{"alias": "roommate", "canonical": "roommate"}
+{"alias": "roommates", "canonical": "roommate"}
+{"alias": "rooster", "canonical": "rooster"}
+{"alias": "rope", "canonical": "rope"}
+{"alias": "rose", "canonical": "rose"}
+{"alias": "rough", "canonical": "rough"}
+{"alias": "row", "canonical": "row"}
+{"alias": "rude", "canonical": "rude"}
+{"alias": "ruin", "canonical": "ruin"}
+{"alias": "rule", "canonical": "rule"}
+{"alias": "ruler", "canonical": "ruler"}
+{"alias": "run", "canonical": "run"}
+{"alias": "run faucet", "canonical": "run faucet"}
+{"alias": "run out of", "canonical": "run out of"}
+{"alias": "run outside of", "canonical": "run out of"}
+{"alias": "rush", "canonical": "rush"}
+{"alias": "russia", "canonical": "russia"}
+{"alias": "sad", "canonical": "sad"}
+{"alias": "safe", "canonical": "safe"}
+{"alias": "sail", "canonical": "sail"}
+{"alias": "sailboat", "canonical": "sailboat"}
+{"alias": "salad", "canonical": "salad"}
+{"alias": "salt", "canonical": "salt"}
+{"alias": "salt shaker", "canonical": "salt shaker"}
+{"alias": "same", "canonical": "same"}
+{"alias": "same same", "canonical": "same same"}
+{"alias": "same time", "canonical": "same time"}
+{"alias": "sandals", "canonical": "sandals"}
+{"alias": "sandwich", "canonical": "sandwich"}
+{"alias": "santa", "canonical": "santa"}
+{"alias": "sarcastic", "canonical": "sarcastic"}
+{"alias": "saturday", "canonical": "saturday"}
+{"alias": "sauce", "canonical": "sauce"}
+{"alias": "sausage", "canonical": "sausage"}
+{"alias": "save", "canonical": "save"}
+{"alias": "save money", "canonical": "save money"}
+{"alias": "saw", "canonical": "saw"}
+{"alias": "saxophone", "canonical": "saxophone"}
+{"alias": "scan", "canonical": "scan"}
+{"alias": "scar memory", "canonical": "scar memory"}
+{"alias": "scarcely", "canonical": "scarcely"}
+{"alias": "scared", "canonical": "scared"}
+{"alias": "scarf", "canonical": "scarf"}
+{"alias": "school", "canonical": "school"}
+{"alias": "science", "canonical": "science"}
+{"alias": "scientist", "canonical": "scientist"}
+{"alias": "scissors", "canonical": "scissors"}
+{"alias": "scold", "canonical": "scold"}
+{"alias": "scoop", "canonical": "scoop"}
+{"alias": "score", "canonical": "score"}
+{"alias": "scout", "canonical": "scout"}
+{"alias": "scratch", "canonical": "scratch"}
+{"alias": "scream", "canonical": "scream"}
+{"alias": "screwdriver", "canonical": "screwdriver"}
+{"alias": "script", "canonical": "script"}
+{"alias": "scroll down", "canonical": "scroll down"}
+{"alias": "scrub", "canonical": "scrub"}
+{"alias": "sculpt", "canonical": "sculpt"}
+{"alias": "sculpture", "canonical": "sculpture"}
+{"alias": "seal", "canonical": "seal"}
+{"alias": "secret", "canonical": "secret"}
+{"alias": "secretary", "canonical": "secretary"}
+{"alias": "see", "canonical": "see"}
+{"alias": "see see", "canonical": "see see"}
+{"alias": "see sight", "canonical": "see see"}
+{"alias": "seem", "canonical": "seem"}
+{"alias": "select", "canonical": "select"}
+{"alias": "self", "canonical": "self"}
+{"alias": "sell", "canonical": "sell"}
+{"alias": "senate", "canonical": "senate"}
+{"alias": "send", "canonical": "send"}
+{"alias": "senior citizen", "canonical": "senior citizen"}
+{"alias": "sensitive", "canonical": "sensitive"}
+{"alias": "sentence", "canonical": "sentence"}
+{"alias": "sequence", "canonical": "sequence"}
+{"alias": "serious", "canonical": "serious"}
+{"alias": "serve", "canonical": "serve"}
+{"alias": "set up", "canonical": "set up"}
+{"alias": "set upstairs", "canonical": "set up"}
+{"alias": "seven", "canonical": "seven"}
+{"alias": "several", "canonical": "several"}
+{"alias": "sew", "canonical": "sew"}
+{"alias": "sewing", "canonical": "sew"}
+{"alias": "shake", "canonical": "shake"}
+{"alias": "shaker", "canonical": "shaker"}
+{"alias": "shakespeare", "canonical": "shakespeare"}
+{"alias": "shame", "canonical": "shame"}
+{"alias": "shame on you", "canonical": "shame on you"}
+{"alias": "shampoo", "canonical": "shampoo"}
+{"alias": "shape", "canonical": "shape"}
+{"alias": "share", "canonical": "share"}
+{"alias": "shark", "canonical": "shark"}
+{"alias": "sharp", "canonical": "sharp"}
+{"alias": "sharpen", "canonical": "sharpen"}
+{"alias": "shave", "canonical": "shave"}
+{"alias": "she", "canonical": "he"}
+{"alias": "sheep", "canonical": "sheep"}
+{"alias": "shelf", "canonical": "shelf"}
+{"alias": "shelves", "canonical": "shelf"}
+{"alias": "shield", "canonical": "shield"}
+{"alias": "shiny", "canonical": "shiny"}
+{"alias": "shirt", "canonical": "shirt"}
+{"alias": "shock", "canonical": "shocked"}
+{"alias": "shocked", "canonical": "shocked"}
+{"alias": "shoe", "canonical": "shoes"}
+{"alias": "shoes", "canonical": "shoes"}
+{"alias": "shoot", "canonical": "shoot"}
+{"alias": "shooting", "canonical": "shooting"}
+{"alias": "shop", "canonical": "shop"}
+{"alias": "shopping", "canonical": "shop"}
+{"alias": "short distance", "canonical": "short distance"}
+{"alias": "short person", "canonical": "short person"}
+{"alias": "short word", "canonical": "short word"}
+{"alias": "shortitime", "canonical": "soon"}
+{"alias": "shorts", "canonical": "shorts"}
+{"alias": "shot", "canonical": "shot"}
+{"alias": "should", "canonical": "should"}
+{"alias": "shoulder", "canonical": "shoulder"}
+{"alias": "shout", "canonical": "shout"}
+{"alias": "shovel", "canonical": "shovel"}
+{"alias": "show", "canonical": "show"}
+{"alias": "shower", "canonical": "shower"}
+{"alias": "shrimp", "canonical": "shrimp"}
+{"alias": "shut out", "canonical": "shut out"}
+{"alias": "shut outside", "canonical": "shut out"}
+{"alias": "shy", "canonical": "shy"}
+{"alias": "sick", "canonical": "sick"}
+{"alias": "side", "canonical": "side"}
+{"alias": "sideburns", "canonical": "sideburns"}
+{"alias": "sight", "canonical": "see"}
+{"alias": "sight see", "canonical": "see see"}
+{"alias": "sign", "canonical": "sign"}
+{"alias": "sign language", "canonical": "sign language"}
+{"alias": "sign paper", "canonical": "sign paper"}
+{"alias": "signature", "canonical": "signature"}
+{"alias": "signing fluently", "canonical": "signing fluently"}
+{"alias": "signs", "canonical": "sign"}
+{"alias": "signs language", "canonical": "sign language"}
+{"alias": "signs paper", "canonical": "sign paper"}
+{"alias": "silly", "canonical": "silly"}
+{"alias": "silver", "canonical": "silver"}
+{"alias": "since", "canonical": "since"}
+{"alias": "sing", "canonical": "sing"}
+{"alias": "single", "canonical": "single"}
+{"alias": "single out", "canonical": "single out"}
+{"alias": "single outside", "canonical": "single out"}
+{"alias": "sink", "canonical": "sink"}
+{"alias": "siren", "canonical": "siren"}
+{"alias": "sister", "canonical": "sister"}
+{"alias": "sit", "canonical": "sit"}
+{"alias": "situation", "canonical": "situation"}
+{"alias": "six", "canonical": "six"}
+{"alias": "size", "canonical": "measure"}
+{"alias": "skate", "canonical": "skate"}
+{"alias": "skateboarding", "canonical": "skateboarding"}
+{"alias": "ski", "canonical": "ski"}
+{"alias": "ski ca", "canonical": "ski ca"}
+{"alias": "skiing", "canonical": "ski"}
+{"alias": "skiing ca", "canonical": "ski ca"}
+{"alias": "skill", "canonical": "skill"}
+{"alias": "skin", "canonical": "skin"}
+{"alias": "skirt", "canonical": "skirt"}
+{"alias": "skunk", "canonical": "skunk"}
+{"alias": "slave", "canonical": "slave"}
+{"alias": "sled", "canonical": "sled"}
+{"alias": "sleep", "canonical": "sleep"}
+{"alias": "slice", "canonical": "slice"}
+{"alias": "slide", "canonical": "slide"}
+{"alias": "slingshot", "canonical": "slingshot"}
+{"alias": "slip", "canonical": "slip"}
+{"alias": "slipper", "canonical": "slipper"}
+{"alias": "slow", "canonical": "slow"}
+{"alias": "small", "canonical": "small"}
+{"alias": "smart", "canonical": "smart"}
+{"alias": "smell", "canonical": "smell"}
+{"alias": "smell money", "canonical": "smell money"}
+{"alias": "smile", "canonical": "smile"}
+{"alias": "smoke", "canonical": "smoke"}
+{"alias": "smoking", "canonical": "smoking"}
+{"alias": "smooth", "canonical": "smooth"}
+{"alias": "snail", "canonical": "snail"}
+{"alias": "snake", "canonical": "snake"}
+{"alias": "snap", "canonical": "snap"}
+{"alias": "snap stick", "canonical": "snap stick"}
+{"alias": "sneak adventure", "canonical": "sneak adventure"}
+{"alias": "sneeze", "canonical": "sneeze"}
+{"alias": "snob", "canonical": "snob"}
+{"alias": "snobbish", "canonical": "snob"}
+{"alias": "snobby", "canonical": "snob"}
+{"alias": "snorkel", "canonical": "snorkel"}
+{"alias": "snow", "canonical": "snow"}
+{"alias": "snowboard", "canonical": "snowboard"}
+{"alias": "snowman", "canonical": "snowman"}
+{"alias": "snowsuit", "canonical": "snowsuit"}
+{"alias": "so", "canonical": "so"}
+{"alias": "soap", "canonical": "soap"}
+{"alias": "soccer", "canonical": "soccer"}
+{"alias": "social", "canonical": "social"}
+{"alias": "socialize", "canonical": "socialize"}
+{"alias": "society", "canonical": "society"}
+{"alias": "socks", "canonical": "socks"}
+{"alias": "soda", "canonical": "soda"}
+{"alias": "sofa", "canonical": "sofa"}
+{"alias": "soft", "canonical": "soft"}
+{"alias": "softball", "canonical": "softball"}
+{"alias": "soldier", "canonical": "army"}
+{"alias": "some", "canonical": "some"}
+{"alias": "somersault", "canonical": "somersault"}
+{"alias": "something", "canonical": "something"}
+{"alias": "sometimes", "canonical": "sometimes"}
+{"alias": "son", "canonical": "son"}
+{"alias": "soon", "canonical": "soon"}
+{"alias": "sophisticated", "canonical": "sophisticated"}
+{"alias": "sophomore", "canonical": "sophomore"}
+{"alias": "sorry", "canonical": "sorry"}
+{"alias": "sound", "canonical": "sound"}
+{"alias": "soup", "canonical": "soup"}
+{"alias": "sour", "canonical": "sour"}
+{"alias": "south", "canonical": "south"}
+{"alias": "sow", "canonical": "sow"}
+{"alias": "space", "canonical": "space"}
+{"alias": "spaceship", "canonical": "spaceship"}
+{"alias": "spaghetti", "canonical": "spaghetti"}
+{"alias": "spain", "canonical": "spain"}
+{"alias": "speak", "canonical": "talk"}
+{"alias": "speak dirty", "canonical": "talk dirty"}
+{"alias": "speakers", "canonical": "speakers"}
+{"alias": "special", "canonical": "special"}
+{"alias": "specialist", "canonical": "specialist"}
+{"alias": "specific", "canonical": "specific"}
+{"alias": "speech", "canonical": "lecture"}
+{"alias": "speed", "canonical": "fast"}
+{"alias": "spell", "canonical": "fingerspell"}
+{"alias": "spend", "canonical": "spend"}
+{"alias": "spend lots of money", "canonical": "spend lots of money"}
+{"alias": "spicy", "canonical": "spicy"}
+{"alias": "spider", "canonical": "spider"}
+{"alias": "spill", "canonical": "spill"}
+{"alias": "spit out", "canonical": "spit out"}
+{"alias": "spit outside", "canonical": "spit out"}
+{"alias": "splash ca", "canonical": "splash ca"}
+{"alias": "spontaneous", "canonical": "spontaneous"}
+{"alias": "spoon", "canonical": "spoon"}
+{"alias": "sport", "canonical": "sports"}
+{"alias": "sports", "canonical": "sports"}
+{"alias": "spot something", "canonical": "spot something"}
+{"alias": "spread", "canonical": "spread"}
+{"alias": "spring", "canonical": "spring"}
+{"alias": "spring up", "canonical": "grow up"}
+{"alias": "square", "canonical": "square"}
+{"alias": "square idiot", "canonical": "square idiot"}
+{"alias": "squeeze", "canonical": "squeeze"}
+{"alias": "squirrel", "canonical": "squirrel"}
+{"alias": "sshh", "canonical": "sshh"}
+{"alias": "stack", "canonical": "stack"}
+{"alias": "stadium", "canonical": "stadium"}
+{"alias": "staff", "canonical": "staff"}
+{"alias": "stairs", "canonical": "stairs"}
+{"alias": "stamp", "canonical": "stamp"}
+{"alias": "stand", "canonical": "stand"}
+{"alias": "stand up", "canonical": "stand up"}
+{"alias": "stand upstairs", "canonical": "stand up"}
+{"alias": "stapler", "canonical": "stapler"}
+{"alias": "star", "canonical": "star"}
+{"alias": "starbucks", "canonical": "starbucks"}
+{"alias": "stare", "canonical": "stare"}
+{"alias": "stars", "canonical": "stars"}
+{"alias": "start", "canonical": "start"}
+{"alias": "state", "canonical": "state"}
+{"alias": "stay", "canonical": "stay"}
+{"alias": "stay awake 24hrs", "canonical": "stay awake 24hrs"}
+{"alias": "steak", "canonical": "steak"}
+{"alias": "steal", "canonical": "steal"}
+{"alias": "steam", "canonical": "steam"}
+{"alias": "step", "canonical": "step"}
+{"alias": "stethoscope", "canonical": "stethoscope"}
+{"alias": "stick", "canonical": "stick"}
+{"alias": "sticky", "canonical": "sticky"}
+{"alias": "still", "canonical": "still"}
+{"alias": "stimulate", "canonical": "stimulate"}
+{"alias": "sting", "canonical": "sting"}
+{"alias": "stink", "canonical": "stink"}
+{"alias": "stir", "canonical": "stir"}
+{"alias": "stockings", "canonical": "stockings"}
+{"alias": "stomach", "canonical": "stomach"}
+{"alias": "stop", "canonical": "stop"}
+{"alias": "stopwatch", "canonical": "stopwatch"}
+{"alias": "store", "canonical": "sell"}
+{"alias": "story", "canonical": "story"}
+{"alias": "straight", "canonical": "straight"}
+{"alias": "strain", "canonical": "strain"}
+{"alias": "strange", "canonical": "strange"}
+{"alias": "strangle", "canonical": "strangle"}
+{"alias": "straw", "canonical": "straw"}
+{"alias": "strawberry", "canonical": "strawberry"}
+{"alias": "street", "canonical": "street"}
+{"alias": "stress", "canonical": "stress"}
+{"alias": "stretch", "canonical": "stretch"}
+{"alias": "stretch ca", "canonical": "stretch ca"}
+{"alias": "strict", "canonical": "strict"}
+{"alias": "string", "canonical": "string"}
+{"alias": "stripe", "canonical": "stripe"}
+{"alias": "strong", "canonical": "strong"}
+{"alias": "structure", "canonical": "structure"}
+{"alias": "struggle", "canonical": "struggle"}
+{"alias": "stubborn", "canonical": "stubborn"}
+{"alias": "stuck", "canonical": "stuck"}
+{"alias": "student", "canonical": "student"}
+{"alias": "study", "canonical": "study"}
+{"alias": "stumble", "canonical": "stumble"}
+{"alias": "stupid", "canonical": "stupid"}
+{"alias": "subtract", "canonical": "subtract"}
+{"alias": "suck", "canonical": "suck"}
+{"alias": "suck thumb", "canonical": "suck thumb"}
+{"alias": "suit", "canonical": "suit"}
+{"alias": "sum", "canonical": "total"}
+{"alias": "summarize", "canonical": "summarize"}
+{"alias": "summer", "canonical": "summer"}
+{"alias": "summon", "canonical": "summon"}
+{"alias": "sun", "canonical": "sun"}
+{"alias": "sunbathe", "canonical": "sunbathe"}
+{"alias": "sunday", "canonical": "sunday"}
+{"alias": "sunrise", "canonical": "sunrise"}
+{"alias": "sunset", "canonical": "sunset"}
+{"alias": "superior", "canonical": "superior"}
+{"alias": "supervise", "canonical": "supervise"}
+{"alias": "supervisor", "canonical": "supervisor"}
+{"alias": "support", "canonical": "support"}
+{"alias": "suppose", "canonical": "if"}
+{"alias": "suprised", "canonical": "surprise"}
+{"alias": "sure", "canonical": "sure"}
+{"alias": "surf", "canonical": "surf"}
+{"alias": "surfing", "canonical": "surf"}
+{"alias": "surgeon", "canonical": "surgeon"}
+{"alias": "surgery", "canonical": "surgery"}
+{"alias": "surprise", "canonical": "surprise"}
+{"alias": "surprised", "canonical": "surprise"}
+{"alias": "sushi", "canonical": "sushi"}
+{"alias": "suspect", "canonical": "suspect"}
+{"alias": "suspend", "canonical": "suspend"}
+{"alias": "suspenders", "canonical": "suspenders"}
+{"alias": "swallow", "canonical": "swallow"}
+{"alias": "swear in", "canonical": "swear in"}
+{"alias": "swear inside", "canonical": "swear in"}
+{"alias": "sweat", "canonical": "sweat"}
+{"alias": "sweater", "canonical": "sweater"}
+{"alias": "sweatpants", "canonical": "sweatpants"}
+{"alias": "sweatshirt", "canonical": "sweatshirt"}
+{"alias": "sweep", "canonical": "sweep"}
+{"alias": "sweet", "canonical": "sweet"}
+{"alias": "sweetheart", "canonical": "sweetheart"}
+{"alias": "sweethearts", "canonical": "sweetheart"}
+{"alias": "swim", "canonical": "swim"}
+{"alias": "swing", "canonical": "swing"}
+{"alias": "switch", "canonical": "switch"}
+{"alias": "switzerland", "canonical": "switzerland"}
+{"alias": "sword", "canonical": "sword"}
+{"alias": "sympathy", "canonical": "sympathy"}
+{"alias": "system", "canonical": "system"}
+{"alias": "t v", "canonical": "tv"}
+{"alias": "table", "canonical": "table"}
+{"alias": "tablet", "canonical": "tablet"}
+{"alias": "tail", "canonical": "tail"}
+{"alias": "take", "canonical": "take"}
+{"alias": "take care", "canonical": "take care"}
+{"alias": "take notes", "canonical": "take notes"}
+{"alias": "take off", "canonical": "take off"}
+{"alias": "take pill", "canonical": "take pill"}
+{"alias": "take up", "canonical": "adopt"}
+{"alias": "talk", "canonical": "talk"}
+{"alias": "talk dirty", "canonical": "talk dirty"}
+{"alias": "tall", "canonical": "tall"}
+{"alias": "tan", "canonical": "tan"}
+{"alias": "tanktop", "canonical": "tanktop"}
+{"alias": "tape", "canonical": "tape"}
+{"alias": "taste", "canonical": "taste"}
+{"alias": "tea", "canonical": "tea"}
+{"alias": "teach", "canonical": "teach"}
+{"alias": "teacher", "canonical": "teacher"}
+{"alias": "team", "canonical": "team"}
+{"alias": "tear", "canonical": "tear"}
+{"alias": "tear rip", "canonical": "tear rip"}
+{"alias": "tease", "canonical": "tease"}
+{"alias": "technology", "canonical": "technology"}
+{"alias": "teenager", "canonical": "teenager"}
+{"alias": "teeth", "canonical": "teeth"}
+{"alias": "telephone", "canonical": "call"}
+{"alias": "telephone attention", "canonical": "call attention"}
+{"alias": "telephone tty", "canonical": "call tty"}
+{"alias": "television", "canonical": "tv"}
+{"alias": "tell", "canonical": "tell"}
+{"alias": "temper blow up", "canonical": "temper blow up"}
+{"alias": "temper blow upstairs", "canonical": "temper blow up"}
+{"alias": "temporary", "canonical": "temporary"}
+{"alias": "temptation", "canonical": "temptation"}
+{"alias": "tend your", "canonical": "tend your"}
+{"alias": "tend yours", "canonical": "tend your"}
+{"alias": "tendency", "canonical": "tendency"}
+{"alias": "tennis", "canonical": "tennis"}
+{"alias": "tent", "canonical": "tent"}
+{"alias": "test", "canonical": "test"}
+{"alias": "text", "canonical": "text"}
+{"alias": "than", "canonical": "than"}
+{"alias": "thank you", "canonical": "thank you"}
+{"alias": "thanksgiving", "canonical": "thanksgiving"}
+{"alias": "that", "canonical": "that"}
+{"alias": "the point", "canonical": "the point"}
+{"alias": "theatre", "canonical": "theatre"}
+{"alias": "them", "canonical": "they"}
+{"alias": "then", "canonical": "then"}
+{"alias": "then on", "canonical": "then on"}
+{"alias": "theory", "canonical": "theory"}
+{"alias": "therapy", "canonical": "therapy"}
+{"alias": "there", "canonical": "there"}
+{"alias": "thermometer", "canonical": "thermometer"}
+{"alias": "these", "canonical": "these"}
+{"alias": "they", "canonical": "they"}
+{"alias": "thief", "canonical": "thief"}
+{"alias": "thin", "canonical": "thin"}
+{"alias": "things", "canonical": "things"}
+{"alias": "think", "canonical": "think"}
+{"alias": "think chin", "canonical": "think chin"}
+{"alias": "think connect", "canonical": "think connect"}
+{"alias": "think expand", "canonical": "think expand"}
+{"alias": "think obsess", "canonical": "think obsess"}
+{"alias": "think over", "canonical": "think over"}
+{"alias": "think penetrate", "canonical": "think penetrate"}
+{"alias": "think ponder", "canonical": "think ponder"}
+{"alias": "third", "canonical": "third"}
+{"alias": "thirsty", "canonical": "thirsty"}
+{"alias": "this/it", "canonical": "this/it"}
+{"alias": "thought disappear", "canonical": "thought disappear"}
+{"alias": "three", "canonical": "three"}
+{"alias": "thrilled", "canonical": "thrilled"}
+{"alias": "throat", "canonical": "throat"}
+{"alias": "through", "canonical": "through"}
+{"alias": "through a hard time", "canonical": "through a hard time"}
+{"alias": "throw", "canonical": "throw"}
+{"alias": "throw away", "canonical": "throw away"}
+{"alias": "thumb", "canonical": "thumb"}
+{"alias": "thunder", "canonical": "thunder"}
+{"alias": "thursday", "canonical": "thursday"}
+{"alias": "ticket", "canonical": "ticket"}
+{"alias": "tickle", "canonical": "tickle"}
+{"alias": "tie", "canonical": "tie"}
+{"alias": "tie up", "canonical": "tie up"}
+{"alias": "tie upstairs", "canonical": "tie up"}
+{"alias": "tiger", "canonical": "tiger"}
+{"alias": "tightrope cl", "canonical": "tightrope cl"}
+{"alias": "time", "canonical": "time"}
+{"alias": "time progress", "canonical": "time progress"}
+{"alias": "time to time", "canonical": "time to time"}
+{"alias": "timeout", "canonical": "timeout"}
+{"alias": "tiny", "canonical": "tiny"}
+{"alias": "tip", "canonical": "tip"}
+{"alias": "tired", "canonical": "tired"}
+{"alias": "tired of", "canonical": "tired of"}
+{"alias": "tissue", "canonical": "tissue"}
+{"alias": "to", "canonical": "to"}
+{"alias": "to a goal", "canonical": "to a goal"}
+{"alias": "to do", "canonical": "to do"}
+{"alias": "to jail", "canonical": "to jail"}
+{"alias": "to me", "canonical": "to me"}
+{"alias": "to prison", "canonical": "to jail"}
+{"alias": "to time", "canonical": "to time"}
+{"alias": "toast", "canonical": "toast"}
+{"alias": "tobacco", "canonical": "tobacco"}
+{"alias": "today", "canonical": "today"}
+{"alias": "together", "canonical": "together"}
+{"alias": "toilet", "canonical": "toilet"}
+{"alias": "tomato", "canonical": "tomato"}
+{"alias": "tomorrow", "canonical": "tomorrow"}
+{"alias": "tongue", "canonical": "tongue"}
+{"alias": "too much", "canonical": "too much"}
+{"alias": "toothbrush", "canonical": "toothbrush"}
+{"alias": "toothbrush ca", "canonical": "toothbrush ca"}
+{"alias": "top", "canonical": "top"}
+{"alias": "topic", "canonical": "topic"}
+{"alias": "tornado", "canonical": "tornado"}
+{"alias": "toss", "canonical": "toss"}
+{"alias": "toss out", "canonical": "toss out"}
+{"alias": "toss outside", "canonical": "toss out"}
+{"alias": "total", "canonical": "total"}
+{"alias": "touch", "canonical": "touch"}
+{"alias": "tough", "canonical": "tough"}
+{"alias": "tournament", "canonical": "tournament"}
+{"alias": "tow", "canonical": "tow"}
+{"alias": "towel", "canonical": "towel"}
+{"alias": "town", "canonical": "city"}
+{"alias": "toy", "canonical": "toy"}
+{"alias": "track", "canonical": "track"}
+{"alias": "tractor", "canonical": "tractor"}
+{"alias": "tradition", "canonical": "tradition"}
+{"alias": "traffic", "canonical": "traffic"}
+{"alias": "train", "canonical": "train"}
+{"alias": "transfer", "canonical": "transfer"}
+{"alias": "transgender", "canonical": "transgender"}
+{"alias": "translate", "canonical": "translate"}
+{"alias": "trash", "canonical": "trash"}
+{"alias": "travel", "canonical": "travel"}
+{"alias": "tree", "canonical": "tree"}
+{"alias": "triangle", "canonical": "triangle"}
+{"alias": "trim", "canonical": "trim"}
+{"alias": "trip", "canonical": "trip"}
+{"alias": "triple", "canonical": "triple"}
+{"alias": "trophy", "canonical": "trophy"}
+{"alias": "trouble", "canonical": "trouble"}
+{"alias": "truck", "canonical": "truck"}
+{"alias": "true", "canonical": "true"}
+{"alias": "true business", "canonical": "true business"}
+{"alias": "true sick", "canonical": "real sick"}
+{"alias": "truth", "canonical": "truth"}
+{"alias": "try", "canonical": "try"}
+{"alias": "tty", "canonical": "tty"}
+{"alias": "tube", "canonical": "tube"}
+{"alias": "tube top", "canonical": "tube top"}
+{"alias": "tuesday", "canonical": "tuesday"}
+{"alias": "turban", "canonical": "turban"}
+{"alias": "turkey", "canonical": "turkey"}
+{"alias": "turn", "canonical": "turn"}
+{"alias": "turn approximately", "canonical": "turn around"}
+{"alias": "turn around", "canonical": "turn around"}
+{"alias": "turn key", "canonical": "turn key"}
+{"alias": "turn keys", "canonical": "turn key"}
+{"alias": "turned", "canonical": "turned"}
+{"alias": "turtle", "canonical": "turtle"}
+{"alias": "tv", "canonical": "tv"}
+{"alias": "twin", "canonical": "twins"}
+{"alias": "twins", "canonical": "twins"}
+{"alias": "twirl", "canonical": "twirl"}
+{"alias": "two", "canonical": "two"}
+{"alias": "two more", "canonical": "two more"}
+{"alias": "two mouth", "canonical": "2 mouth"}
+{"alias": "two of us", "canonical": "two of us"}
+{"alias": "two weeks", "canonical": "two weeks"}
+{"alias": "type", "canonical": "type"}
+{"alias": "udder", "canonical": "udder"}
+{"alias": "ugly", "canonical": "ugly"}
+{"alias": "umbrella", "canonical": "umbrella"}
+{"alias": "unaware", "canonical": "unaware"}
+{"alias": "uncertain", "canonical": "uncertain"}
+{"alias": "uncle", "canonical": "uncle"}
+{"alias": "under", "canonical": "under"}
+{"alias": "undergraduate", "canonical": "undergraduate"}
+{"alias": "understand", "canonical": "understand"}
+{"alias": "underwear", "canonical": "underwear"}
+{"alias": "unicorn", "canonical": "unicorn"}
+{"alias": "unique", "canonical": "unique"}
+{"alias": "universe", "canonical": "universe"}
+{"alias": "university", "canonical": "university"}
+{"alias": "until", "canonical": "until"}
+{"alias": "up", "canonical": "up"}
+{"alias": "up sleeves", "canonical": "up sleeves"}
+{"alias": "upload", "canonical": "upload"}
+{"alias": "upset", "canonical": "upset"}
+{"alias": "upstairs", "canonical": "up"}
+{"alias": "upstairs sleeves", "canonical": "up sleeves"}
+{"alias": "us", "canonical": "us"}
+{"alias": "use", "canonical": "use"}
+{"alias": "used to", "canonical": "used to"}
+{"alias": "vacation", "canonical": "vacation"}
+{"alias": "vacuum", "canonical": "vacuum"}
+{"alias": "vagina", "canonical": "vagina"}
+{"alias": "vain", "canonical": "vain"}
+{"alias": "validate", "canonical": "validate"}
+{"alias": "valley", "canonical": "valley"}
+{"alias": "value", "canonical": "value"}
+{"alias": "vampire", "canonical": "vampire"}
+{"alias": "vanilla", "canonical": "vanilla"}
+{"alias": "vanish", "canonical": "vanish"}
+{"alias": "vase", "canonical": "vase"}
+{"alias": "vegetable", "canonical": "vegetable"}
+{"alias": "vegetables", "canonical": "vegetable"}
+{"alias": "verb", "canonical": "verb"}
+{"alias": "very", "canonical": "very"}
+{"alias": "very interested", "canonical": "very interested"}
+{"alias": "vest", "canonical": "vest"}
+{"alias": "vibrate", "canonical": "vibrate"}
+{"alias": "videocamera", "canonical": "videocamera"}
+{"alias": "videogame", "canonical": "videogame"}
+{"alias": "videophone", "canonical": "videophone"}
+{"alias": "view", "canonical": "view"}
+{"alias": "village", "canonical": "village"}
+{"alias": "violin", "canonical": "violin"}
+{"alias": "vision", "canonical": "vision"}
+{"alias": "visit", "canonical": "visit"}
+{"alias": "visitor", "canonical": "visitor"}
+{"alias": "visualize", "canonical": "visualize"}
+{"alias": "vitamins", "canonical": "vitamins"}
+{"alias": "vlog", "canonical": "vlog"}
+{"alias": "vocabulary", "canonical": "vocabulary"}
+{"alias": "voice", "canonical": "voice"}
+{"alias": "volleyball", "canonical": "volleyball"}
+{"alias": "volunteer", "canonical": "volunteer"}
+{"alias": "vomit", "canonical": "vomit"}
+{"alias": "vote", "canonical": "vote"}
+{"alias": "wade", "canonical": "wade"}
+{"alias": "wait", "canonical": "wait"}
+{"alias": "waiter", "canonical": "waiter"}
+{"alias": "waitress", "canonical": "waiter"}
+{"alias": "wake up", "canonical": "surprise"}
+{"alias": "walk", "canonical": "walk"}
+{"alias": "walk tightrope cl", "canonical": "walk tightrope cl"}
+{"alias": "walking", "canonical": "walk"}
+{"alias": "walking tightrope cl", "canonical": "walk tightrope cl"}
+{"alias": "wall", "canonical": "wall"}
+{"alias": "wallet", "canonical": "wallet"}
+{"alias": "walrus", "canonical": "walrus"}
+{"alias": "wand", "canonical": "wand"}
+{"alias": "wander", "canonical": "wander"}
+{"alias": "want", "canonical": "want"}
+{"alias": "war", "canonical": "war"}
+{"alias": "warm", "canonical": "warm"}
+{"alias": "warn", "canonical": "warn"}
+{"alias": "wash", "canonical": "wash"}
+{"alias": "wash appearance", "canonical": "wash face"}
+{"alias": "wash dishes", "canonical": "wash dishes"}
+{"alias": "wash face", "canonical": "wash face"}
+{"alias": "wash hands", "canonical": "wash hands"}
+{"alias": "wash machine", "canonical": "wash machine"}
+{"alias": "waste", "canonical": "waste"}
+{"alias": "watch", "canonical": "watch"}
+{"alias": "water", "canonical": "water"}
+{"alias": "water ski", "canonical": "water ski"}
+{"alias": "water skiing", "canonical": "water ski"}
+{"alias": "waterdrop", "canonical": "waterdrop"}
+{"alias": "wave", "canonical": "wave"}
+{"alias": "way", "canonical": "way"}
+{"alias": "we", "canonical": "we"}
+{"alias": "we future see", "canonical": "we will see"}
+{"alias": "we will see", "canonical": "we will see"}
+{"alias": "we will sight", "canonical": "we will see"}
+{"alias": "weak", "canonical": "weak"}
+{"alias": "weakness", "canonical": "weak"}
+{"alias": "wealthy", "canonical": "rich"}
+{"alias": "wear", "canonical": "wear"}
+{"alias": "weather", "canonical": "weather"}
+{"alias": "weave", "canonical": "weave"}
+{"alias": "wedding", "canonical": "wedding"}
+{"alias": "wednesday", "canonical": "wednesday"}
+{"alias": "week", "canonical": "week"}
+{"alias": "weekend", "canonical": "weekend"}
+{"alias": "weeks", "canonical": "weeks"}
+{"alias": "weigh", "canonical": "weigh"}
+{"alias": "weight", "canonical": "weight"}
+{"alias": "weird", "canonical": "weird"}
+{"alias": "welcome", "canonical": "welcome"}
+{"alias": "well", "canonical": "well"}
+{"alias": "west", "canonical": "west"}
+{"alias": "wet", "canonical": "wet"}
+{"alias": "whale", "canonical": "whale"}
+{"alias": "what", "canonical": "what"}
+{"alias": "what for", "canonical": "what for"}
+{"alias": "whatever", "canonical": "whatever"}
+{"alias": "wheel", "canonical": "wheel"}
+{"alias": "wheelbarrow", "canonical": "wheelbarrow"}
+{"alias": "wheelchair", "canonical": "wheelchair"}
+{"alias": "when", "canonical": "when"}
+{"alias": "where", "canonical": "where"}
+{"alias": "which", "canonical": "which"}
+{"alias": "while", "canonical": "while"}
+{"alias": "whip", "canonical": "whip"}
+{"alias": "whisper", "canonical": "whisper"}
+{"alias": "whistle", "canonical": "whistle"}
+{"alias": "white", "canonical": "white"}
+{"alias": "white person", "canonical": "white person"}
+{"alias": "who", "canonical": "who"}
+{"alias": "whole", "canonical": "whole"}
+{"alias": "why", "canonical": "why"}
+{"alias": "why don't", "canonical": "why not"}
+{"alias": "why not", "canonical": "why not"}
+{"alias": "wide", "canonical": "wide"}
+{"alias": "wife", "canonical": "wife"}
+{"alias": "will", "canonical": "will"}
+{"alias": "will go", "canonical": "will go"}
+{"alias": "will see", "canonical": "will see"}
+{"alias": "will sight", "canonical": "will see"}
+{"alias": "win", "canonical": "win"}
+{"alias": "wind", "canonical": "wind"}
+{"alias": "windmill", "canonical": "windmill"}
+{"alias": "window", "canonical": "window"}
+{"alias": "window open", "canonical": "window open"}
+{"alias": "windy", "canonical": "windy"}
+{"alias": "wine", "canonical": "wine"}
+{"alias": "wink", "canonical": "wink"}
+{"alias": "winter", "canonical": "winter"}
+{"alias": "wise", "canonical": "wise"}
+{"alias": "wish", "canonical": "wish"}
+{"alias": "witch", "canonical": "witch"}
+{"alias": "with", "canonical": "with"}
+{"alias": "without", "canonical": "without"}
+{"alias": "wolf", "canonical": "wolf"}
+{"alias": "woman", "canonical": "woman"}
+{"alias": "won't", "canonical": "refuse"}
+{"alias": "wonder", "canonical": "wonder"}
+{"alias": "won‘t", "canonical": "refuse"}
+{"alias": "wood", "canonical": "wood"}
+{"alias": "woodshop", "canonical": "wood"}
+{"alias": "word", "canonical": "word"}
+{"alias": "work", "canonical": "work"}
+{"alias": "work out", "canonical": "work out"}
+{"alias": "work outside", "canonical": "work out"}
+{"alias": "workshop", "canonical": "workshop"}
+{"alias": "world", "canonical": "world"}
+{"alias": "worm", "canonical": "worm"}
+{"alias": "worry", "canonical": "worry"}
+{"alias": "worse", "canonical": "worse"}
+{"alias": "wow", "canonical": "wow"}
+{"alias": "wrap", "canonical": "wrap"}
+{"alias": "wrap up", "canonical": "wrap up"}
+{"alias": "wrap upstairs", "canonical": "wrap up"}
+{"alias": "wrestle", "canonical": "wrestle"}
+{"alias": "wring", "canonical": "wring"}
+{"alias": "wristwatch", "canonical": "wristwatch"}
+{"alias": "write", "canonical": "write"}
+{"alias": "write on wall", "canonical": "write on wall"}
+{"alias": "writing", "canonical": "write"}
+{"alias": "writing on wall", "canonical": "write on wall"}
+{"alias": "wrong", "canonical": "wrong"}
+{"alias": "yawn", "canonical": "yawn"}
+{"alias": "yay", "canonical": "yay"}
+{"alias": "yeah", "canonical": "yeah"}
+{"alias": "year", "canonical": "year"}
+{"alias": "year ago", "canonical": "year ago"}
+{"alias": "yellow", "canonical": "yellow"}
+{"alias": "yes", "canonical": "yes"}
+{"alias": "yesterday", "canonical": "yesterday"}
+{"alias": "yet", "canonical": "yet"}
+{"alias": "york", "canonical": "york"}
+{"alias": "you", "canonical": "you"}
+{"alias": "young", "canonical": "young"}
+{"alias": "your", "canonical": "your"}
+{"alias": "yours", "canonical": "your"}
+{"alias": "yourself", "canonical": "yourself"}
+{"alias": "yoyo", "canonical": "yoyo"}
+{"alias": "yucky", "canonical": "yucky"}
+{"alias": "zebra", "canonical": "zebra"}
+{"alias": "zero", "canonical": "zero"}
+{"alias": "zipper", "canonical": "zipper"}
+{"alias": "zoo", "canonical": "zoo"}
+{"alias": "zoom in", "canonical": "zoom in"}
+{"alias": "zoom inside", "canonical": "zoom in"}
+{"alias": "zoom off", "canonical": "zoom off"}

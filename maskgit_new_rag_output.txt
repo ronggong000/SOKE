@@ -1,0 +1,440 @@
+Sat Jan 24 00:27:08 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.195.03             Driver Version: 570.195.03     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:41:00.0 Off |                    0 |
+| N/A   26C    P0             58W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+🚀 MaskGIT Training Started
+   K=13
+   slots=['upper_body', 'l_arm', 'r_arm', 'l_index', 'l_middle', 'l_pinky', 'l_ring', 'l_thumb', 'r_index', 'r_middle', 'r_pinky', 'r_ring', 'r_thumb']
+   Text embedding dirs (train): ['data/text_embedding/train', 'data/gloss_embedding/train']
+   Text embedding dirs (val):   ['data/text_embedding/val', 'data/gloss_embedding/val']
+[Preflight] OK: checked 50 samples, all embedding files exist in 2 dirs.
+[Preflight] OK: checked 50 samples, all embedding files exist in 2 dirs.
+
+🧪 [HealthScan:train] Checking data integrity...
+✅ Scanned 2000 samples. All good.
+
+🧪 [HealthScan:val] Checking data integrity...
+✅ Scanned 1711 samples. All good.
+   slot_weights override: {'l_index': 0.6, 'l_middle': 0.6, 'l_pinky': 0.6, 'l_ring': 0.6, 'l_thumb': 0.6, 'r_index': 0.6, 'r_middle': 0.6, 'r_pinky': 0.6, 'r_ring': 0.6, 'r_thumb': 0.6}
+Warning: MaskGITTransformer using legacy per-slot embeddings/heads (no group tying).
+resume_path = ''
+resume_exists = False
+[WLASL] loaded 1992 gloss keys from checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/wlasl_qvae_tokens.json
+[WLASL] hit_rate=0.750 Tb=384 (hit=108/144)
+[COND] text_L=88 bp_Tb=384 cond_L=472
+[WLASL] hit_rate=0.684 Tb=384 (hit=93/136)
+[COND] text_L=108 bp_Tb=384 cond_L=492
+[WLASL] hit_rate=0.671 Tb=384 (hit=147/219)
+[COND] text_L=128 bp_Tb=384 cond_L=512
+[WLASL] hit_rate=0.685 Tb=384 (hit=98/143)
+[COND] text_L=122 bp_Tb=384 cond_L=506
+[WLASL] hit_rate=0.675 Tb=384 (hit=114/169)
+[COND] text_L=124 bp_Tb=384 cond_L=508
+[WLASL] hit_rate=0.686 Tb=384 (hit=142/207)
+[COND] text_L=119 bp_Tb=384 cond_L=503
+[WLASL] hit_rate=0.687 Tb=384 (hit=103/150)
+[COND] text_L=90 bp_Tb=384 cond_L=474
+[WLASL] hit_rate=0.640 Tb=384 (hit=137/214)
+[COND] text_L=206 bp_Tb=384 cond_L=590
+[WLASL] hit_rate=0.690 Tb=384 (hit=87/126)
+[COND] text_L=67 bp_Tb=384 cond_L=451
+[WLASL] hit_rate=0.791 Tb=384 (hit=91/115)
+[COND] text_L=86 bp_Tb=384 cond_L=470
+[Epoch 1] train_loss=5.0452 train_macc=1.4% rank=0.1120 len=0.0000 | rmin=0.15 ptxt=0.00
+[WLASL] hit_rate=0.656 Tb=384 (hit=103/157)
+[COND] text_L=79 bp_Tb=384 cond_L=463
+[WLASL] hit_rate=0.698 Tb=384 (hit=148/212)
+[COND] text_L=176 bp_Tb=384 cond_L=560
+[WLASL] hit_rate=0.685 Tb=384 (hit=115/168)
+[COND] text_L=92 bp_Tb=384 cond_L=476
+[WLASL] hit_rate=0.672 Tb=384 (hit=82/122)
+[COND] text_L=83 bp_Tb=384 cond_L=467
+[WLASL] hit_rate=0.728 Tb=384 (hit=118/162)
+[COND] text_L=116 bp_Tb=384 cond_L=500
+[WLASL] hit_rate=0.608 Tb=384 (hit=87/143)
+[COND] text_L=83 bp_Tb=384 cond_L=467
+[WLASL] hit_rate=0.752 Tb=384 (hit=173/230)
+[COND] text_L=119 bp_Tb=384 cond_L=503
+[WLASL] hit_rate=0.649 Tb=384 (hit=124/191)
+[COND] text_L=139 bp_Tb=384 cond_L=523
+[WLASL] hit_rate=0.751 Tb=384 (hit=157/209)
+[COND] text_L=216 bp_Tb=384 cond_L=600
+[WLASL] hit_rate=0.659 Tb=384 (hit=147/223)
+[COND] text_L=121 bp_Tb=384 cond_L=505
+[Epoch 2] train_loss=4.6784 train_macc=2.4% rank=0.0205 len=0.0000 | rmin=0.15 ptxt=0.01
+[WLASL] hit_rate=0.679 Tb=384 (hit=163/240)
+[COND] text_L=116 bp_Tb=384 cond_L=500
+[WLASL] hit_rate=0.678 Tb=384 (hit=145/214)
+[COND] text_L=140 bp_Tb=384 cond_L=524
+[WLASL] hit_rate=0.662 Tb=384 (hit=104/157)
+[COND] text_L=146 bp_Tb=384 cond_L=530
+[WLASL] hit_rate=0.715 Tb=384 (hit=143/200)
+[COND] text_L=132 bp_Tb=384 cond_L=516
+[WLASL] hit_rate=0.701 Tb=384 (hit=82/117)
+[COND] text_L=70 bp_Tb=384 cond_L=454
+[WLASL] hit_rate=0.667 Tb=384 (hit=114/171)
+[COND] text_L=142 bp_Tb=384 cond_L=526
+[WLASL] hit_rate=0.671 Tb=384 (hit=143/213)
+[COND] text_L=113 bp_Tb=384 cond_L=497
+[WLASL] hit_rate=0.657 Tb=384 (hit=130/198)
+[COND] text_L=116 bp_Tb=384 cond_L=500
+[WLASL] hit_rate=0.717 Tb=384 (hit=91/127)
+[COND] text_L=85 bp_Tb=384 cond_L=469
+[WLASL] hit_rate=0.759 Tb=384 (hit=173/228)
+[COND] text_L=172 bp_Tb=384 cond_L=556
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/maskgit_best.tar
+[Epoch 3] train_loss=4.4924 train_macc=3.7% rank=0.0172 len=0.0000 | rmin=0.15 ptxt=0.01 | val_loss=4.3783 val_macc=5.1% | textonly=5.4277 | shuf=4.3953 zero=4.4014 | diag=USING_TEXT
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/maskgit_ep3.tar
+[WLASL] hit_rate=0.743 Tb=384 (hit=142/191)
+[COND] text_L=143 bp_Tb=384 cond_L=527
+[WLASL] hit_rate=0.737 Tb=384 (hit=146/198)
+[COND] text_L=92 bp_Tb=384 cond_L=476
+[WLASL] hit_rate=0.724 Tb=384 (hit=84/116)
+[COND] text_L=81 bp_Tb=384 cond_L=465
+[WLASL] hit_rate=0.707 Tb=384 (hit=152/215)
+[COND] text_L=160 bp_Tb=384 cond_L=544
+[WLASL] hit_rate=0.648 Tb=384 (hit=92/142)
+[COND] text_L=72 bp_Tb=384 cond_L=456
+[WLASL] hit_rate=0.719 Tb=384 (hit=159/221)
+[COND] text_L=179 bp_Tb=384 cond_L=563
+[WLASL] hit_rate=0.730 Tb=384 (hit=135/185)
+[COND] text_L=104 bp_Tb=384 cond_L=488
+[WLASL] hit_rate=0.628 Tb=384 (hit=108/172)
+[COND] text_L=196 bp_Tb=384 cond_L=580
+[WLASL] hit_rate=0.687 Tb=384 (hit=112/163)
+[COND] text_L=140 bp_Tb=384 cond_L=524
+[WLASL] hit_rate=0.730 Tb=384 (hit=143/196)
+[COND] text_L=135 bp_Tb=384 cond_L=519
+[Epoch 4] train_loss=4.3843 train_macc=4.9% rank=0.0151 len=0.0000 | rmin=0.16 ptxt=0.01
+[WLASL] hit_rate=0.699 Tb=384 (hit=137/196)
+[COND] text_L=145 bp_Tb=384 cond_L=529
+[WLASL] hit_rate=0.699 Tb=384 (hit=107/153)
+[COND] text_L=154 bp_Tb=384 cond_L=538
+[WLASL] hit_rate=0.657 Tb=384 (hit=109/166)
+[COND] text_L=135 bp_Tb=384 cond_L=519
+[WLASL] hit_rate=0.613 Tb=384 (hit=136/222)
+[COND] text_L=200 bp_Tb=384 cond_L=584
+[WLASL] hit_rate=0.767 Tb=384 (hit=132/172)
+[COND] text_L=113 bp_Tb=384 cond_L=497
+[WLASL] hit_rate=0.671 Tb=384 (hit=116/173)
+[COND] text_L=238 bp_Tb=384 cond_L=622
+[WLASL] hit_rate=0.725 Tb=384 (hit=185/255)
+[COND] text_L=246 bp_Tb=384 cond_L=630
+[WLASL] hit_rate=0.577 Tb=384 (hit=97/168)
+[COND] text_L=99 bp_Tb=384 cond_L=483
+[WLASL] hit_rate=0.726 Tb=384 (hit=151/208)
+[COND] text_L=156 bp_Tb=384 cond_L=540
+[WLASL] hit_rate=0.673 Tb=384 (hit=132/196)
+[COND] text_L=107 bp_Tb=384 cond_L=491
+[Epoch 5] train_loss=4.2533 train_macc=6.4% rank=0.0126 len=0.0000 | rmin=0.17 ptxt=0.02
+[WLASL] hit_rate=0.774 Tb=384 (hit=164/212)
+[COND] text_L=211 bp_Tb=384 cond_L=595
+[WLASL] hit_rate=0.703 Tb=384 (hit=154/219)
+[COND] text_L=140 bp_Tb=384 cond_L=524
+[WLASL] hit_rate=0.726 Tb=384 (hit=130/179)
+[COND] text_L=186 bp_Tb=384 cond_L=570
+[WLASL] hit_rate=0.731 Tb=384 (hit=128/175)
+[COND] text_L=86 bp_Tb=384 cond_L=470
+[WLASL] hit_rate=0.703 Tb=384 (hit=104/148)
+[COND] text_L=128 bp_Tb=384 cond_L=512
+[WLASL] hit_rate=0.712 Tb=384 (hit=111/156)
+[COND] text_L=112 bp_Tb=384 cond_L=496
+[WLASL] hit_rate=0.719 Tb=384 (hit=141/196)
+[COND] text_L=157 bp_Tb=384 cond_L=541
+[WLASL] hit_rate=0.642 Tb=384 (hit=86/134)
+[COND] text_L=96 bp_Tb=384 cond_L=480
+[WLASL] hit_rate=0.662 Tb=384 (hit=145/219)
+[COND] text_L=166 bp_Tb=384 cond_L=550
+[WLASL] hit_rate=0.686 Tb=384 (hit=120/175)
+[COND] text_L=109 bp_Tb=384 cond_L=493
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/maskgit_best.tar
+[Epoch 6] train_loss=4.1575 train_macc=7.9% rank=0.0112 len=0.0000 | rmin=0.18 ptxt=0.02 | val_loss=4.0254 val_macc=9.1% | textonly=5.0027 | shuf=4.0763 zero=4.0634 | diag=USING_TEXT
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/maskgit_ep6.tar
+[WLASL] hit_rate=0.697 Tb=384 (hit=92/132)
+[COND] text_L=83 bp_Tb=384 cond_L=467
+[WLASL] hit_rate=0.715 Tb=384 (hit=113/158)
+[COND] text_L=84 bp_Tb=384 cond_L=468
+[WLASL] hit_rate=0.733 Tb=384 (hit=126/172)
+[COND] text_L=96 bp_Tb=384 cond_L=480
+[WLASL] hit_rate=0.728 Tb=384 (hit=155/213)
+[COND] text_L=170 bp_Tb=384 cond_L=554
+[WLASL] hit_rate=0.657 Tb=384 (hit=167/254)
+[COND] text_L=193 bp_Tb=384 cond_L=577
+[WLASL] hit_rate=0.672 Tb=384 (hit=162/241)
+[COND] text_L=170 bp_Tb=384 cond_L=554
+[WLASL] hit_rate=0.700 Tb=384 (hit=142/203)
+[COND] text_L=154 bp_Tb=384 cond_L=538
+[WLASL] hit_rate=0.665 Tb=384 (hit=131/197)
+[COND] text_L=106 bp_Tb=384 cond_L=490
+[WLASL] hit_rate=0.658 Tb=384 (hit=133/202)
+[COND] text_L=121 bp_Tb=384 cond_L=505
+[WLASL] hit_rate=0.601 Tb=384 (hit=92/153)
+[COND] text_L=152 bp_Tb=384 cond_L=536
+[Epoch 7] train_loss=4.1012 train_macc=8.7% rank=0.0102 len=0.0000 | rmin=0.19 ptxt=0.03
+[WLASL] hit_rate=0.669 Tb=384 (hit=97/145)
+[COND] text_L=82 bp_Tb=384 cond_L=466
+[WLASL] hit_rate=0.645 Tb=384 (hit=109/169)
+[COND] text_L=109 bp_Tb=384 cond_L=493
+[WLASL] hit_rate=0.716 Tb=384 (hit=101/141)
+[COND] text_L=108 bp_Tb=384 cond_L=492
+[WLASL] hit_rate=0.626 Tb=384 (hit=97/155)
+[COND] text_L=172 bp_Tb=384 cond_L=556
+[WLASL] hit_rate=0.656 Tb=384 (hit=120/183)
+[COND] text_L=151 bp_Tb=384 cond_L=535
+[WLASL] hit_rate=0.645 Tb=384 (hit=118/183)
+[COND] text_L=124 bp_Tb=384 cond_L=508
+[WLASL] hit_rate=0.735 Tb=384 (hit=175/238)
+[COND] text_L=210 bp_Tb=384 cond_L=594
+[WLASL] hit_rate=0.702 Tb=384 (hit=186/265)
+[COND] text_L=256 bp_Tb=384 cond_L=640
+[WLASL] hit_rate=0.744 Tb=384 (hit=160/215)
+[COND] text_L=256 bp_Tb=384 cond_L=640
+[WLASL] hit_rate=0.707 Tb=384 (hit=140/198)
+[COND] text_L=164 bp_Tb=384 cond_L=548
+[Epoch 8] train_loss=4.0820 train_macc=9.1% rank=0.0097 len=0.0000 | rmin=0.20 ptxt=0.03
+[WLASL] hit_rate=0.728 Tb=384 (hit=110/151)
+[COND] text_L=96 bp_Tb=384 cond_L=480
+[WLASL] hit_rate=0.755 Tb=384 (hit=142/188)
+[COND] text_L=122 bp_Tb=384 cond_L=506
+[WLASL] hit_rate=0.677 Tb=384 (hit=113/167)
+[COND] text_L=114 bp_Tb=384 cond_L=498
+[WLASL] hit_rate=0.721 Tb=384 (hit=119/165)
+[COND] text_L=143 bp_Tb=384 cond_L=527
+[WLASL] hit_rate=0.717 Tb=384 (hit=195/272)
+[COND] text_L=165 bp_Tb=384 cond_L=549
+[WLASL] hit_rate=0.704 Tb=384 (hit=140/199)
+[COND] text_L=160 bp_Tb=384 cond_L=544
+[WLASL] hit_rate=0.692 Tb=384 (hit=135/195)
+[COND] text_L=139 bp_Tb=384 cond_L=523
+[WLASL] hit_rate=0.675 Tb=384 (hit=110/163)
+[COND] text_L=96 bp_Tb=384 cond_L=480
+[WLASL] hit_rate=0.713 Tb=384 (hit=149/209)
+[COND] text_L=182 bp_Tb=384 cond_L=566
+[WLASL] hit_rate=0.703 Tb=384 (hit=135/192)
+[COND] text_L=125 bp_Tb=384 cond_L=509
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/maskgit_best.tar
+[Epoch 9] train_loss=4.0555 train_macc=9.4% rank=0.0095 len=0.0000 | rmin=0.22 ptxt=0.04 | val_loss=4.0079 val_macc=9.2% | textonly=4.9615 | shuf=4.0027 zero=4.0207 | diag=USING_TEXT
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/maskgit_ep9.tar
+[WLASL] hit_rate=0.725 Tb=384 (hit=132/182)
+[COND] text_L=95 bp_Tb=384 cond_L=479
+[WLASL] hit_rate=0.672 Tb=384 (hit=123/183)
+[COND] text_L=126 bp_Tb=384 cond_L=510
+[WLASL] hit_rate=0.632 Tb=384 (hit=132/209)
+[COND] text_L=141 bp_Tb=384 cond_L=525
+[WLASL] hit_rate=0.682 Tb=384 (hit=88/129)
+[COND] text_L=110 bp_Tb=384 cond_L=494
+[WLASL] hit_rate=0.649 Tb=384 (hit=98/151)
+[COND] text_L=85 bp_Tb=384 cond_L=469
+[WLASL] hit_rate=0.604 Tb=384 (hit=96/159)
+[COND] text_L=95 bp_Tb=384 cond_L=479
+[WLASL] hit_rate=0.699 Tb=384 (hit=107/153)
+[COND] text_L=107 bp_Tb=384 cond_L=491
+[WLASL] hit_rate=0.729 Tb=384 (hit=159/218)
+[COND] text_L=215 bp_Tb=384 cond_L=599
+[WLASL] hit_rate=0.647 Tb=384 (hit=88/136)
+[COND] text_L=87 bp_Tb=384 cond_L=471
+[WLASL] hit_rate=0.778 Tb=384 (hit=130/167)
+[COND] text_L=134 bp_Tb=384 cond_L=518
+[Epoch 10] train_loss=4.0600 train_macc=9.5% rank=0.0091 len=0.0000 | rmin=0.23 ptxt=0.04
+[WLASL] hit_rate=0.737 Tb=384 (hit=157/213)
+[COND] text_L=256 bp_Tb=384 cond_L=640
+[WLASL] hit_rate=0.635 Tb=384 (hit=120/189)
+[COND] text_L=147 bp_Tb=384 cond_L=531
+[WLASL] hit_rate=0.731 Tb=384 (hit=163/223)
+[COND] text_L=135 bp_Tb=384 cond_L=519
+[WLASL] hit_rate=0.696 Tb=384 (hit=128/184)
+[COND] text_L=109 bp_Tb=384 cond_L=493
+[WLASL] hit_rate=0.665 Tb=384 (hit=129/194)
+[COND] text_L=131 bp_Tb=384 cond_L=515
+[WLASL] hit_rate=0.655 Tb=384 (hit=110/168)
+[COND] text_L=96 bp_Tb=384 cond_L=480
+[WLASL] hit_rate=0.685 Tb=384 (hit=111/162)
+[COND] text_L=103 bp_Tb=384 cond_L=487
+[WLASL] hit_rate=0.688 Tb=384 (hit=119/173)
+[COND] text_L=110 bp_Tb=384 cond_L=494
+[WLASL] hit_rate=0.685 Tb=384 (hit=89/130)
+[COND] text_L=93 bp_Tb=384 cond_L=477
+[WLASL] hit_rate=0.676 Tb=384 (hit=123/182)
+[COND] text_L=119 bp_Tb=384 cond_L=503
+[Epoch 11] train_loss=5.5560 train_macc=2.7% rank=0.0246 len=0.0000 | rmin=0.25 ptxt=0.05
+[WLASL] hit_rate=0.693 Tb=384 (hit=138/199)
+[COND] text_L=104 bp_Tb=384 cond_L=488
+[WLASL] hit_rate=0.660 Tb=384 (hit=134/203)
+[COND] text_L=143 bp_Tb=384 cond_L=527
+[WLASL] hit_rate=0.624 Tb=384 (hit=98/157)
+[COND] text_L=183 bp_Tb=384 cond_L=567
+[WLASL] hit_rate=0.725 Tb=384 (hit=182/251)
+[COND] text_L=208 bp_Tb=384 cond_L=592
+[WLASL] hit_rate=0.705 Tb=384 (hit=155/220)
+[COND] text_L=174 bp_Tb=384 cond_L=558
+[WLASL] hit_rate=0.695 Tb=384 (hit=148/213)
+[COND] text_L=166 bp_Tb=384 cond_L=550
+[WLASL] hit_rate=0.665 Tb=384 (hit=109/164)
+[COND] text_L=140 bp_Tb=384 cond_L=524
+[WLASL] hit_rate=0.642 Tb=384 (hit=88/137)
+[COND] text_L=62 bp_Tb=384 cond_L=446
+[WLASL] hit_rate=0.655 Tb=384 (hit=173/264)
+[COND] text_L=209 bp_Tb=384 cond_L=593
+[WLASL] hit_rate=0.769 Tb=384 (hit=133/173)
+[COND] text_L=146 bp_Tb=384 cond_L=530
+[Epoch 12] train_loss=5.4308 train_macc=2.8% rank=0.0150 len=0.0000 | rmin=0.27 ptxt=0.05 | val_loss=5.3969 val_macc=2.9% | textonly=5.7975 | shuf=5.3941 zero=5.3907 | diag=USING_TEXT
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/maskgit_ep12.tar
+[WLASL] hit_rate=0.679 Tb=384 (hit=91/134)
+[COND] text_L=97 bp_Tb=384 cond_L=481
+[WLASL] hit_rate=0.615 Tb=384 (hit=123/200)
+[COND] text_L=146 bp_Tb=384 cond_L=530
+[WLASL] hit_rate=0.653 Tb=384 (hit=132/202)
+[COND] text_L=206 bp_Tb=384 cond_L=590
+[WLASL] hit_rate=0.670 Tb=384 (hit=142/212)
+[COND] text_L=168 bp_Tb=384 cond_L=552
+[WLASL] hit_rate=0.775 Tb=384 (hit=186/240)
+[COND] text_L=143 bp_Tb=384 cond_L=527
+[WLASL] hit_rate=0.689 Tb=384 (hit=135/196)
+[COND] text_L=121 bp_Tb=384 cond_L=505
+[WLASL] hit_rate=0.686 Tb=384 (hit=164/239)
+[COND] text_L=176 bp_Tb=384 cond_L=560
+[WLASL] hit_rate=0.667 Tb=384 (hit=112/168)
+[COND] text_L=156 bp_Tb=384 cond_L=540
+[WLASL] hit_rate=0.696 Tb=384 (hit=174/250)
+[COND] text_L=237 bp_Tb=384 cond_L=621
+[WLASL] hit_rate=0.690 Tb=384 (hit=116/168)
+[COND] text_L=120 bp_Tb=384 cond_L=504
+[Epoch 13] train_loss=5.3338 train_macc=3.2% rank=0.0126 len=0.0000 | rmin=0.29 ptxt=0.06
+[WLASL] hit_rate=0.725 Tb=384 (hit=150/207)
+[COND] text_L=196 bp_Tb=384 cond_L=580
+[WLASL] hit_rate=0.674 Tb=384 (hit=116/172)
+[COND] text_L=99 bp_Tb=384 cond_L=483
+[WLASL] hit_rate=0.678 Tb=384 (hit=103/152)
+[COND] text_L=165 bp_Tb=384 cond_L=549
+[WLASL] hit_rate=0.654 Tb=384 (hit=149/228)
+[COND] text_L=146 bp_Tb=384 cond_L=530
+[WLASL] hit_rate=0.603 Tb=384 (hit=123/204)
+[COND] text_L=145 bp_Tb=384 cond_L=529
+[WLASL] hit_rate=0.700 Tb=384 (hit=105/150)
+[COND] text_L=151 bp_Tb=384 cond_L=535
+[WLASL] hit_rate=0.710 Tb=384 (hit=174/245)
+[COND] text_L=241 bp_Tb=384 cond_L=625
+[WLASL] hit_rate=0.688 Tb=384 (hit=159/231)
+[COND] text_L=142 bp_Tb=384 cond_L=526
+[WLASL] hit_rate=0.744 Tb=384 (hit=151/203)
+[COND] text_L=145 bp_Tb=384 cond_L=529
+[WLASL] hit_rate=0.688 Tb=384 (hit=108/157)
+[COND] text_L=85 bp_Tb=384 cond_L=469
+[Epoch 14] train_loss=5.2412 train_macc=3.6% rank=0.0112 len=0.0000 | rmin=0.31 ptxt=0.07
+[WLASL] hit_rate=0.712 Tb=384 (hit=163/229)
+[COND] text_L=254 bp_Tb=384 cond_L=638
+[WLASL] hit_rate=0.680 Tb=384 (hit=123/181)
+[COND] text_L=127 bp_Tb=384 cond_L=511
+[WLASL] hit_rate=0.744 Tb=384 (hit=119/160)
+[COND] text_L=106 bp_Tb=384 cond_L=490
+[WLASL] hit_rate=0.665 Tb=384 (hit=105/158)
+[COND] text_L=134 bp_Tb=384 cond_L=518
+[WLASL] hit_rate=0.704 Tb=384 (hit=145/206)
+[COND] text_L=150 bp_Tb=384 cond_L=534
+[WLASL] hit_rate=0.743 Tb=384 (hit=168/226)
+[COND] text_L=236 bp_Tb=384 cond_L=620
+[WLASL] hit_rate=0.624 Tb=384 (hit=78/125)
+[COND] text_L=107 bp_Tb=384 cond_L=491
+[WLASL] hit_rate=0.712 Tb=384 (hit=89/125)
+[COND] text_L=83 bp_Tb=384 cond_L=467
+[WLASL] hit_rate=0.705 Tb=384 (hit=91/129)
+[COND] text_L=99 bp_Tb=384 cond_L=483
+[WLASL] hit_rate=0.696 Tb=384 (hit=119/171)
+[COND] text_L=105 bp_Tb=384 cond_L=489
+[Epoch 15] train_loss=5.1959 train_macc=4.0% rank=0.0099 len=0.0000 | rmin=0.33 ptxt=0.07 | val_loss=5.1863 val_macc=3.9% | textonly=5.7898 | shuf=5.2350 zero=5.2308 | diag=USING_TEXT
+💾 Saved checkpoint: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/maskgit_ep15.tar
+[WLASL] hit_rate=0.656 Tb=384 (hit=164/250)
+[COND] text_L=256 bp_Tb=384 cond_L=640
+[WLASL] hit_rate=0.710 Tb=384 (hit=137/193)
+[COND] text_L=117 bp_Tb=384 cond_L=501
+[WLASL] hit_rate=0.716 Tb=384 (hit=164/229)
+[COND] text_L=198 bp_Tb=384 cond_L=582
+[WLASL] hit_rate=0.648 Tb=384 (hit=140/216)
+[COND] text_L=172 bp_Tb=384 cond_L=556
+[WLASL] hit_rate=0.731 Tb=384 (hit=198/271)
+[COND] text_L=245 bp_Tb=384 cond_L=629
+[WLASL] hit_rate=0.654 Tb=384 (hit=87/133)
+[COND] text_L=76 bp_Tb=384 cond_L=460
+[WLASL] hit_rate=0.743 Tb=384 (hit=139/187)
+[COND] text_L=109 bp_Tb=384 cond_L=493
+[WLASL] hit_rate=0.714 Tb=384 (hit=135/189)
+[COND] text_L=163 bp_Tb=384 cond_L=547
+[WLASL] hit_rate=0.755 Tb=384 (hit=117/155)
+[COND] text_L=105 bp_Tb=384 cond_L=489
+[WLASL] hit_rate=0.737 Tb=384 (hit=196/266)
+[COND] text_L=256 bp_Tb=384 cond_L=640
+[Epoch 16] train_loss=5.1556 train_macc=4.3% rank=0.0091 len=0.0000 | rmin=0.35 ptxt=0.07
+[WLASL] hit_rate=0.700 Tb=384 (hit=119/170)
+[COND] text_L=124 bp_Tb=384 cond_L=508
+[WLASL] hit_rate=0.695 Tb=384 (hit=116/167)
+[COND] text_L=123 bp_Tb=384 cond_L=507
+[WLASL] hit_rate=0.727 Tb=384 (hit=149/205)
+[COND] text_L=152 bp_Tb=384 cond_L=536
+[WLASL] hit_rate=0.764 Tb=384 (hit=133/174)
+[COND] text_L=151 bp_Tb=384 cond_L=535
+[WLASL] hit_rate=0.633 Tb=384 (hit=131/207)
+[COND] text_L=130 bp_Tb=384 cond_L=514
+[WLASL] hit_rate=0.698 Tb=384 (hit=120/172)
+[COND] text_L=96 bp_Tb=384 cond_L=480
+[WLASL] hit_rate=0.648 Tb=384 (hit=158/244)
+[COND] text_L=222 bp_Tb=384 cond_L=606
+[WLASL] hit_rate=0.757 Tb=384 (hit=174/230)
+[COND] text_L=256 bp_Tb=384 cond_L=640
+[WLASL] hit_rate=0.684 Tb=384 (hit=106/155)
+[COND] text_L=83 bp_Tb=384 cond_L=467
+[WLASL] hit_rate=0.626 Tb=384 (hit=144/230)
+[COND] text_L=121 bp_Tb=384 cond_L=505
+[Epoch 17] train_loss=5.1307 train_macc=4.6% rank=0.0090 len=0.0000 | rmin=0.37 ptxt=0.08
+[WLASL] hit_rate=0.674 Tb=384 (hit=124/184)
+[COND] text_L=100 bp_Tb=384 cond_L=484
+[WLASL] hit_rate=0.660 Tb=384 (hit=140/212)
+[COND] text_L=147 bp_Tb=384 cond_L=531
+[WLASL] hit_rate=0.735 Tb=384 (hit=147/200)
+[COND] text_L=144 bp_Tb=384 cond_L=528
+[WLASL] hit_rate=0.739 Tb=384 (hit=136/184)
+[COND] text_L=91 bp_Tb=384 cond_L=475
+[WLASL] hit_rate=0.733 Tb=384 (hit=137/187)
+[COND] text_L=139 bp_Tb=384 cond_L=523
+[WLASL] hit_rate=0.651 Tb=384 (hit=123/189)
+[COND] text_L=165 bp_Tb=384 cond_L=549
+[WLASL] hit_rate=0.667 Tb=384 (hit=108/162)
+[COND] text_L=116 bp_Tb=384 cond_L=500
+[WLASL] hit_rate=0.656 Tb=384 (hit=172/262)
+[COND] text_L=254 bp_Tb=384 cond_L=638
+[WLASL] hit_rate=0.723 Tb=384 (hit=138/191)
+[COND] text_L=140 bp_Tb=384 cond_L=524
+[WLASL] hit_rate=0.611 Tb=384 (hit=110/180)
+[COND] text_L=96 bp_Tb=384 cond_L=480
+🛑 Early stopping triggered at epoch 18. Best val_loss=4.007926 at epoch 9. (patience=3, min_delta=0.0)
+
+🎬 Starting Visualization Generation (Full SMPL-X format)...
+🎨 Loading QVAE for visualization...
+   Config: checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/opt.txt
+   Model:  checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/model/latest.tar
+MotionEncoder: Initializing in UNIFORM mode.
+MotionDecoder: Initializing in UNIFORM mode.
+Codebook Strategy [finger_distinct]: Created 7 quantizers.
+   Generating sample 1/3: -d5dN54tH2E_0-1-rgb_front (GT Len: 33)
+   Generating sample 2/3: -d5dN54tH2E_1-1-rgb_front (GT Len: 19)
+   Generating sample 3/3: -d5dN54tH2E_10-1-rgb_front (GT Len: 14)
+✅ Visualization saved to checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/vis_results
+📝 Saved report: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/train_report.json
+📝 Saved report: checkpoints/maskgit_v1_double_emb_24depth_rag_nogroup/train_report.md
+✅ Training Finished.
+Task  finished.
