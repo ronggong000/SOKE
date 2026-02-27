@@ -93,8 +93,11 @@ class MotionEvaluator:
                 motion = motion.to(self.device)
                 lengths = lengths.to(self.device)
 
-                out_cont, out_quant, _, _, _ = vae(motion)
-                pred_motion = out_quant
+                #out_cont, out_quant, _, _, _ = vae(motion)
+                #out_cont, _, _ = vae(motion,only_cont=True)
+                out_quant, _, _ = vae(motion,only_quant=True)
+                pred_motion = out_quant#testing codebook
+                #pred_motion = out_cont
 
                 pose_ref = self._expand_to_smplx_pose(motion)
                 pose_rst = self._expand_to_smplx_pose(pred_motion)

@@ -5,8 +5,11 @@ from torch import Tensor
 from torchmetrics import Metric
 from torch.nn.functional import smooth_l1_loss
 
-from .utils import *
-from mGPT.utils.human_models import rigid_align, rigid_align_torch_batch, smpl_x
+#from .utils import *
+import os
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'utils'))
+from utils.human_models import rigid_align, rigid_align_torch_batch, smpl_x
 from collections import defaultdict
 
 
@@ -171,12 +174,23 @@ class MRMetrics(Metric):
 
         for name in self.MR_metrics:
             d = name.split('_')[0]
-            mr_metrics[name] = getattr(self, name) / max(getattr(self, f'{d}_count'), 1e-6)
+            
+            # --- 核心修复：设备对齐 ---
+            val = getattr(self, name)       # 误差累加值 (可能是 GPU Tensor)
+            count = getattr(self, f'{d}_count') # 计数 (可能是 CPU Tensor)
+            
+            # 确保 count 与 val 在同一设备上，并使用 torch.clamp 替代 Python 的 max
+            # 这样可以保持 Tensor 计算属性
+            safe_count = torch.clamp(count.to(val.device), min=1e-6)
+            
+            mr_metrics[name] = val / safe_count
+            
             if 'MPVPE' in name or 'MPJPE' in name:
                 mr_metrics[name] = mr_metrics[name] * factor
 
         for name, v in mr_metrics.items():
-            print(name, ': ', v)
+            # 打印时转回 CPU 避免打印错误
+            print(name, ': ', v.item() if isinstance(v, torch.Tensor) else v)
         
         # Reset
         self.reset()
@@ -215,13 +229,19 @@ class MRMetrics(Metric):
             
             mesh_gt = vertices_ref[i, :cur_len, ...]
             mesh_out = vertices_rst[i, :cur_len, ...]
+            if (not torch.isfinite(mesh_out).all()) or (not torch.isfinite(mesh_gt).all()):
+                raise RuntimeError(
+                    f"[MR] non-finite mesh detected: "
+                    f"mesh_out nan={torch.isnan(mesh_out).sum().item()} inf={torch.isinf(mesh_out).sum().item()} | "
+                    f"mesh_gt nan={torch.isnan(mesh_gt).sum().item()} inf={torch.isinf(mesh_gt).sum().item()}"
+                )
             mesh_out_align = rigid_align_torch_batch(mesh_out, mesh_gt)
             value = torch.mean(torch.sqrt(torch.sum((mesh_out_align - mesh_gt) ** 2, dim=-1)), dim=-1).sum()
             setattr(self, f"{data_src}_MPVPE_PA_all", getattr(self, f"{data_src}_MPVPE_PA_all") + value)
             self.name2scores[cur_name][f"{data_src}_MPVPE_PA_all"] = value.item() / cur_len * 1000
 
             mesh_out_align = mesh_out - joints_rst[i, :cur_len, smpl_x.J_regressor_idx['pelvis']:smpl_x.J_regressor_idx['pelvis']+1] + joints_ref[i, :cur_len, smpl_x.J_regressor_idx['pelvis']:smpl_x.J_regressor_idx['pelvis']+1]
-            setattr(self, f"{data_src}_MPVPE_all", getattr(self, f"{data_src}_MPVPE_all") + torch.mean(torch.sqrt(torch.sum((mesh_out_align - mesh_gt) ** 2, dim=-1)), dim=-1).sum())
+            setattr(self, f"{data_src}_MPVPE_all", getattr(self, f"{data_src}_MPVPE_PA_all") + torch.mean(torch.sqrt(torch.sum((mesh_out_align - mesh_gt) ** 2, dim=-1)), dim=-1).sum())
 
             mesh_gt_lhand = mesh_gt[:, smpl_x.hand_vertex_idx['left_hand'], :]
             mesh_out_lhand = mesh_out[:, smpl_x.hand_vertex_idx['left_hand'], :]

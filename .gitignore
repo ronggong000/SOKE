@@ -1,5 +1,7 @@
 __pycache__
 __pycache__/
+**/__pycache__/
+*.py[cod]
 checkpoints
 checkpoints/
 deps
@@ -14,6 +16,7 @@ visualize
 visualize/
 wandb
 wandb/
+**/wandb/
 slurm/job
 slurm/job/
 slurm/out
@@ -23,3 +26,12 @@ data
 *.csv
 *.zip
 *.png
+events.out.tfevents.*
+*_output.txt
+*_error.txt
+smux-*.out
+smux-*.err
+plan.md
+diffuser_v2/eval_reports/
+diffuser_v2/log/
+diffuser_v2/outputs/

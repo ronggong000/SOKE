@@ -981,6 +981,7 @@ class VectorQuantizer(nn.Module):
             selected_inputs = flat_inputs[indices]
             
             # Assign
+            selected_inputs = selected_inputs.to(dtype=self._embedding.weight.dtype, device=self._embedding.weight.device)
             self._embedding.weight.data[dead_codes] = selected_inputs
             
             # Reset usage

@@ -154,57 +154,57 @@ class VAE(nn.Module):
         std = torch.exp(0.5 * logvar)
         eps = torch.randn_like(std)
         return mu + eps * std
-
-    def forward(self, x):
+    def forward(self, x, only_cont: bool = False,only_quant: bool = False):
         x = x.to(self.opt.device)
 
-        # 1. Encode -> Continuous Z [B, T, 13, D]
+        # 1) Encode -> Continuous Z [B, T, 13, D]
         z_cont, loss_dict = self.encode(x)
-        
-        # 2. Dynamic Quantization Loop
-        # 我们需要构建一个跟 z_cont 形状一样的 z_quant
+
+        # Fast path: only continuous decode, skip quant loop entirely
+        if only_cont:
+            out_cont = self.decode(z_cont)
+            # optional: keep this key for logging consistency
+            loss_dict["loss_quant"] = torch.zeros((), device=z_cont.device, dtype=z_cont.dtype)
+            return out_cont, z_cont, loss_dict
+
+        # 2) Dynamic Quantization Loop
         z_quant = torch.zeros_like(z_cont)
-        
         total_quant_loss = 0.0
-        
+
         # 临时存储 indices 用于 logging (Optional)
-        all_indices = {} # name -> indices
+        all_indices = {}  # name -> indices (kept if you still want it later)
 
         for group in self.grouping_schedule:
-            name = group['name']
-            ids = group['ids'] # List of node indices, e.g., [1, 2]
-            q_idx = group['q_idx']
+            name = group["name"]
+            ids = group["ids"]  # List of node indices, e.g., [1, 2]
+            q_idx = group["q_idx"]
             quantizer = self.quantizers[q_idx]
-            
-            # a. 切分 Z: [B, T, len(ids), D]
-            # 注意：ids 必须转为 list 才能正确索引
+
+            # a) Slice Z: [B, T, len(ids), D]
             z_slice = z_cont[:, :, ids, :]
-            
-            # b. 量化 (隐式镜像核心：左右手特征都在 z_slice 里，喂给同一个 quantizer)
+
+            # b) Quantize
             loss, z_q_slice, perp, idx = quantizer(z_slice)
-            
-            # c. 填回 Z_quant (Scatter back)
-            # 这里的 ids 是 node 的绝对索引，可以直接赋值
+
+            # c) Scatter back
             z_quant[:, :, ids, :] = z_q_slice
-            
-            # d. 累加 Loss 和记录指标
-            total_quant_loss += loss
-            
-            # 记录 Usage (Perplexity)
+
+            # d) Accumulate loss + metrics
+            total_quant_loss = total_quant_loss + loss
             loss_dict[f"perplexity_{name}"] = perp
-            
-            # 记录 Indices (仅 Eval 模式)
+
             if not self.training:
-                # 记录时我们为了区分，可以加上名字
                 loss_dict[f"indices_{name}"] = idx
 
-        # 3. Dual Decoding
-        out_cont = self.decode(z_cont)
-        out_quant = self.decode(z_quant)
-
-        loss_dict["loss_quant"] = total_quant_loss
+        # 3) Dual Decoding
         
+        out_quant = self.decode(z_quant)
+        loss_dict["loss_quant"] = total_quant_loss
+        if only_quant:
+            return out_quant, z_quant, loss_dict
+        out_cont = self.decode(z_cont)
         return out_cont, out_quant, z_cont, z_quant, loss_dict
+
 
     def reset_all_codebooks(self, z_current):
         """
