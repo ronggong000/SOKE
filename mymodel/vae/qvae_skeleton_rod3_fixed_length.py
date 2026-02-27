@@ -3,8 +3,8 @@ import torch.nn as nn
 import math
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'tools'))
-from rotation_utils import CorrectionTransform, axis_angle_to_matrix, matrix_to_axis_angle,rotation_6d_to_matrix
+#sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'tools'))
+from mGPT.utils.rotation_utils import CorrectionTransform, axis_angle_to_matrix, matrix_to_axis_angle,rotation_6d_to_matrix
 
 from torch.amp import autocast 
 
@@ -981,6 +981,7 @@ class VectorQuantizer(nn.Module):
             selected_inputs = flat_inputs[indices]
             
             # Assign
+            selected_inputs = selected_inputs.to(dtype=self._embedding.weight.dtype, device=self._embedding.weight.device)
             self._embedding.weight.data[dead_codes] = selected_inputs
             
             # Reset usage

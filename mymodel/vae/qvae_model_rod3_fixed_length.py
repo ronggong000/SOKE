@@ -1,12 +1,6 @@
-import os
-import sys
 import torch
 import torch.nn as nn
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'tools'))
-from rotation_convert import svd_orthogonalize_rot9
-from qvae_skeleton_rod3_fixed_length import MultiLinear, MotionEncoder, MotionDecoder, STConvEncoder, STConvDecoder,VectorQuantizer
+from mymodel.vae.qvae_skeleton_rod3_fixed_length import MultiLinear, MotionEncoder, MotionDecoder, STConvEncoder, STConvDecoder, VectorQuantizer
 
 
 class VAE(nn.Module):
@@ -160,57 +154,57 @@ class VAE(nn.Module):
         std = torch.exp(0.5 * logvar)
         eps = torch.randn_like(std)
         return mu + eps * std
-
-    def forward(self, x):
+    def forward(self, x, only_cont: bool = False,only_quant: bool = False):
         x = x.to(self.opt.device)
 
-        # 1. Encode -> Continuous Z [B, T, 13, D]
+        # 1) Encode -> Continuous Z [B, T, 13, D]
         z_cont, loss_dict = self.encode(x)
-        
-        # 2. Dynamic Quantization Loop
-        # 我们需要构建一个跟 z_cont 形状一样的 z_quant
+
+        # Fast path: only continuous decode, skip quant loop entirely
+        if only_cont:
+            out_cont = self.decode(z_cont)
+            # optional: keep this key for logging consistency
+            loss_dict["loss_quant"] = torch.zeros((), device=z_cont.device, dtype=z_cont.dtype)
+            return out_cont, z_cont, loss_dict
+
+        # 2) Dynamic Quantization Loop
         z_quant = torch.zeros_like(z_cont)
-        
         total_quant_loss = 0.0
-        
+
         # 临时存储 indices 用于 logging (Optional)
-        all_indices = {} # name -> indices
+        all_indices = {}  # name -> indices (kept if you still want it later)
 
         for group in self.grouping_schedule:
-            name = group['name']
-            ids = group['ids'] # List of node indices, e.g., [1, 2]
-            q_idx = group['q_idx']
+            name = group["name"]
+            ids = group["ids"]  # List of node indices, e.g., [1, 2]
+            q_idx = group["q_idx"]
             quantizer = self.quantizers[q_idx]
-            
-            # a. 切分 Z: [B, T, len(ids), D]
-            # 注意：ids 必须转为 list 才能正确索引
+
+            # a) Slice Z: [B, T, len(ids), D]
             z_slice = z_cont[:, :, ids, :]
-            
-            # b. 量化 (隐式镜像核心：左右手特征都在 z_slice 里，喂给同一个 quantizer)
+
+            # b) Quantize
             loss, z_q_slice, perp, idx = quantizer(z_slice)
-            
-            # c. 填回 Z_quant (Scatter back)
-            # 这里的 ids 是 node 的绝对索引，可以直接赋值
+
+            # c) Scatter back
             z_quant[:, :, ids, :] = z_q_slice
-            
-            # d. 累加 Loss 和记录指标
-            total_quant_loss += loss
-            
-            # 记录 Usage (Perplexity)
+
+            # d) Accumulate loss + metrics
+            total_quant_loss = total_quant_loss + loss
             loss_dict[f"perplexity_{name}"] = perp
-            
-            # 记录 Indices (仅 Eval 模式)
+
             if not self.training:
-                # 记录时我们为了区分，可以加上名字
                 loss_dict[f"indices_{name}"] = idx
 
-        # 3. Dual Decoding
-        out_cont = self.decode(z_cont)
-        out_quant = self.decode(z_quant)
-
-        loss_dict["loss_quant"] = total_quant_loss
+        # 3) Dual Decoding
         
+        out_quant = self.decode(z_quant)
+        loss_dict["loss_quant"] = total_quant_loss
+        if only_quant:
+            return out_quant, z_quant, loss_dict
+        out_cont = self.decode(z_cont)
         return out_cont, out_quant, z_cont, z_quant, loss_dict
+
 
     def reset_all_codebooks(self, z_current):
         """
@@ -240,3 +234,40 @@ class VAE(nn.Module):
                 total_resets += n_reset
                 
         return total_resets, reset_stats
+    @torch.no_grad()
+    def decode_from_tokens(self, tokens):
+        """
+        从离散 tokens 恢复出 3D 动作。
+        tokens: [B, T, 13] (int64)
+        """
+        B, T, K = tokens.shape
+        # 13 个节点必须对应
+        assert K == 13, f"Expected 13 tokens (Hierarchical nodes), got {K}"
+        
+        # 准备一个全 0 的连续潜变量 z [B, T, 13, D]
+        z_quant = torch.zeros(B, T, K, self.latent_dim, device=tokens.device)
+
+        # 遍历分组策略 (finger_distinct 下只有 7 个组，循环开销忽略不计)
+        for group in self.grouping_schedule:
+            # ids: list, e.g., [1, 2] (Arms)
+            ids = group['ids'] 
+            q_idx = group['q_idx']
+            
+            # 获取对应量化器的 Embedding 权重 [CodebookSize, D]
+            quantizer = self.quantizers[q_idx]
+            emb_weight = quantizer._embedding.weight
+
+            # 1. 提取当前组对应的 tokens: [B, T, len(ids)]
+            #    例如 Arms 组，取出第 1 和 第 2 列 token
+            group_tokens = tokens[..., ids]
+
+            # 2. 查表 (Vector Lookup): [B, T, len(ids)] -> [B, T, len(ids), D]
+            #    F.embedding 支持任意维度的输入，非常快
+            group_vectors = torch.nn.functional.embedding(group_tokens, emb_weight)
+
+            # 3. 填回 z_quant
+            z_quant[..., ids, :] = group_vectors
+
+        # 解码得到动作 [B, T, J, 3]
+        motion = self.decode(z_quant)
+        return motion

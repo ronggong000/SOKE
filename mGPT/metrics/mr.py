@@ -221,7 +221,7 @@ class MRMetrics(Metric):
             self.name2scores[cur_name][f"{data_src}_MPVPE_PA_all"] = value.item() / cur_len * 1000
 
             mesh_out_align = mesh_out - joints_rst[i, :cur_len, smpl_x.J_regressor_idx['pelvis']:smpl_x.J_regressor_idx['pelvis']+1] + joints_ref[i, :cur_len, smpl_x.J_regressor_idx['pelvis']:smpl_x.J_regressor_idx['pelvis']+1]
-            setattr(self, f"{data_src}_MPVPE_all", getattr(self, f"{data_src}_MPVPE_PA_all") + torch.mean(torch.sqrt(torch.sum((mesh_out_align - mesh_gt) ** 2, dim=-1)), dim=-1).sum())
+            setattr(self, f"{data_src}_MPVPE_all", getattr(self, f"{data_src}_MPVPE_all") + torch.mean(torch.sqrt(torch.sum((mesh_out_align - mesh_gt) ** 2, dim=-1)), dim=-1).sum())
 
             mesh_gt_lhand = mesh_gt[:, smpl_x.hand_vertex_idx['left_hand'], :]
             mesh_out_lhand = mesh_out[:, smpl_x.hand_vertex_idx['left_hand'], :]

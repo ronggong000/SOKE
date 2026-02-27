@@ -13,71 +13,124 @@ class SignMotionFixedLengthDataset(Dataset):
         # 1. 尝试读取预生成的元数据缓存 (解决启动慢的问题)
         # 假设你在 data_dir 下放了一个 metadata.json，里面存了文件名和长度
         cache_path = os.path.join(data_dir, "dataset_metadata.json")
-        
-        if os.path.exists(cache_path):
-            print(f"Loading cached metadata from {cache_path}...")
-            with open(cache_path, 'r') as f:
-                metadata = json.load(f)
-                # metadata 结构建议: [{"name": "xxx.npz", "len": 100}, ...]
-                # 过滤逻辑放在这里
-                self.samples = []
-                for item in metadata:
-                    if item['len'] >= 8: # 你的过滤条件
-                        # 验证/测试集逻辑需要在这里展开，或者只存基本信息，getitem里动态切
-                        # 为保持与你原代码逻辑一致，这里简化处理，假设 metadata 已过滤
-                        if is_train:
-                            self.samples.append(item['name'])
-                            self.file_lengths = {x['name']: x['len'] for x in metadata}
-                        else:
-                            # 验证集切片逻辑 (稍微复杂点，如果 metadata 只存了文件名和总长)
-                            T = item['len']
-                            T = (T // 4) * 4 # 对齐
-                            for start_idx in range(0, T, max_length):
-                                self.samples.append((item['name'], start_idx))
-        else:
-            print("⚠️ Cache not found! Scanning directory (this will be slow)...")
-            # --- 你的原始逻辑 (慢) ---
-            # 建议：第一次运行完这个慢逻辑后，把结果保存成 json，下次就快了
-            self.data_files = [f for f in os.listdir(data_dir) if f.endswith('.npz')]
-            self.file_lengths = {}
+        self.samples = []
+        self.file_lengths = {}
+
+        def build_samples_from_lengths(length_map):
             self.samples = []
-            
-            temp_metadata = [] # 用于保存缓存
-            
-            for filename in self.data_files:
+            self.file_lengths = {}
+            for name, t_aligned in length_map.items():
+                t_aligned = int(t_aligned)
+                if t_aligned < 8:
+                    continue
+                self.file_lengths[name] = t_aligned
+                if is_train:
+                    self.samples.append(name)
+                else:
+                    for start_idx in range(0, t_aligned, max_length):
+                        self.samples.append((name, start_idx))
+
+        def scan_directory_and_cache():
+            print("⚠️ Cache not found or unusable! Scanning directory (this will be slow)...")
+            if not os.path.isdir(data_dir):
+                raise FileNotFoundError(f"Data directory not found: {data_dir}")
+
+            data_files = [f for f in os.listdir(data_dir) if f.endswith('.npz')]
+            length_map = {}
+            temp_metadata = []
+            for filename in data_files:
                 path = os.path.join(data_dir, filename)
                 try:
-                    # 优化点：使用 mmap_mode='r' 读取头部，不加载数据进内存，速度快很多
                     with np.load(path, mmap_mode='r') as data:
-                        # 只是读取 shape，非常快
                         if self.config.xyz==True:
                             shape = data['joints_xyz'].shape 
                         else:
                             shape = data['poses'].shape 
                         T = shape[0]
-                        
-                        # 过滤逻辑
                         T_aligned = (T // 4) * 4
-                        
                         if T_aligned >= 8:
-                            self.file_lengths[filename] = T_aligned
-                            temp_metadata.append({"name": filename, "len": T_aligned})
-                            
-                            if is_train:
-                                self.samples.append(filename)
-                            else:
-                                for start_idx in range(0, T_aligned, max_length):
-                                    self.samples.append((filename, start_idx))
-                except Exception as e:
-                    pass
-            
-            # 自动保存缓存，下次就不用等了
+                            length_map[filename] = int(T_aligned)
+                            temp_metadata.append({"name": filename, "len": int(T_aligned)})
+                except Exception:
+                    continue
+
+            build_samples_from_lengths(length_map)
+
             try:
                 with open(cache_path, 'w') as f:
-                    json.dump(temp_metadata, f)
+                    json.dump({"version": 2, "items": temp_metadata}, f)
                 print(f"✅ Created metadata cache at {cache_path}")
-            except:
+            except Exception:
                 pass
+        
+        if os.path.exists(cache_path):
+            print(f"Loading cached metadata from {cache_path}...")
+            try:
+                with open(cache_path, 'r') as f:
+                    metadata = json.load(f)
+
+                # 支持多种历史缓存格式：
+                # 1) {"version":2, "items":[{"name","len"}, ...]}
+                # 2) [{"name","len"}, ...]
+                # 3) ["file1.npz", ...] (无长度时回读文件头)
+                # 4) {"file1.npz": 120, ...}
+                if isinstance(metadata, dict):
+                    if isinstance(metadata.get("items"), list):
+                        entries = metadata["items"]
+                    elif isinstance(metadata.get("data"), list):
+                        entries = metadata["data"]
+                    else:
+                        entries = [{"name": k, "len": v} for k, v in metadata.items() if isinstance(v, (int, float))]
+                elif isinstance(metadata, list):
+                    entries = metadata
+                else:
+                    entries = []
+
+                length_map = {}
+                for item in entries:
+                    name = None
+                    t_aligned = None
+
+                    if isinstance(item, dict):
+                        name = item.get("name") or item.get("filename") or item.get("file")
+                        t_aligned = item.get("len")
+                        if t_aligned is None:
+                            t_aligned = item.get("length")
+                        if t_aligned is None:
+                            t_aligned = item.get("frames")
+                    elif isinstance(item, str):
+                        name = item
+
+                    if not name:
+                        continue
+
+                    if not isinstance(t_aligned, (int, float)):
+                        path = os.path.join(data_dir, name)
+                        try:
+                            with np.load(path, mmap_mode='r') as data:
+                                if self.config.xyz==True:
+                                    T = data['joints_xyz'].shape[0]
+                                else:
+                                    T = data['poses'].shape[0]
+                            t_aligned = (T // 4) * 4
+                        except Exception:
+                            continue
+
+                    t_aligned = int(t_aligned)
+                    t_aligned = (t_aligned // 4) * 4
+                    if t_aligned < 8:
+                        continue
+                    length_map[name] = t_aligned
+
+                if len(length_map) == 0:
+                    scan_directory_and_cache()
+                else:
+                    build_samples_from_lengths(length_map)
+            except Exception as e:
+                print(f"⚠️ Metadata parse failed ({e}); fallback to scanning.")
+                scan_directory_and_cache()
+        else:
+            scan_directory_and_cache()
 
         print(f"Loaded {len(self.samples)} samples.")
     def calculate_stats(self):
