@@ -141,6 +141,7 @@ class Denoiser(nn.Module):
         self.rag_layers = int(getattr(opt, "rag_layers", 2))
         self.rag_heads = int(getattr(opt, "rag_heads", 8))
         self.rag_max_T = int(getattr(opt, "rag_max_T", 384))
+        self.rag_weight_gate_scale = float(getattr(opt, "rag_weight_gate_scale", 1.0))
 
         self._rag_inited = False
         self._rag_codebook_sizes = getattr(opt, "rag_codebook_sizes", None)
@@ -317,6 +318,7 @@ class Denoiser(nn.Module):
         fixed_ca=None,
         use_cached_clip=False,
         blueprint_tokens=None,
+        blueprint_weights=None,
         blueprint_pad_mask=None,
     ):
         del use_cached_clip  # V3: no CLIP cache path
@@ -376,6 +378,24 @@ class Denoiser(nn.Module):
             for k in range(self.rag_K):
                 bp_slots.append(self.rag_token_embs[k](bp[:, :, k]))
             bp_slots = torch.stack(bp_slots, dim=2) + slot_add
+
+            if blueprint_weights is not None:
+                bw = blueprint_weights.to(device=x.device, dtype=bp_slots.dtype)
+                if bw.ndim == 2:
+                    bw = bw.unsqueeze(-1)
+                if bw.ndim != 3 or bw.shape[0] != Bb or bw.shape[1] != Tb:
+                    raise ValueError(
+                        f"blueprint_weights must be [B,Tb] or [B,Tb,K], got {tuple(bw.shape)} for batch={(Bb, Tb, self.rag_K)}"
+                    )
+                if bw.shape[2] == 1:
+                    bw = bw.expand(Bb, Tb, self.rag_K)
+                elif bw.shape[2] != self.rag_K:
+                    raise ValueError(
+                        f"blueprint_weights K={bw.shape[2]} != rag_K={self.rag_K}"
+                    )
+                gate = 1.0 + self.rag_weight_gate_scale * (2.0 * bw - 1.0)
+                gate = gate.clamp(min=0.25, max=2.0)
+                bp_slots = bp_slots * gate.unsqueeze(-1)
 
             bp_h = self.rag_fuse(bp_slots.reshape(Bb, Tb, self.rag_K * D))
 

@@ -305,6 +305,14 @@ def validate_dataset_pair_mode(dataset, split_name: str):
 
 if __name__ == '__main__':
     opt = arg_parse(True)
+    if bool(getattr(opt, "use_rag", False)):
+        from models.denoiser.rag import preconfigure_rag_opt
+        rag_info = preconfigure_rag_opt(opt)
+        if rag_info is not None:
+            print(
+                f"[RAG] preconfigured: K={rag_info['rag_k']} slots={rag_info['slot_names']} "
+                f"meta={rag_info['meta_path']} source={rag_info['wmap_source']}"
+            )
     fixseed(opt.seed)
     if bool(getattr(opt, "tiny_debug", False)) and int(getattr(opt, "max_epoch", 1)) > 1:
         print(f"[TINY] overriding max_epoch {opt.max_epoch} -> 1")

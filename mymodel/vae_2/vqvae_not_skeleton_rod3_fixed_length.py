@@ -20,6 +20,37 @@ class STPoolToggle(STPool):
         super().__init__(joint_selection=joint_selection, depth=depth)
         self.temporal_downsample = temporal_downsample
 
+    def _build_pooling(self, input_joints, output_joints, mapping, adj_list):
+        weight = torch.zeros(output_joints, input_joints)
+        for joints, idx in mapping:
+            weight[idx, list(joints)] = 1 / len(joints)
+        return weight, mapping, adj_list_to_edges(adj_list)
+
+    def _get_skeleton_pooling(self, joint_selection, depth):
+        if joint_selection == "HIERARCHICAL":
+            if depth == 2:
+                # 13 -> 3: body, left hand, right hand
+                mapping = [
+                    ((0, 1, 2), 0),
+                    ((3, 4, 5, 6, 7), 1),
+                    ((8, 9, 10, 11, 12), 2),
+                ]
+                return self._build_pooling(
+                    input_joints=13,
+                    output_joints=3,
+                    mapping=mapping,
+                    adj_list=[[1, 2], [0], [0]],
+                )
+            if depth > 2:
+                mapping = [((i,), i) for i in range(3)]
+                return self._build_pooling(
+                    input_joints=3,
+                    output_joints=3,
+                    mapping=mapping,
+                    adj_list=[[1, 2], [0], [0]],
+                )
+        return super()._get_skeleton_pooling(joint_selection, depth)
+
     def forward(self, x):
         # x: [B, T, J, D]
         b, t, _, d = x.size()

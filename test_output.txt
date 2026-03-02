@@ -1,4 +1,4 @@
-Fri Jan 23 03:35:18 2026       
+Sun Feb 22 12:58:52 2026       
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 570.195.03             Driver Version: 570.195.03     CUDA Version: 12.8     |
 |-----------------------------------------+------------------------+----------------------+
@@ -6,8 +6,8 @@ Fri Jan 23 03:35:18 2026
 | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
-|   0  NVIDIA L40S                    On  |   00000000:82:00.0 Off |                    0 |
-| N/A   27C    P8             32W /  350W |       0MiB /  46068MiB |      0%      Default |
+|   0  NVIDIA L40S                    On  |   00000000:02:00.0 Off |                    0 |
+| N/A   31C    P8             32W /  350W |       0MiB /  46068MiB |      0%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
                                                                                          
@@ -18,10 +18,93 @@ Fri Jan 23 03:35:18 2026
 |=========================================================================================|
 |  No running processes found                                                             |
 +-----------------------------------------------------------------------------------------+
+正在从 TXT 文件 'checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/opt.txt' 加载配置...
+计算设备: cuda
+正在从 'checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/model/latest.tar' 加载模型权重...
 MotionEncoder: Initializing in UNIFORM mode.
 MotionDecoder: Initializing in UNIFORM mode.
 Codebook Strategy [finger_distinct]: Created 7 quantizers.
-Loaded model from /home/smuk0019/ar85_scratch2/singyu/SOKE/checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/model/latest.tar
-🚀 Extracting tokens using 'finger_distinct' strategy...
-✅ Saved to /home/smuk0019/ar85_scratch2/singyu/SOKE/checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/aslcitizen_qvae_tokens.json
+模型加载成功。
+Loading cached metadata from ../how2sign/align_denoised_front/dataset_metadata.json...
+Loaded 30898 samples.
+Loading cached metadata from ../how2sign/align_denoised_front_val/dataset_metadata.json...
+Loaded 1973 samples.
+Loading cached metadata from ../how2sign/align_denoised_front_test/dataset_metadata.json...
+Loaded 2704 samples.
+Data loaders created.
+how2sign_MPVPE_PA_all :  tensor([7.7787])
+how2sign_MPVPE_PA_hand :  tensor([5.3166])
+how2sign_MPVPE_PA_face :  tensor([1.2368])
+how2sign_MPJPE_PA_body :  tensor([6.3366])
+how2sign_MPJPE_PA_hand :  tensor([5.3774])
+how2sign_MPJPE_body :  tensor([6.1315])
+how2sign_MPJPE_hand :  tensor([12.4501])
+how2sign_MPVPE_all :  tensor([9.0637])
+how2sign_MPVPE_hand :  tensor([12.0230])
+how2sign_MPVPE_face :  tensor([10.4863])
+csl_MPVPE_PA_all :  tensor([0.])
+csl_MPVPE_PA_hand :  tensor([0.])
+csl_MPVPE_PA_face :  tensor([0.])
+csl_MPJPE_PA_body :  tensor([0.])
+csl_MPJPE_PA_hand :  tensor([0.])
+csl_MPJPE_body :  tensor([0.])
+csl_MPJPE_hand :  tensor([0.])
+csl_MPVPE_all :  tensor([0.])
+csl_MPVPE_hand :  tensor([0.])
+csl_MPVPE_face :  tensor([0.])
+phoenix_MPVPE_PA_all :  tensor([0.])
+phoenix_MPVPE_PA_hand :  tensor([0.])
+phoenix_MPVPE_PA_face :  tensor([0.])
+phoenix_MPJPE_PA_body :  tensor([0.])
+phoenix_MPJPE_PA_hand :  tensor([0.])
+phoenix_MPJPE_body :  tensor([0.])
+phoenix_MPJPE_hand :  tensor([0.])
+phoenix_MPVPE_all :  tensor([0.])
+phoenix_MPVPE_hand :  tensor([0.])
+phoenix_MPVPE_face :  tensor([0.])
+how2sign_DTW_MPJPE_lhand :  tensor([1.4436])
+how2sign_DTW_MPJPE_rhand :  tensor([1.6189])
+how2sign_DTW_MPJPE_body :  tensor([1.3826])
+how2sign_DTW_MPJPE_PA_lhand :  tensor([0.6307])
+how2sign_DTW_MPJPE_PA_rhand :  tensor([0.7503])
+how2sign_DTW_MPJPE_PA_body :  tensor([1.3022])
+==== VAE Evaluation Metrics ====
+MRMetrics:
+  how2sign_MPVPE_PA_all: 7.77873420715332
+  how2sign_MPVPE_PA_hand: 5.316598892211914
+  how2sign_MPVPE_PA_face: 1.2368454933166504
+  how2sign_MPJPE_PA_body: 6.336622714996338
+  how2sign_MPJPE_PA_hand: 5.37735652923584
+  how2sign_MPJPE_body: 6.131502151489258
+  how2sign_MPJPE_hand: 12.450056076049805
+  how2sign_MPVPE_all: 9.063657760620117
+  how2sign_MPVPE_hand: 12.023000717163086
+  how2sign_MPVPE_face: 10.486307144165039
+  csl_MPVPE_PA_all: 0.0
+  csl_MPVPE_PA_hand: 0.0
+  csl_MPVPE_PA_face: 0.0
+  csl_MPJPE_PA_body: 0.0
+  csl_MPJPE_PA_hand: 0.0
+  csl_MPJPE_body: 0.0
+  csl_MPJPE_hand: 0.0
+  csl_MPVPE_all: 0.0
+  csl_MPVPE_hand: 0.0
+  csl_MPVPE_face: 0.0
+  phoenix_MPVPE_PA_all: 0.0
+  phoenix_MPVPE_PA_hand: 0.0
+  phoenix_MPVPE_PA_face: 0.0
+  phoenix_MPJPE_PA_body: 0.0
+  phoenix_MPJPE_PA_hand: 0.0
+  phoenix_MPJPE_body: 0.0
+  phoenix_MPJPE_hand: 0.0
+  phoenix_MPVPE_all: 0.0
+  phoenix_MPVPE_hand: 0.0
+  phoenix_MPVPE_face: 0.0
+TM2TMetrics:
+  how2sign_DTW_MPJPE_lhand: 1.443620204925537
+  how2sign_DTW_MPJPE_rhand: 1.6188684701919556
+  how2sign_DTW_MPJPE_body: 1.3826024532318115
+  how2sign_DTW_MPJPE_PA_lhand: 0.6307413578033447
+  how2sign_DTW_MPJPE_PA_rhand: 0.7502602934837341
+  how2sign_DTW_MPJPE_PA_body: 1.3021819591522217
 Task  finished.

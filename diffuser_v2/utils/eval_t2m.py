@@ -6,6 +6,7 @@ from tqdm import tqdm
 
 from utils.metrics import *
 from utils.motion_process import recover_from_ric
+from vae_adapter import extract_pose_from_motion_tensor
 
 #
 #
@@ -386,17 +387,18 @@ def evaluation_denoiser(out_dir, val_loader, denoiser, gen_func, writer, ep,
             captions, gt_motion, masks, m_lens, names = batch
         gt_motion = gt_motion.to(opt.device)
         m_lens = m_lens.to(opt.device)
+        gt_pose = extract_pose_from_motion_tensor(gt_motion, opt)
 
         # 1. 生成动作 [B, T, 43, 3]
         pred_motion, _ = gen_func((captions, gt_motion, masks, m_lens, names))
         
         # 2. 检查长度对齐 (针对 VAE 下采样)
         # 如果生成的 T 与 GT 的 T 不一致，必须插值，否则无法计算物理指标
-        if pred_motion.shape[1] != gt_motion.shape[1]:
+        if pred_motion.shape[1] != gt_pose.shape[1]:
             B, T_gen, J, C = pred_motion.shape
             # [B, T_gen, 129] -> [B, 129, T_gen]
             tmp = pred_motion.reshape(B, T_gen, -1).permute(0, 2, 1)
-            tmp = F.interpolate(tmp, size=gt_motion.shape[1], mode='linear', align_corners=False)
+            tmp = F.interpolate(tmp, size=gt_pose.shape[1], mode='linear', align_corners=False)
             # -> [B, T_gt, 43, 3]
             pred_motion = tmp.permute(0, 2, 1).reshape(B, -1, J, C)
 
@@ -404,7 +406,7 @@ def evaluation_denoiser(out_dir, val_loader, denoiser, gen_func, writer, ep,
         # 让评估器内部去处理 Mask 和动态 SMPL-X
         physical_evaluator.update(
             pred_rot=pred_motion, 
-            gt_rot=gt_motion, 
+            gt_rot=gt_pose, 
             lengths=m_lens.tolist(), 
             smplx_model=smplx_model,
             compute_dtw=False,
@@ -539,18 +541,19 @@ def test_denoiser(val_loader, gen_func, physical_evaluator, smplx_model, opt):
             captions, gt_motion, masks, m_lens, names = batch
         gt_motion = gt_motion.to(opt.device)
         m_lens = m_lens.to(opt.device)
+        gt_pose = extract_pose_from_motion_tensor(gt_motion, opt)
 
         # 1. 生成动作 [B, T, 43, 3]
         pred_motion, _ = gen_func((captions, gt_motion, masks, m_lens, names))
         
         # 2. 检查长度对齐 (针对 VAE 下采样)
         # 如果生成的 T 与 GT 的 T 不一致，必须插值，否则无法计算物理指标
-        if pred_motion.shape[1] != gt_motion.shape[1]:
+        if pred_motion.shape[1] != gt_pose.shape[1]:
             B, T_gen, J, C = pred_motion.shape
             # 转换为 [B, 129, T_gen]
             tmp = pred_motion.reshape(B, T_gen, -1).permute(0, 2, 1)
             # 插值到 GT 的固定长度（例如 2048）
-            tmp = F.interpolate(tmp, size=gt_motion.shape[1], mode='linear', align_corners=False)
+            tmp = F.interpolate(tmp, size=gt_pose.shape[1], mode='linear', align_corners=False)
             # 转回 [B, T_gt, 43, 3]
             pred_motion = tmp.permute(0, 2, 1).reshape(B, -1, J, C)
 
@@ -558,7 +561,7 @@ def test_denoiser(val_loader, gen_func, physical_evaluator, smplx_model, opt):
         # 让评估器内部去处理 Mask 和动态 SMPL-X
         physical_evaluator.update(
             pred_rot=pred_motion, 
-            gt_rot=gt_motion, 
+            gt_rot=gt_pose, 
             lengths=m_lens.tolist(), 
             smplx_model=smplx_model,
             compute_dtw=True,

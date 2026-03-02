@@ -5,8 +5,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
-#SBATCH --partition=fit
-#SBATCH --gres=gpu:A100:1
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:L40S:1
 #SBATCH --mem=128G
 #SBATCH --time=24:00:00
 #SBATCH --output=eval_h2s_both_output.txt
@@ -15,6 +15,7 @@
 set -euo pipefail
 
 export HF_HOME="/fs04/scratch2/ar85/singyu/cache/huggingface"
+export PYTORCH_NVML_BASED_CUDA_CHECK=1
 module unload cuda || true
 module load cuda/12.2.0
 
@@ -22,6 +23,17 @@ source /home/smuk0019/ar85_scratch2/singyu/miniconda3/etc/profile.d/conda.sh
 conda activate sign_motion
 
 cd /fs04/scratch2/ar85/singyu/SOKE
+
+python - <<'PY'
+import os
+import torch
+print("[CUDA-CHECK] torch =", torch.__version__)
+print("[CUDA-CHECK] built CUDA =", torch.version.cuda)
+print("[CUDA-CHECK] CUDA_VISIBLE_DEVICES =", os.environ.get("CUDA_VISIBLE_DEVICES", "<unset>"))
+print("[CUDA-CHECK] cuda_available =", torch.cuda.is_available())
+if not torch.cuda.is_available():
+    raise SystemExit("CUDA precheck failed. Abort evaluation instead of silently running on CPU.")
+PY
 
 REPORT_DIR="/fs04/scratch2/ar85/singyu/SOKE/diffuser_v2/eval_reports"
 mkdir -p "${REPORT_DIR}"
@@ -44,6 +56,7 @@ run_eval () {
     --checkpoint_dir "${CKPT_DIR}" \
     --ckpt_name "${CKPT_NAME}" \
     --split test \
+    --device cuda \
     --batch_size "${BATCH_SIZE}" \
     --num_workers "${NUM_WORKERS}" \
     --num_infer_steps "${NUM_INFER_STEPS}" \

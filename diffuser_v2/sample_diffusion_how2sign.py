@@ -34,6 +34,18 @@ _SPLIT_DEFAULTS = {
 }
 
 
+def _require_cuda_device() -> torch.device:
+    os.environ.setdefault("PYTORCH_NVML_BASED_CUDA_CHECK", "1")
+    cuda_ok = torch.cuda.is_available()
+    if not cuda_ok:
+        raise RuntimeError(
+            "Diffusion sampling requires CUDA, but torch.cuda.is_available() is False. "
+            f"torch={torch.__version__} built_cuda={torch.version.cuda} "
+            f"CUDA_VISIBLE_DEVICES={os.environ.get('CUDA_VISIBLE_DEVICES', '<unset>')}"
+        )
+    return torch.device("cuda")
+
+
 def main():
     parser = argparse.ArgumentParser("Random how2sign sampling to npz using diffusion v2")
     parser.add_argument("--checkpoint_dir", type=str, default=None)
@@ -97,7 +109,8 @@ def main():
             }
         )
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = _require_cuda_device()
+    print("Device:", device)
     os.makedirs(args.output_dir, exist_ok=True)
 
     all_outputs = {}

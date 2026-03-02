@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=vqvae_not_3p
+#SBATCH --job-name=eval_vq3p
 #SBATCH --account=ar85
 #SBATCH --qos=fitq
 #SBATCH --nodes=1
@@ -9,8 +9,8 @@
 #SBATCH --gres=gpu:L40S:1
 #SBATCH --mem=128G
 #SBATCH --time=24:00:00
-#SBATCH --output=vqvae_not_train_3p_output.txt
-#SBATCH --error=vqvae_not_train_3p_error.txt
+#SBATCH --output=test_vqvae_not_hier_3p_b96h192_output.txt
+#SBATCH --error=test_vqvae_not_hier_3p_b96h192_error.txt
 
 export HF_HOME="/fs04/scratch2/ar85/singyu/cache/huggingface"
 module unload cuda
@@ -23,11 +23,6 @@ cd /home/smuk0019/ar85_scratch2/singyu/SOKE || exit 1
 export PYTHONPATH=/home/smuk0019/ar85_scratch2/singyu/SOKE
 
 nvidia-smi
-python mymodel/vae_2/run_vqvae_not_training2_fixed_length.py \
-  --name vqvae_not_hier_3p_b96h192 \
-  --amp_dtype bf16 \
-  --n_layers 3 \
-  --n_extra_layers 0 \
-  --codebook_grouping default
+python -u test_my_vae.py --experiment vqvae_not_hier_3p_b96h192 --checkpoint_name best --split test --progress_every 1
 
 echo "Task finished."

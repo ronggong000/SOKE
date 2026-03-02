@@ -19,6 +19,28 @@ if _SOKE_ROOT not in sys.path:
 
 from mGPT.utils.joints_list import SMPLX_JOINT_LANDMARK_NAMES, SELECTED_JOINT_INDICES,SELECTED_JOINT_LANDMARK_INDICES,SELECTED_JOINT_LANDMARK_BODY_EVAL,SELECTED_JOINT_LANDMARK_LHAND_EVAL,SELECTED_JOINT_LANDMARK_RHAND_EVAL, SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST,SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX,SELECTED_JOINT_INDICES_BODY_ONLY,SELECTED_JOINT_INDICES_NEIGHBOR_LIST,SELECTED_JOINT_INDICES_HAND_ONLY
 from mGPT.utils.smplx_vertex_group import LEFT_HAND_VERTEX,RIGHT_HAND_VERTEX,UPPER_BODY_VERTEX
+
+
+def _require_cuda_device(gpu_id: int) -> torch.device:
+    os.environ.setdefault("PYTORCH_NVML_BASED_CUDA_CHECK", "1")
+    cuda_ok = torch.cuda.is_available()
+    if not cuda_ok:
+        raise RuntimeError(
+            "Diffusion training requires CUDA, but torch.cuda.is_available() is False. "
+            f"torch={torch.__version__} built_cuda={torch.version.cuda} "
+            f"CUDA_VISIBLE_DEVICES={os.environ.get('CUDA_VISIBLE_DEVICES', '<unset>')}"
+        )
+    torch.cuda.set_device(int(gpu_id))
+    return torch.device("cuda:" + str(int(gpu_id)))
+
+
+def _resolve_dist_env():
+    local_rank = int(os.environ.get("LOCAL_RANK", os.environ.get("SLURM_LOCALID", "0")))
+    rank = int(os.environ.get("RANK", os.environ.get("SLURM_PROCID", "0")))
+    world_size = int(os.environ.get("WORLD_SIZE", os.environ.get("SLURM_NTASKS", "1")))
+    return local_rank, rank, world_size
+
+
 def arg_parse(is_train=False):
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--vae_path", type=str, default="", help="Absolute path to the pre-trained VAE folder")
@@ -77,12 +99,21 @@ def arg_parse(is_train=False):
     parser.set_defaults(use_rag=True)
     parser.add_argument("--rag_metadata_path", type=str, default=os.path.join(_DEFAULT_VAE_DIR, "dataset_metadata.json"))
     parser.add_argument("--rag_wmap_path", type=str, default=os.path.join(_DEFAULT_VAE_DIR, "aslcitizen_qvae_tokens.json"))
+    parser.add_argument("--rag_slot_names", type=str, default="", help="Comma-separated slot names from rag metadata, e.g. left_hand,right_hand")
+    parser.add_argument("--rag_frame_subsample", type=int, default=0, help="<=0 keeps old midpoint-only RAG; >0 keeps every N-th token frame per gloss word")
+    parser.add_argument("--rag_gloss_csv_dir", type=str, default="", help="Optional csv dir/file for remapping Video file -> my_gloss when loading RAG tokens")
+    parser.add_argument("--rag_gloss_source_col", type=str, default="Video file")
+    parser.add_argument("--rag_gloss_target_col", type=str, default="my_gloss")
+    parser.add_argument("--rag_weight_dir", type=str, default="", help="Optional sidecar npz root for RAG token-frame weights")
+    parser.add_argument("--rag_weight_key", type=str, default="soft_w", help="Key inside RAG sidecar npz, e.g. soft_w")
+    parser.add_argument("--rag_weight_max_mix", type=float, default=0.5, help="Blend ratio for slot weight aggregation: (1-mix)*mean + mix*max")
+    parser.add_argument("--rag_weight_gate_scale", type=float, default=1.0, help="Gate scale on RAG slot embeddings. 1.0 means gate ~= 2*w")
     parser.add_argument("--rag_layers", type=int, default=0)
     parser.add_argument("--rag_heads", type=int, default=8)
     parser.add_argument("--rag_K", type=int, default=13)
     parser.add_argument("--rag_max_T", type=int, default=384)
     parser.add_argument("--rag_max_words", type=int, default=64)
-    parser.add_argument("--rag_per_word_max_T", type=int, default=1, help="V3 keeps one frame per gloss word")
+    parser.add_argument("--rag_per_word_max_T", type=int, default=1, help="When rag_frame_subsample>0, values >1 cap sampled token rows per gloss word; 1 means keep the full sampled sequence")
     parser.add_argument("--rag_total_max_T", type=int, default=384)
 
     parser.add_argument("--gloss_layers", type=int, default=0)
@@ -122,7 +153,7 @@ def arg_parse(is_train=False):
     parser.add_argument("--checkpoints_dir", type=str, default=_DEFAULT_CHECKPOINTS_DIR, help="models are saved here")
     parser.add_argument("--log_every", default=5, type=int, help="iter log frequency")
     parser.add_argument("--save_latest", default=500, type=int, help="iter save latest model frequency")
-    parser.add_argument("--eval_every_e", default=5, type=int, help="save eval results every n epoch")
+    parser.add_argument("--eval_every_e", default=25, type=int, help="save eval results every n epoch")
     parser.add_argument("--smplx_model_path", type=str, default=_DEFAULT_SMPLX_MODEL_PATH, help="SMPL/SMPLH/SMPLX model directory")
 
     # custom per-frame sidecar weights (e.g. gradcam soft_w)
@@ -155,11 +186,15 @@ def arg_parse(is_train=False):
 
     opt = parser.parse_args()
     opt.classifier_free_guidance = opt.cond_scale > 1.0
-    if opt.gpu_id >= 0 and torch.cuda.is_available():
-        torch.cuda.set_device(opt.gpu_id)
-        opt.device = torch.device("cuda:" + str(opt.gpu_id))
-    else:
-        opt.device = torch.device("cpu")
+    opt.local_rank, opt.rank, opt.world_size = _resolve_dist_env()
+    opt.distributed = int(opt.world_size) > 1
+    opt.is_master = int(opt.rank) == 0
+
+    target_gpu = int(opt.local_rank) if opt.distributed else int(opt.gpu_id)
+    if target_gpu < 0:
+        raise RuntimeError("Diffusion training requires a CUDA GPU. --gpu_id must be >= 0.")
+    opt.device = _require_cuda_device(target_gpu)
+    opt.device_index = target_gpu
 
     opt.save_root = pjoin(opt.checkpoints_dir, opt.dataset_name, opt.name)
     opt.model_dir = pjoin(opt.save_root, 'model')
@@ -245,7 +280,7 @@ def arg_parse(is_train=False):
     args = vars(opt)
 
     opt.is_train = is_train
-    if is_train:
+    if is_train and opt.is_master:
         print('------------ Options -------------')
         for k, v in sorted(args.items()):
             print('%s: %s' % (str(k), str(v)))

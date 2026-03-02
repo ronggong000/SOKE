@@ -10,6 +10,8 @@ import torch
 import torch.nn.functional as F
 from torch.utils.data import Dataset
 
+from vae_adapter import build_motion_feature_from_npz, resolve_motion_repr
+
 # ----------------------
 # Gloss token normalization (keep fingerspelling spans)
 # ----------------------
@@ -221,6 +223,8 @@ class SignDiffusionDataset(Dataset):
         self.samples: List[Tuple[str, str]] = []
         self.lengths: List[int] = []
 
+        motion_repr = resolve_motion_repr(self.config)
+
         def _name_to_sample_id(filename: str):
             return _normalize_sample_id(filename)
 
@@ -247,7 +251,11 @@ class SignDiffusionDataset(Dataset):
                 path = os.path.join(self.data_dir, f)
                 try:
                     with np.load(path, mmap_mode="r") as data:
-                        arr = data["joints_xyz"] if bool(getattr(self.config, "xyz", False)) else data["poses"]
+                        if motion_repr == "dk12":
+                            key = str(getattr(self.config, "pose_key", "poses"))
+                        else:
+                            key = "joints_xyz" if bool(getattr(self.config, "xyz", False)) else str(getattr(self.config, "pose_key", "poses"))
+                        arr = data[key]
                         meta_map[f] = int(arr.shape[0])
                 except Exception:
                     continue
@@ -299,7 +307,9 @@ class SignDiffusionDataset(Dataset):
         """
         Compute mean/std for the training set (same as your original logic).
         """
-        cache_path = os.path.join(self.data_dir, f"mean_std_cache_{'xyz' if self.config.xyz else 'rot'}.pt")
+        repr_tag = resolve_motion_repr(self.config)
+        cache_tag = "xyz" if bool(getattr(self.config, "xyz", False)) else "rot"
+        cache_path = os.path.join(self.data_dir, f"mean_std_cache_{repr_tag}_{cache_tag}.pt")
 
         if os.path.exists(cache_path):
             print(f"Loading stats from cache: {cache_path}")
@@ -314,28 +324,40 @@ class SignDiffusionDataset(Dataset):
         for file_name, _ in samples_to_scan:
             filepath = os.path.join(self.data_dir, file_name)
             with np.load(filepath) as data:
-                raw = data["joints_xyz"] if self.config.xyz else data["poses"]
-                feat = raw[:, self.config.SELECTED_JOINT_INDICES, :]
-                all_data.append(feat.reshape(-1, feat.shape[1] * 3))
+                feat = build_motion_feature_from_npz(data, self.config)
+                all_data.append(feat.reshape(-1, feat.shape[1] * feat.shape[2]))
 
         if not all_data:
             raise ValueError("No data loaded for stats calculation!")
 
         all_data = np.concatenate(all_data, axis=0)
 
-        if self.config.xyz:
+        if resolve_motion_repr(self.config) == "dk12":
+            stacked = all_data.reshape(-1, len(self.config.SELECTED_JOINT_INDICES), 12)
+            mean = np.zeros((stacked.shape[1], stacked.shape[2]), dtype=np.float64)
+            std = np.ones((stacked.shape[1], stacked.shape[2]), dtype=np.float64)
+
+            sub = stacked[..., 3:12]
+            mean[..., 3:12] = np.mean(sub, axis=0)
+            std[..., 3:12] = np.std(sub, axis=0)
+            std[std < 1e-5] = 1.0
+
+            mean_tensor = torch.from_numpy(mean.reshape(-1).astype(np.float32))
+            std_tensor = torch.from_numpy(std.reshape(-1).astype(np.float32))
+        elif self.config.xyz:
             mean = np.mean(all_data, axis=0)
             std = np.std(all_data, axis=0)
             std[std < 1e-5] = 1.0
+            mean_tensor = torch.from_numpy(mean).float()
+            std_tensor = torch.from_numpy(std).float()
         else:
             mean = np.zeros(all_data.shape[1])
             std = np.ones(all_data.shape[1])
             for j in range(0, all_data.shape[1], 3):
                 joint_std = np.sqrt(np.mean(all_data[:, j:j + 3] ** 2))
                 std[j:j + 3] = joint_std if joint_std > 1e-5 else 1.0
-
-        mean_tensor = torch.from_numpy(mean).float()
-        std_tensor = torch.from_numpy(std).float()
+            mean_tensor = torch.from_numpy(mean).float()
+            std_tensor = torch.from_numpy(std).float()
 
         torch.save({"mean": mean_tensor, "std": std_tensor}, cache_path)
         print(f"✅ Stats calculated and saved to {cache_path}")
@@ -387,8 +409,7 @@ class SignDiffusionDataset(Dataset):
 
         path = os.path.join(self.data_dir, file_name)
         with np.load(path, mmap_mode="r") as data:
-            raw_motion = data["joints_xyz"] if self.config.xyz else data["poses"]
-            motion = raw_motion[:, self.config.SELECTED_JOINT_INDICES, :]  # [T, J, 3]
+            motion = build_motion_feature_from_npz(data, self.config)
             T = int(motion.shape[0])
 
             # cap (NOT random crop)

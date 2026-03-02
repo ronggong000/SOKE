@@ -17,8 +17,11 @@ from utils.utils import print_current_loss, attn2img
 from utils.motion_process import recover_from_ric
 from utils.plot_script import plot_3d_motion
 from physical_evaluator import SignPhysicalEvaluator
+from vae_adapter import extract_pose_from_motion_tensor
 import smplx
 from torch.amp import autocast # 仅保留引用防止报错，实际不使用
+import torch.distributed as dist
+from torch.nn.parallel import DistributedDataParallel as DDP
 
 try:
     import wandb
@@ -43,40 +46,42 @@ def lengths_to_mask(lengths: torch.Tensor, max_len: int = None) -> torch.Tensor:
 class DenoiserTrainer:
     def __init__(self, opt, denoiser, vae, scheduler):
         self.opt = opt
+        self.is_master = bool(getattr(opt, "is_master", True))
+        self.is_distributed = bool(getattr(opt, "distributed", False))
         self.denoiser = denoiser.to(opt.device)
         self.vae = vae.to(opt.device)
         self.noise_scheduler = scheduler
         
-        # 1. 挂载物理评估器
-        self.physical_evaluator = SignPhysicalEvaluator(opt, opt.device)
-        
-        # 2. 初始化 SMPL-X (仅在旋转模式下需要，但保留逻辑以防万一)
-        # === mesh loss 滑窗最大长度（固定 SMPL-X capacity）===
-        self.mesh_loss_window = int(getattr(opt, "mesh_loss_window", 256))  # 128/256/...
+        self.mesh_loss_window = int(getattr(opt, "mesh_loss_window", 256))
         self._smplx_Bcap = int(getattr(opt, "batch_size", 1))
-        max_smplx_batch = self._smplx_Bcap * self.mesh_loss_window
         self.smplx_model_path = str(getattr(opt, "smplx_model_path", "") or "")
         if not self.smplx_model_path:
             self.smplx_model_path = os.path.abspath(
                 os.path.join(os.path.dirname(__file__), "..", "..", "..", "deps", "smpl_models")
             )
 
-        self.smplx_model = smplx.create(
-            model_path=self.smplx_model_path,
-            model_type='smplx',
-            gender='neutral',
-            use_pca=False,
-            flat_hand_mean=True,
-            batch_size=max_smplx_batch
-        ).to(opt.device).eval()
-        print(
-            f"✅ SMPL-X Model initialized with static capacity: Bcap={self._smplx_Bcap} "
-            f"W={self.mesh_loss_window} => {max_smplx_batch}, path={self.smplx_model_path}"
-        )
+        if self.is_master:
+            self.physical_evaluator = SignPhysicalEvaluator(opt, opt.device)
+            max_smplx_batch = self._smplx_Bcap * self.mesh_loss_window
+            self.smplx_model = smplx.create(
+                model_path=self.smplx_model_path,
+                model_type='smplx',
+                gender='neutral',
+                use_pca=False,
+                flat_hand_mean=True,
+                batch_size=max_smplx_batch
+            ).to(opt.device).eval()
+            print(
+                f"✅ SMPL-X Model initialized with static capacity: Bcap={self._smplx_Bcap} "
+                f"W={self.mesh_loss_window} => {max_smplx_batch}, path={self.smplx_model_path}"
+            )
+        else:
+            self.physical_evaluator = None
+            self.smplx_model = None
 
             
         if opt.is_train:
-            self.logger = SummaryWriter(opt.log_dir)
+            self.logger = SummaryWriter(opt.log_dir) if self.is_master else None
             if opt.recon_loss == "l1":
                 self.recon_criterion = torch.nn.L1Loss()
             elif opt.recon_loss == "l1_smooth":
@@ -86,7 +91,7 @@ class DenoiserTrainer:
             else:
                 raise NotImplementedError(f"Reconstruction loss {opt.recon_loss} not implemented")
             
-        if opt.is_train:
+        if opt.is_train and self.is_master:
             log_path = pjoin(opt.model_dir, "train_log.txt")
             self.log_file = open(log_path, "a", encoding="utf-8")
             self.log_to_file(f"=== Training session started at {time.ctime()} ===")
@@ -117,7 +122,15 @@ class DenoiserTrainer:
             self._amp_dtype = torch.float32
             self._grad_scaler = None
         self._amp_use = bool(self._amp_enabled and (opt.device.type == "cuda"))
-        print(f"[AMP] mode={amp_dtype} enabled={self._amp_use}")
+        if self.is_master:
+            print(f"[AMP] mode={amp_dtype} enabled={self._amp_use}")
+
+    def _dist_barrier(self):
+        if self.is_distributed and dist.is_available() and dist.is_initialized():
+            dist.barrier()
+
+    def _denoiser_module(self):
+        return self.denoiser.module if isinstance(self.denoiser, DDP) else self.denoiser
 
     def _autocast_ctx(self):
         if self._amp_use:
@@ -139,12 +152,19 @@ class DenoiserTrainer:
             self._rag_ready = False
             return
 
-        import os, json
+        import json
+        import os
         import torch
 
         # 1) import build_blueprint_batch
         try:
-            from models.denoiser.rag import build_blueprint_batch
+            from models.denoiser.rag import (
+                _load_wlasl_map,
+                build_blueprint_batch,
+                infer_rag_layout,
+                resolve_rag_metadata_path,
+                resolve_rag_wmap_source,
+            )
         except Exception as e:
             raise ImportError(
                 "Failed to import build_blueprint_batch from models.denoiser.rag. "
@@ -153,62 +173,30 @@ class DenoiserTrainer:
         self._build_blueprint_batch = build_blueprint_batch
 
         # 2) 读 metadata
-        meta_path = getattr(self.opt, "rag_metadata_path", None)
-        if meta_path is None:
-            dataset_root = getattr(self.opt, "rag_dataset_root", None) or getattr(self.opt, "dataset_root", None)
-            if dataset_root is None:
-                raise ValueError("use_rag=True but rag_metadata_path/rag_dataset_root/dataset_root is not set")
-            meta_name = getattr(self.opt, "rag_metadata_filename", "dataset_metadata.json")
-            meta_path = os.path.join(dataset_root, meta_name)
+        meta_path = resolve_rag_metadata_path(
+            rag_metadata_path=getattr(self.opt, "rag_metadata_path", None),
+            rag_wmap_path=getattr(self.opt, "rag_wmap_path", None),
+            rag_dataset_root=getattr(self.opt, "rag_dataset_root", None),
+            dataset_root=getattr(self.opt, "dataset_root", None),
+            meta_name=getattr(self.opt, "rag_metadata_filename", "dataset_metadata.json"),
+        )
+        if not meta_path:
+            raise ValueError("use_rag=True but rag metadata cannot be resolved from rag_metadata_path/rag_wmap_path/dataset_root")
 
         with open(meta_path, "r", encoding="utf-8") as f:
             meta = json.load(f)
 
-        # 3) 推导 rag_K
-        # 优先用 opt.rag_K，其次用 meta["K"]，否则报错
-        if hasattr(self.opt, "rag_K"):
-            rag_K = int(getattr(self.opt, "rag_K"))
-        elif "K" in meta:
-            rag_K = int(meta["K"])
-        else:
-            raise ValueError(f"[RAG] Cannot determine K. Please set opt.rag_K or ensure metadata has key 'K'. meta_path={meta_path}")
+        # 3) 推导 rag_K / slot 子集 / codebook_sizes
+        rag_layout = infer_rag_layout(
+            meta,
+            rag_k=getattr(self.opt, "rag_K", None),
+            rag_slot_names=getattr(self.opt, "rag_slot_names", ""),
+        )
+        rag_K = int(rag_layout["rag_k"])
+        codebook_sizes = list(rag_layout["codebook_sizes"])
 
         self._rag_K = rag_K
-
-        # 4) 推导每个 slot 的 codebook_size
-
-        # 4.2 你现在的格式：groups + slot2q_idx
-
-        if "slot2q_idx" not in meta or "groups" not in meta:
-            raise ValueError(
-                f"[RAG] metadata must contain either 'codebook_sizes' OR ('slot2q_idx' and 'groups'). "
-                f"Got keys={list(meta.keys())} in {meta_path}"
-            )
-
-        slot2q_idx = meta["slot2q_idx"]
-        groups = meta["groups"]
-
-        if len(slot2q_idx) < rag_K:
-            raise ValueError(f"[RAG] slot2q_idx length={len(slot2q_idx)} < rag_K={rag_K} ({meta_path})")
-
-        # 建 q_idx -> codebook_size 映射
-        qidx2size = {}
-        for g in groups:
-            if not isinstance(g, dict):
-                continue
-            if "q_idx" not in g or "codebook_size" not in g:
-                continue
-            q = int(g["q_idx"])
-            sz = int(g["codebook_size"])
-            qidx2size[q] = sz
-
-        # 生成 per-slot codebook_size
-        codebook_sizes = []
-        for k in range(rag_K):
-            q = int(slot2q_idx[k])
-            if q not in qidx2size:
-                raise ValueError(f"[RAG] q_idx={q} (from slot2q_idx[{k}]) not found in groups q_idx list. ({meta_path})")
-            codebook_sizes.append(int(qidx2size[q]))
+        self._rag_slot_names = list(rag_layout["slot_names"])
 
         self._rag_codebook_sizes = codebook_sizes
 
@@ -216,17 +204,33 @@ class DenoiserTrainer:
         self._rag_pad_token_ids = torch.tensor([int(cb) + 1 for cb in codebook_sizes], device=device, dtype=torch.long)
 
         # 让 denoiser 能初始化 rag_token_embs
-        setattr(self.denoiser, "_rag_codebook_sizes", codebook_sizes)
+        setattr(self._denoiser_module(), "_rag_codebook_sizes", codebook_sizes)
 
-        # 5) 读 wmap（必须与 rag.build_blueprint_batch 期望格式一致）
-        from models.denoiser.rag import _load_wlasl_map
+        # 5) 读 token 词典/样本表
+        wmap_source = resolve_rag_wmap_source(
+            rag_wmap_path=getattr(self.opt, "rag_wmap_path", None),
+            rag_dataset_root=getattr(self.opt, "rag_dataset_root", None),
+            dataset_root=getattr(self.opt, "dataset_root", None),
+            meta_path=meta_path,
+        )
+        if not wmap_source:
+            raise FileNotFoundError(
+                f"[RAG] cannot resolve token source from rag_wmap_path={getattr(self.opt, 'rag_wmap_path', None)}"
+            )
 
-        # dataset_root：优先 rag_dataset_root，其次 dataset_root；都没有就用 metadata 所在目录
-        dataset_root = getattr(self.opt, "rag_dataset_root", None) or getattr(self.opt, "dataset_root", None)
-        if dataset_root is None:
-            dataset_root = os.path.dirname(meta_path)
-
-        self._rag_wmap = _load_wlasl_map(dataset_root)
+        self._rag_wmap = _load_wlasl_map(
+            wmap_source,
+            rag_meta=meta,
+            slot_indices=rag_layout["slot_indices"],
+            gloss_csv_dir=getattr(self.opt, "rag_gloss_csv_dir", ""),
+            gloss_source_col=getattr(self.opt, "rag_gloss_source_col", "Video file"),
+            gloss_target_col=getattr(self.opt, "rag_gloss_target_col", "my_gloss"),
+            rag_weight_dir=getattr(self.opt, "rag_weight_dir", ""),
+        )
+        print(
+            f"[RAG] trainer ready: meta={meta_path} source={wmap_source} "
+            f"K={rag_K} slots={rag_layout['slot_names']}"
+        )
 
         self._rag_ready = True
 
@@ -255,7 +259,8 @@ class DenoiserTrainer:
         else:
             z, info = out, {}
         if not hasattr(self, "_printed_latent_info"):
-            print("latent dtype/shape:", z.dtype, z.shape)
+            if self.is_master:
+                print("latent dtype/shape:", z.dtype, z.shape)
             self._printed_latent_info = True
         if info is None:
             info = {}
@@ -476,10 +481,10 @@ class DenoiserTrainer:
         # -----------------------------
         # 3) RAG blueprint（若开启则一定参与 condition）
         # -----------------------------
-        bp_tokens, bp_pad_mask = None, None
+        bp_tokens, bp_pad_mask, bp_weights = None, None, None
         if bool(getattr(self.opt, "use_rag", False)):
             self._lazy_init_rag(device=device)
-            bp_tokens, bp_pad_mask, bp_stats = self._build_blueprint_batch(
+            bp_tokens, bp_pad_mask, bp_weights, bp_stats = self._build_blueprint_batch(
                 glosses=glosses,  # 只传 gloss 字符串
                 wmap=self._rag_wmap,
                 pad_token_ids=self._rag_pad_token_ids,
@@ -488,6 +493,10 @@ class DenoiserTrainer:
                 max_words=int(getattr(self.opt, "rag_max_words", 64)),
                 per_word_max_T=int(getattr(self.opt, "rag_per_word_max_T", 1)),
                 total_max_T=int(getattr(self.opt, "rag_total_max_T", 384)),
+                frame_subsample=int(getattr(self.opt, "rag_frame_subsample", 0)),
+                slot_names=getattr(self, "_rag_slot_names", None),
+                weight_key=str(getattr(self.opt, "rag_weight_key", "soft_w")),
+                weight_max_mix=float(getattr(self.opt, "rag_weight_max_mix", 0.5)),
                 names=names,
                 epoch=epoch,
                 mode="train",
@@ -506,6 +515,7 @@ class DenoiserTrainer:
             raw_texts,
             len_mask=len_mask,
             blueprint_tokens=bp_tokens,
+            blueprint_weights=bp_weights,
             blueprint_pad_mask=bp_pad_mask,
             use_cached_clip=True,   # V3: no-op
         )
@@ -561,9 +571,9 @@ class DenoiserTrainer:
                     bad_raw.append(gj)
                 bad_glosses.append(gj)
 
-            bp_tokens_bad, bp_pad_mask_bad = bp_tokens, bp_pad_mask
+            bp_tokens_bad, bp_pad_mask_bad, bp_weights_bad = bp_tokens, bp_pad_mask, bp_weights
             if bool(getattr(self.opt, "use_rag", False)):
-                bp_tokens_bad, bp_pad_mask_bad, _ = self._build_blueprint_batch(
+                bp_tokens_bad, bp_pad_mask_bad, bp_weights_bad, _ = self._build_blueprint_batch(
                     glosses=bad_glosses,
                     wmap=self._rag_wmap,
                     pad_token_ids=self._rag_pad_token_ids,
@@ -572,6 +582,10 @@ class DenoiserTrainer:
                     max_words=int(getattr(self.opt, "rag_max_words", 64)),
                     per_word_max_T=int(getattr(self.opt, "rag_per_word_max_T", 1)),
                     total_max_T=int(getattr(self.opt, "rag_total_max_T", 384)),
+                    frame_subsample=int(getattr(self.opt, "rag_frame_subsample", 0)),
+                    slot_names=getattr(self, "_rag_slot_names", None),
+                    weight_key=str(getattr(self.opt, "rag_weight_key", "soft_w")),
+                    weight_max_mix=float(getattr(self.opt, "rag_weight_max_mix", 0.5)),
                     names=names,
                     epoch=epoch,
                     mode="train",
@@ -583,6 +597,7 @@ class DenoiserTrainer:
                 bad_raw,
                 len_mask=len_mask,
                 blueprint_tokens=bp_tokens_bad,
+                blueprint_weights=bp_weights_bad,
                 blueprint_pad_mask=bp_pad_mask_bad,
                 use_cached_clip=True,   # V3: no-op
             )
@@ -666,11 +681,11 @@ class DenoiserTrainer:
             len_mask = lengths_to_mask(curr_m_lens).to(device)
 
         # ===== 4) RAG blueprint：根据 input_text 构建（无论 input_text 是 pair 还是 str）=====
-        bp_tokens, bp_pad_mask = None, None
+        bp_tokens, bp_pad_mask, bp_weights = None, None, None
         if bool(getattr(self.opt, "use_rag", False)):
             self._lazy_init_rag(device=device)
             glosses = [_extract_gloss(rt) for rt in input_text]
-            bp_tokens, bp_pad_mask, bp_stats = self._build_blueprint_batch(
+            bp_tokens, bp_pad_mask, bp_weights, bp_stats = self._build_blueprint_batch(
                 glosses=glosses,
                 wmap=self._rag_wmap,
                 pad_token_ids=self._rag_pad_token_ids,
@@ -679,6 +694,10 @@ class DenoiserTrainer:
                 max_words=int(getattr(self.opt, "rag_max_words", 64)),
                 per_word_max_T=int(getattr(self.opt, "rag_per_word_max_T", 1)),
                 total_max_T=int(getattr(self.opt, "rag_total_max_T", 384)),
+                frame_subsample=int(getattr(self.opt, "rag_frame_subsample", 0)),
+                slot_names=getattr(self, "_rag_slot_names", None),
+                weight_key=str(getattr(self.opt, "rag_weight_key", "soft_w")),
+                weight_max_mix=float(getattr(self.opt, "rag_weight_max_mix", 0.5)),
                 names=(names + names) if bool(getattr(self.opt, "classifier_free_guidance", False)) else names,
                 epoch=0,
                 mode="infer",
@@ -709,6 +728,7 @@ class DenoiserTrainer:
                 need_attn=need_attn,
                 use_cached_clip=True,  # V3: no-op
                 blueprint_tokens=bp_tokens,
+                blueprint_weights=bp_weights,
                 blueprint_pad_mask=bp_pad_mask,
             )
 
@@ -728,12 +748,7 @@ class DenoiserTrainer:
         pred_motion = self.vae_decode_to_raw(latents)
         if isinstance(pred_motion, (tuple, list)):
             pred_motion = pred_motion[0]
-
-        if pred_motion.dim() == 3:
-            Bp, Tp, Dp = pred_motion.shape
-            J = getattr(self.opt, "joints_num", None)
-            if J is not None and Dp % J == 0:
-                pred_motion = pred_motion.view(Bp, Tp, J, -1)
+        pred_motion = extract_pose_from_motion_tensor(pred_motion, self.vae.opt)
 
         if need_attn:
             attn_weights = (
@@ -744,7 +759,7 @@ class DenoiserTrainer:
         else:
             attn_weights = (None, None, None)
 
-        self.denoiser.remove_clip_cache()
+        self._denoiser_module().remove_clip_cache()
         return pred_motion, attn_weights
 
 
@@ -757,8 +772,9 @@ class DenoiserTrainer:
     
 
     def save(self, file_name, epoch, total_iter):
+        module = self._denoiser_module()
         state = {
-            "denoiser": self.denoiser.state_dict_without_clip(),
+            "denoiser": module.state_dict_without_clip(),
             "optim": self.optim.state_dict(),
             "lr_scheduler": self.lr_scheduler.state_dict(),
             "epoch": epoch,
@@ -769,6 +785,7 @@ class DenoiserTrainer:
 
     def resume(self, model_dir):
         checkpoint = torch.load(model_dir, map_location=self.opt.device)
+        module = self._denoiser_module()
 
         # ===== 关键修复：在 load_state_dict 前把 RAG 子模块建出来 =====
         den_sd = checkpoint["denoiser"]
@@ -779,16 +796,16 @@ class DenoiserTrainer:
             self._lazy_init_rag(self.opt.device)
 
             # 2) 强制让 denoiser 创建 rag_* 子模块（否则 load 会看到一堆 unexpected）
-            if hasattr(self.denoiser, "_maybe_init_rag"):
-                self.denoiser._maybe_init_rag(self.opt.device)
+            if hasattr(module, "_maybe_init_rag"):
+                module._maybe_init_rag(self.opt.device)
 
-        missing_keys, unexpected_keys = self.denoiser.load_state_dict(den_sd, strict=False)
+        missing_keys, unexpected_keys = module.load_state_dict(den_sd, strict=False)
 
         # V3 compatibility:
         # - allow legacy keys from v1/v2 ckpt (clip_model/word_emb/cache)
         # - allow rag_encoder.* when current rag_layers=0
         allow_unexpected_prefixes = ["clip_model.", "word_emb.", "_cache_"]
-        if bool(getattr(self.opt, "use_rag", False)) and getattr(self.denoiser, "rag_encoder", None) is None:
+        if bool(getattr(self.opt, "use_rag", False)) and getattr(module, "rag_encoder", None) is None:
             allow_unexpected_prefixes.append("rag_encoder.")
 
         unexpected_bad = [
@@ -808,19 +825,22 @@ class DenoiserTrainer:
             )
         ]
         if missing_bad:
-            print(f"[Resume] missing keys (kept for compatibility): {missing_bad[:30]}")
+            if self.is_master:
+                print(f"[Resume] missing keys (kept for compatibility): {missing_bad[:30]}")
 
         # optim / scheduler
         # v2->v3 may change parameter groups (removed word_emb/clip path), so keep this tolerant.
         try:
             self.optim.load_state_dict(checkpoint["optim"])
         except Exception as e:
-            print(f"[Resume] skip optimizer state due to param-group mismatch: {e}")
+            if self.is_master:
+                print(f"[Resume] skip optimizer state due to param-group mismatch: {e}")
 
         try:
             self.lr_scheduler.load_state_dict(checkpoint["lr_scheduler"])
         except Exception as e:
-            print(f"[Resume] skip lr_scheduler state: {e}")
+            if self.is_master:
+                print(f"[Resume] skip lr_scheduler state: {e}")
 
         return checkpoint["epoch"], checkpoint["total_iter"]
 
@@ -828,6 +848,15 @@ class DenoiserTrainer:
     def train(self, train_loader, val_loader, eval_val_loader, eval_wrapper, plot_eval=None):
         self.denoiser.to(self.opt.device)
         self.vae.to(self.opt.device)
+        if self.is_distributed and not isinstance(self.denoiser, DDP):
+            device_idx = int(getattr(self.opt, "device_index", getattr(self.opt, "local_rank", 0)))
+            self.denoiser = DDP(
+                self.denoiser,
+                device_ids=[device_idx],
+                output_device=device_idx,
+                find_unused_parameters=False,
+                broadcast_buffers=False,
+            )
 
         # 优化器
         self.optim = torch.optim.AdamW(self.denoiser.parameters(), lr=self.opt.lr, betas=(0.9, 0.99), weight_decay=self.opt.weight_decay)
@@ -838,13 +867,19 @@ class DenoiserTrainer:
         it = 0
         if self.opt.is_continue:
             model_dir = pjoin(self.opt.model_dir, "latest.tar")
-            epoch, it = self.resume(model_dir)
-            print("Load model epoch:%d iterations:%d"%(epoch, it))
+            if os.path.isfile(model_dir):
+                epoch, it = self.resume(model_dir)
+                if self.is_master:
+                    print("Load model epoch:%d iterations:%d"%(epoch, it))
+            else:
+                if self.is_master:
+                    print(f"[Resume][WARN] --is_continue is set but checkpoint not found: {model_dir}. Start from scratch.")
 
         start_time = time.time()
         total_iters = self.opt.max_epoch * len(train_loader)
-        print(f"Total Epochs: {self.opt.max_epoch}, Total Iters: {total_iters}")
-        print(f"Iters Per Epoch, Training: {len(train_loader)}, Validation: {len(eval_val_loader)}")
+        if self.is_master:
+            print(f"Total Epochs: {self.opt.max_epoch}, Total Iters: {total_iters}")
+            print(f"Iters Per Epoch, Training: {len(train_loader)}, Validation: {(len(eval_val_loader) if eval_val_loader is not None else 0)}")
         logs = defaultdict(def_value, OrderedDict())
         self._printed_rag_eval_once = False
         # # 初始评估
@@ -865,6 +900,11 @@ class DenoiserTrainer:
 
         # === 训练循环 ===
         while epoch < self.opt.max_epoch:
+            batch_sampler = getattr(train_loader, "batch_sampler", None)
+            if batch_sampler is None and hasattr(train_loader, "loader"):
+                batch_sampler = getattr(train_loader.loader, "batch_sampler", None)
+            if hasattr(batch_sampler, "set_epoch"):
+                batch_sampler.set_epoch(epoch)
 
             logs = defaultdict(def_value, OrderedDict())
             torch.cuda.empty_cache()
@@ -880,8 +920,9 @@ class DenoiserTrainer:
 
                 # 【修复】增加 NaN 检测
                 if torch.isnan(loss):
-                    print(f"❌ Critical Warning: Loss is NaN at Epoch {epoch} Step {it}. Skipping backward to prevent crash.")
-                    print(f"Loss Dict: {loss_dict}")
+                    if self.is_master:
+                        print(f"❌ Critical Warning: Loss is NaN at Epoch {epoch} Step {it}. Skipping backward to prevent crash.")
+                        print(f"Loss Dict: {loss_dict}")
                     # 可选：如果希望 NaN 就退出，可以 sys.exit(1)，这里选择跳过该 batch
                     continue
                 
@@ -909,7 +950,7 @@ class DenoiserTrainer:
                     else:
                         continue
 
-                if it % self.opt.save_latest == 0:
+                if self.is_master and it % self.opt.save_latest == 0:
                     self.save(pjoin(self.opt.model_dir, "latest.tar"), epoch, it)
             # ===== epoch end: print/log once =====
             mean_loss = OrderedDict()
@@ -917,28 +958,33 @@ class DenoiserTrainer:
             for tag, value in logs.items():
                 avg_v = value / denom
                 mean_loss[tag] = avg_v
-                self.logger.add_scalar(f'Train/{tag}', avg_v, it)
+                if self.logger is not None:
+                    self.logger.add_scalar(f'Train/{tag}', avg_v, it)
 
             train_log_dict = {f"train/{k}": v for k, v in mean_loss.items()}
             train_log_dict["lr"] = self.optim.param_groups[0]["lr"]
-            wandb.log(train_log_dict, step=it)
+            if self.is_master:
+                wandb.log(train_log_dict, step=it)
 
             loss_str = " | ".join([f"{k}: {v:.4f}" for k, v in mean_loss.items()])
             msg = f"[Ep {epoch:03d} | It {it:06d}] {loss_str} | lr: {train_log_dict['lr']:.6f}"
 
             self.log_to_file(msg)
-            print_current_loss(start_time, it, total_iters, mean_loss, epoch=epoch, inner_iter=(len(train_loader)-1))
+            if self.is_master:
+                print_current_loss(start_time, it, total_iters, mean_loss, epoch=epoch, inner_iter=(len(train_loader)-1))
 
             # 【修复】将 LR 更新移到 Epoch 循环末尾
             if it >= self.opt.warm_up_iter:
                 self.lr_scheduler.step()
             
-            self.save(pjoin(self.opt.model_dir, "latest.tar"), epoch, it)
+            if self.is_master:
+                self.save(pjoin(self.opt.model_dir, "latest.tar"), epoch, it)
 
             epoch += 1
+            self._dist_barrier()
             
             # evaluation
-            if epoch % self.opt.eval_every_e == 0:
+            if self.is_master and eval_val_loader is not None and epoch % self.opt.eval_every_e == 0:
                 self._printed_rag_eval_once = False
                 metrics = evaluation_denoiser(
                     self.opt.model_dir, 
@@ -969,3 +1015,4 @@ class DenoiserTrainer:
                     best_mpjpe = current_mpjpe
                     self.save(pjoin(self.opt.model_dir, 'net_best_mpjpe.tar'), epoch, it)
                     self.log_to_file(f"--> --> MPJPE Improved to {best_mpjpe:.5f}!!!")
+            self._dist_barrier()

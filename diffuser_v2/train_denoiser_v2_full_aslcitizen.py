@@ -417,6 +417,15 @@ if __name__ == '__main__':
     if bool(getattr(opt, "tiny_debug", False)) and bool(getattr(opt, "tiny_disable_wandb", True)):
         os.environ["WANDB_MODE"] = "disabled"
 
+    if bool(getattr(opt, "use_rag", False)):
+        from models.denoiser.rag import preconfigure_rag_opt
+        rag_info = preconfigure_rag_opt(opt)
+        if rag_info is not None:
+            print(
+                f"[RAG] preconfigured: K={rag_info['rag_k']} slots={rag_info['slot_names']} "
+                f"meta={rag_info['meta_path']} source={rag_info['wmap_source']}"
+            )
+
     save_runtime_opt(opt)
     print(f"[FULL-ASLC] train_csv_path={opt.train_csv_path}")
     print(f"[FULL-ASLC] val_csv_path={opt.val_csv_path}")

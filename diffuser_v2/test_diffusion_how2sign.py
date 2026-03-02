@@ -57,6 +57,21 @@ def _split_metrics(metrics: dict):
     return mr, dtw
 
 
+def _resolve_device(device_arg: str) -> torch.device:
+    req = str(device_arg or "cuda").strip().lower()
+    os.environ.setdefault("PYTORCH_NVML_BASED_CUDA_CHECK", "1")
+    cuda_ok = torch.cuda.is_available()
+    if req == "cpu":
+        raise RuntimeError("Diffusion evaluation is configured to require CUDA. CPU execution is disabled.")
+    if not cuda_ok:
+        raise RuntimeError(
+            "Diffusion evaluation requires CUDA, but torch.cuda.is_available() is False. "
+            f"torch={torch.__version__} built_cuda={torch.version.cuda} "
+            f"CUDA_VISIBLE_DEVICES={os.environ.get('CUDA_VISIBLE_DEVICES', '<unset>')}"
+        )
+    return torch.device("cuda")
+
+
 def main():
     parser = argparse.ArgumentParser("Evaluate diffusion checkpoint on how2sign split with MR+DTW")
     parser.add_argument("--checkpoint_dir", required=True, type=str, help="folder with opt.txt and model/latest.tar")
@@ -73,11 +88,8 @@ def main():
     parser.add_argument("--vae_opt", default=None, type=str)
     parser.add_argument("--vae_ckpt", default=None, type=str)
     parser.add_argument("--report_dir", default=None, type=str)
+    parser.add_argument("--device", default="cuda", choices=["auto", "cuda", "cpu"])
     args = parser.parse_args()
-
-    from models.denoiser.trainer_patched import DenoiserTrainer
-    from sign_diffusion_dataset_patched import SignDiffusionDataset, diffusion_collate_fn
-    from utils.eval_t2m import test_denoiser
 
     checkpoint_dir = os.path.abspath(args.checkpoint_dir)
     den_opt_path = os.path.join(checkpoint_dir, "opt.txt")
@@ -97,8 +109,17 @@ def main():
     if not data_dir or (not os.path.isdir(data_dir)):
         raise FileNotFoundError(f"data_dir not found: {data_dir}")
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = _resolve_device(args.device)
     print("Device:", device)
+    print(
+        f"Torch: {torch.__version__} | built CUDA: {torch.version.cuda} | "
+        f"cuda_available: {torch.cuda.is_available()} | "
+        f"CUDA_VISIBLE_DEVICES: {os.environ.get('CUDA_VISIBLE_DEVICES', '<unset>')}"
+    )
+
+    from models.denoiser.trainer_patched import DenoiserTrainer
+    from sign_diffusion_dataset_patched import SignDiffusionDataset, diffusion_collate_fn
+    from utils.eval_t2m import test_denoiser
 
     vae_opt_path = args.vae_opt
     vae_ckpt_path = args.vae_ckpt

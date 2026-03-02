@@ -24,5 +24,5 @@ module load cuda/12.2.0
 source /home/smuk0019/ar85_scratch2/singyu/miniconda3/etc/profile.d/conda.sh
 conda activate sign_motion
 nvidia-smi
-python test_my_vae.py --ckpt_path /home/smuk0019/ar85_scratch2/singyu/SOKE/checkpoints/vae/qvae_b256h1024_L1_fingerdistinct/model/latest.tar --split test
+python test_my_vae.py
 echo "Task $SLURM_ARRAY_TASK_ID finished."

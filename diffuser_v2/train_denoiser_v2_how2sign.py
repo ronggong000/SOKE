@@ -11,6 +11,7 @@ from os.path import join as pjoin
 import pandas as pd
 import torch
 from torch.utils.data import DataLoader, Sampler
+import torch.distributed as dist
 
 from diffusers import DDIMScheduler
 
@@ -41,8 +42,7 @@ os.environ.setdefault("WANDB_DISABLE_SERVICE", "true")
 os.environ.setdefault("WANDB_DIR", pjoin(_THIS_DIR, "wandb"))
 if _SOKE_ROOT not in sys.path:
     sys.path.append(_SOKE_ROOT)
-sys.path.append(os.path.join(_SOKE_ROOT, "mymodel", "vae"))
-from qvae_model_rod3_fixed_length import VAE as MyVAE
+from vae_adapter import load_vae_model, prepare_vae_opt, resolve_motion_repr, resolve_vae_family
 
 try:
     import wandb
@@ -76,37 +76,89 @@ _HOW2SIGN_DICT_JSON = os.path.join(_SOKE_DATA_ROOT, "TEXT_TO_GLOSS_DICTIONARY.js
 
 
 class BucketBatchSampler(Sampler):
-    def __init__(self, lengths, batch_size, bucket_size=200, drop_last=False, shuffle=True):
+    def __init__(self, lengths, batch_size, bucket_size=200, drop_last=False, shuffle=True, seed=1234):
         self.lengths = list(lengths)
         self.batch_size = batch_size
         self.bucket_size = bucket_size
         self.drop_last = drop_last
         self.shuffle = shuffle
+        self.seed = int(seed)
+        self.epoch = 0
         self.sorted_indices = sorted(range(len(self.lengths)), key=lambda i: self.lengths[i])
 
-    def __iter__(self):
+    def set_epoch(self, epoch: int):
+        self.epoch = int(epoch)
+
+    def _build_batches(self):
         indices = self.sorted_indices[:]
+        rng = random.Random(self.seed + self.epoch)
         if self.shuffle:
             buckets = [indices[i:i + self.bucket_size] for i in range(0, len(indices), self.bucket_size)]
-            random.shuffle(buckets)
+            rng.shuffle(buckets)
             indices = []
             for b in buckets:
-                random.shuffle(b)
+                rng.shuffle(b)
                 indices.extend(b)
 
+        batches = []
         batch = []
         for idx in indices:
             batch.append(idx)
             if len(batch) == self.batch_size:
-                yield batch
+                batches.append(batch)
                 batch = []
         if len(batch) > 0 and not self.drop_last:
+            batches.append(batch)
+        return batches
+
+    def __iter__(self):
+        for batch in self._build_batches():
             yield batch
 
     def __len__(self):
         if self.drop_last:
             return len(self.lengths) // self.batch_size
         return math.ceil(len(self.lengths) / self.batch_size)
+
+
+class DistributedBucketBatchSampler(BucketBatchSampler):
+    def __init__(self, lengths, batch_size, num_replicas, rank, bucket_size=200, drop_last=False, shuffle=True, seed=1234):
+        super().__init__(
+            lengths=lengths,
+            batch_size=batch_size,
+            bucket_size=bucket_size,
+            drop_last=drop_last,
+            shuffle=shuffle,
+            seed=seed,
+        )
+        self.num_replicas = int(num_replicas)
+        self.rank = int(rank)
+        if self.num_replicas <= 0:
+            raise ValueError(f"num_replicas must be > 0, got {self.num_replicas}")
+        if self.rank < 0 or self.rank >= self.num_replicas:
+            raise ValueError(f"rank must be in [0, {self.num_replicas}), got {self.rank}")
+
+    def _shard_batches(self, batches):
+        if not batches:
+            return []
+        remainder = len(batches) % self.num_replicas
+        if remainder != 0:
+            if self.drop_last:
+                batches = batches[: len(batches) - remainder]
+            else:
+                pad = self.num_replicas - remainder
+                batches = list(batches) + list(batches[:pad])
+        return batches[self.rank::self.num_replicas]
+
+    def __iter__(self):
+        for batch in self._shard_batches(self._build_batches()):
+            yield batch
+
+    def __len__(self):
+        base = super().__len__()
+        if self.drop_last:
+            return base // self.num_replicas
+        return math.ceil(base / self.num_replicas)
 
 
 class LimitedLoader:
@@ -123,6 +175,25 @@ class LimitedLoader:
 
     def __len__(self):
         return min(len(self.loader), self.max_batches)
+
+
+def _dist_is_initialized():
+    return dist.is_available() and dist.is_initialized()
+
+
+def _maybe_init_distributed(opt):
+    if not bool(getattr(opt, "distributed", False)):
+        return
+    if _dist_is_initialized():
+        return
+    dist.init_process_group(backend="nccl", init_method="env://")
+    if torch.cuda.is_available():
+        torch.cuda.set_device(int(getattr(opt, "local_rank", 0)))
+
+
+def _dist_barrier(opt):
+    if bool(getattr(opt, "distributed", False)) and _dist_is_initialized():
+        dist.barrier()
 
 
 def _infer_sep(path: str) -> str:
@@ -272,6 +343,8 @@ def force_how2sign_paths(opt):
 
 
 def save_runtime_opt(opt):
+    if not bool(getattr(opt, "is_master", True)):
+        return
     args = vars(opt)
     expr_dir = os.path.join(opt.checkpoints_dir, opt.dataset_name, opt.name)
     os.makedirs(expr_dir, exist_ok=True)
@@ -293,31 +366,11 @@ def load_and_freeze_vae(opt):
     opt_path = pjoin(vae_dir, "opt.txt")
     print(f"Loading VAE config from: {opt_path}")
     vae_opt = get_opt(opt_path, opt.device)
-    vae_opt.SMPLX_JOINT_LANDMARK_NAMES = SMPLX_JOINT_LANDMARK_NAMES
-    vae_opt.SELECTED_JOINT_INDICES = SELECTED_JOINT_INDICES
-    vae_opt.SELECTED_JOINT_LANDMARK_INDICES = SELECTED_JOINT_LANDMARK_INDICES
-    vae_opt.SELECTED_JOINT_LANDMARK_BODY_EVAL = SELECTED_JOINT_LANDMARK_BODY_EVAL
-    vae_opt.SELECTED_JOINT_LANDMARK_LHAND_EVAL = SELECTED_JOINT_LANDMARK_LHAND_EVAL
-    vae_opt.SELECTED_JOINT_LANDMARK_RHAND_EVAL = SELECTED_JOINT_LANDMARK_RHAND_EVAL
-    vae_opt.SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST = SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST
-    vae_opt.SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX = SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX
-    vae_opt.SELECTED_JOINT_INDICES_BODY_ONLY = SELECTED_JOINT_INDICES_BODY_ONLY
-    vae_opt.UPPER_BODY_VERTEX = UPPER_BODY_VERTEX
-    vae_opt.LEFT_HAND_VERTEX = LEFT_HAND_VERTEX
-    vae_opt.RIGHT_HAND_VERTEX = RIGHT_HAND_VERTEX
-    vae_opt.SELECTED_JOINT_INDICES_NEIGHBOR_LIST = SELECTED_JOINT_INDICES_NEIGHBOR_LIST
-    vae_opt.joints_landmark_num = len(SELECTED_JOINT_LANDMARK_INDICES)
-    vae_opt.joints_num = len(SELECTED_JOINT_INDICES)
-    model = MyVAE(vae_opt)
-
     ckpt_path = pjoin(vae_dir, "model", "latest.tar")
-    ckpt = torch.load(ckpt_path, map_location="cpu")
-    if "vae" in ckpt:
-        model.load_state_dict(ckpt["vae"])
-    else:
-        model.load_state_dict(ckpt)
-    model.freeze()
-    model.to(opt.device)
+    vae_opt = prepare_vae_opt(vae_opt, device=opt.device)
+    model = load_vae_model(vae_opt, ckpt_path)
+    opt.vae_family = resolve_vae_family(vae_opt)
+    opt.motion_repr = resolve_motion_repr(vae_opt)
     return model
 
 
@@ -510,7 +563,8 @@ def build_split_latent_cache(split_name: str, dataset, vae, opt, out_path: str):
 def resolve_cache_paths(opt):
     cache_dir = str(getattr(opt, "latent_cache_dir", "") or "").strip()
     if not cache_dir:
-        cache_dir = pjoin(_SOKE_ROOT, "checkpoints", "HIERARCHICAL", "latent_cache_how2sign")
+        suffix = str(getattr(opt, "motion_repr", "") or getattr(opt, "vae_family", "") or "default").strip()
+        cache_dir = pjoin(_SOKE_ROOT, "checkpoints", "HIERARCHICAL", f"latent_cache_how2sign_{suffix}")
     os.makedirs(cache_dir, exist_ok=True)
     opt.latent_cache_dir = cache_dir
     return {
@@ -520,26 +574,52 @@ def resolve_cache_paths(opt):
     }
 
 
-def main():
+def main(default_overrides=None):
     opt = arg_parse(True)
+    if default_overrides:
+        for key, value in default_overrides.items():
+            current = getattr(opt, key, None)
+            if current in (None, ""):
+                setattr(opt, key, value)
+    if not getattr(opt, "vae_family", ""):
+        opt.vae_family = "qvae"
+    if not getattr(opt, "motion_repr", ""):
+        opt.motion_repr = "dk12" if str(opt.vae_family).lower() == "vae12" else "pose3d"
+    _maybe_init_distributed(opt)
     force_how2sign_paths(opt)
+    if bool(getattr(opt, "use_rag", False)):
+        from models.denoiser.rag import preconfigure_rag_opt
+        rag_info = preconfigure_rag_opt(opt)
+        if rag_info is not None:
+            if bool(getattr(opt, "is_master", True)):
+                print(
+                f"[RAG] preconfigured: K={rag_info['rag_k']} slots={rag_info['slot_names']} "
+                f"meta={rag_info['meta_path']} source={rag_info['wmap_source']}"
+            )
 
     if bool(getattr(opt, "tiny_debug", False)) and int(getattr(opt, "max_epoch", 1)) > 1:
-        print(f"[TINY] overriding max_epoch {opt.max_epoch} -> 1")
+        if bool(getattr(opt, "is_master", True)):
+            print(f"[TINY] overriding max_epoch {opt.max_epoch} -> 1")
         opt.max_epoch = 1
 
     if bool(getattr(opt, "tiny_debug", False)) and bool(getattr(opt, "tiny_disable_wandb", True)):
         os.environ["WANDB_MODE"] = "disabled"
 
-    save_runtime_opt(opt)
-    vocab_path = build_gloss_vocab_from_dictionary(opt)
+    vocab_path = pjoin(opt.model_dir, "gloss_vocab_how2sign_dictionary.json")
+    if bool(getattr(opt, "is_master", True)):
+        vocab_path = build_gloss_vocab_from_dictionary(opt)
+        save_runtime_opt(opt)
+    _dist_barrier(opt)
+    opt.gloss_vocab_path = vocab_path
     with open(vocab_path, "r", encoding="utf-8") as f:
         vocab_stoi = json.load(f).get("stoi", {})
-    report_unknown_token_coverage(opt.train_csv_path, vocab_stoi)
+    if bool(getattr(opt, "is_master", True)):
+        report_unknown_token_coverage(opt.train_csv_path, vocab_stoi)
 
-    fixseed(opt.seed)
+    fixseed(int(opt.seed) + int(getattr(opt, "rank", 0)))
 
-    print(
+    if bool(getattr(opt, "is_master", True)):
+        print(
         f"[HOW2SIGN] use_rag={getattr(opt, 'use_rag', None)} "
         f"gloss_use_positional={getattr(opt, 'gloss_use_positional', None)} "
         f"enable_length_cond={getattr(opt, 'enable_length_cond', None)} "
@@ -548,8 +628,10 @@ def main():
     )
 
     vae = load_and_freeze_vae(opt)
+    save_runtime_opt(opt)
     denoiser = Denoiser(opt, vae.opt.latent_dim)
-    validate_v2_contract(opt, denoiser)
+    if bool(getattr(opt, "is_master", True)):
+        validate_v2_contract(opt, denoiser)
 
     scheduler = DDIMScheduler(
         num_train_timesteps=opt.num_train_timesteps,
@@ -561,7 +643,8 @@ def main():
     )
 
     num_params = sum(param.numel() for param in denoiser.parameters_without_clip())
-    print(f"Total trainable parameters of all models: {num_params / 1_000_000:.3f}M")
+    if bool(getattr(opt, "is_master", True)):
+        print(f"Total trainable parameters of all models: {num_params / 1_000_000:.3f}M")
 
     train_cfg = copy.deepcopy(opt)
     val_cfg = copy.deepcopy(opt)
@@ -593,8 +676,9 @@ def main():
         custom_weight_precheck=False,
     )
 
-    validate_dataset_pair_mode(train_dataset_raw, "train")
-    validate_dataset_pair_mode(val_dataset, "val")
+    if bool(getattr(opt, "is_master", True)):
+        validate_dataset_pair_mode(train_dataset_raw, "train")
+        validate_dataset_pair_mode(val_dataset, "val")
 
     train_dataset = train_dataset_raw
     train_collate_fn = diffusion_collate_fn
@@ -610,32 +694,34 @@ def main():
         need_val = build_all and bool(getattr(opt, "rebuild_latent_cache", False) or (not os.path.isfile(cache_paths["val"])))
         need_test = build_all and bool(getattr(opt, "rebuild_latent_cache", False) or (not os.path.isfile(cache_paths["test"])))
 
-        if need_train:
-            build_split_latent_cache("train", train_dataset_raw, vae, opt, cache_paths["train"])
-        else:
-            print(f"[LatentCache] reuse existing train cache: {cache_paths['train']}")
+        if bool(getattr(opt, "is_master", True)):
+            if need_train:
+                build_split_latent_cache("train", train_dataset_raw, vae, opt, cache_paths["train"])
+            else:
+                print(f"[LatentCache] reuse existing train cache: {cache_paths['train']}")
 
-        if need_val:
-            build_split_latent_cache("val", val_dataset, vae, opt, cache_paths["val"])
-        elif build_all:
-            print(f"[LatentCache] reuse existing val cache: {cache_paths['val']}")
+            if need_val:
+                build_split_latent_cache("val", val_dataset, vae, opt, cache_paths["val"])
+            elif build_all:
+                print(f"[LatentCache] reuse existing val cache: {cache_paths['val']}")
 
-        if need_test:
-            test_dataset = SignDiffusionDataset(
-                data_dir=opt.test_data_dir,
-                csv_path=opt.test_csv_path,
-                max_length=opt.max_motion_length,
-                config=test_cfg,
-                is_train=False,
-                only_gloss=bool(getattr(opt, "train_only_gloss", True)),
-                enable_custom_weight=bool(getattr(opt, "enable_custom_weight", False)),
-                custom_weight_dir=str(getattr(opt, "custom_weight_dir", "") or ""),
-                custom_weight_key=str(getattr(opt, "custom_weight_key", "soft_w") or "soft_w"),
-                custom_weight_precheck=False,
-            )
-            build_split_latent_cache("test", test_dataset, vae, opt, cache_paths["test"])
-        elif build_all:
-            print(f"[LatentCache] reuse existing test cache: {cache_paths['test']}")
+            if need_test:
+                test_dataset = SignDiffusionDataset(
+                    data_dir=opt.test_data_dir,
+                    csv_path=opt.test_csv_path,
+                    max_length=opt.max_motion_length,
+                    config=test_cfg,
+                    is_train=False,
+                    only_gloss=bool(getattr(opt, "train_only_gloss", True)),
+                    enable_custom_weight=bool(getattr(opt, "enable_custom_weight", False)),
+                    custom_weight_dir=str(getattr(opt, "custom_weight_dir", "") or ""),
+                    custom_weight_key=str(getattr(opt, "custom_weight_key", "soft_w") or "soft_w"),
+                    custom_weight_precheck=False,
+                )
+                build_split_latent_cache("test", test_dataset, vae, opt, cache_paths["test"])
+            elif build_all:
+                print(f"[LatentCache] reuse existing test cache: {cache_paths['test']}")
+        _dist_barrier(opt)
 
     if use_latent_cache:
         if not os.path.isfile(cache_paths["train"]):
@@ -648,54 +734,75 @@ def main():
             only_gloss=bool(getattr(opt, "train_only_gloss", True)),
         )
         train_collate_fn = latent_cache_collate_fn
-        print(f"[LatentCache] training will use cached train split: {cache_paths['train']}")
+        if bool(getattr(opt, "is_master", True)):
+            print(f"[LatentCache] training will use cached train split: {cache_paths['train']}")
 
     use_tiny = bool(getattr(opt, "tiny_debug", False))
     loader_workers = 0 if use_tiny else int(getattr(opt, "num_workers", 0))
 
-    train_loader = DataLoader(
-        train_dataset,
-        batch_sampler=BucketBatchSampler(
+    if bool(getattr(opt, "distributed", False)):
+        train_batch_sampler = DistributedBucketBatchSampler(
+            lengths=train_dataset.lengths,
+            batch_size=opt.batch_size,
+            num_replicas=int(opt.world_size),
+            rank=int(opt.rank),
+            bucket_size=64,
+            drop_last=True,
+            shuffle=True,
+            seed=int(opt.seed),
+        )
+    else:
+        train_batch_sampler = BucketBatchSampler(
             lengths=train_dataset.lengths,
             batch_size=opt.batch_size,
             bucket_size=64,
             drop_last=True,
             shuffle=True,
-        ),
+            seed=int(opt.seed),
+        )
+
+    train_loader = DataLoader(
+        train_dataset,
+        batch_sampler=train_batch_sampler,
         num_workers=loader_workers,
         collate_fn=train_collate_fn,
     )
 
-    val_loader = DataLoader(
-        val_dataset,
-        batch_size=opt.batch_size,
-        num_workers=loader_workers,
-        shuffle=False,
-        drop_last=False,
-        collate_fn=diffusion_collate_fn,
-    )
+    val_loader = None
+    if bool(getattr(opt, "is_master", True)):
+        val_loader = DataLoader(
+            val_dataset,
+            batch_size=opt.batch_size,
+            num_workers=loader_workers,
+            shuffle=False,
+            drop_last=False,
+            collate_fn=diffusion_collate_fn,
+        )
 
     if use_tiny:
         train_batches = int(getattr(opt, "tiny_train_batches", 2))
         val_batches = int(getattr(opt, "tiny_val_batches", 1))
         train_loader = LimitedLoader(train_loader, train_batches)
-        val_loader = LimitedLoader(val_loader, val_batches)
-        print(
+        if val_loader is not None:
+            val_loader = LimitedLoader(val_loader, val_batches)
+        if bool(getattr(opt, "is_master", True)):
+            print(
             f"[TINY] tiny_debug enabled: train_batches={len(train_loader)} "
-            f"val_batches={len(val_loader)} batch_size={opt.batch_size}"
+            f"val_batches={(len(val_loader) if val_loader is not None else 0)} batch_size={opt.batch_size}"
         )
 
-    wandb_mode = None
-    if bool(getattr(opt, "tiny_debug", False)) and bool(getattr(opt, "tiny_disable_wandb", True)):
-        wandb_mode = "disabled"
-    wandb_kwargs = {
-        "project": "Sign_Diffusion",
-        "name": opt.name,
-        "config": vars(opt),
-    }
-    if wandb_mode is not None:
-        wandb_kwargs["mode"] = wandb_mode
-    wandb.init(**wandb_kwargs)
+    if bool(getattr(opt, "is_master", True)):
+        wandb_mode = None
+        if bool(getattr(opt, "tiny_debug", False)) and bool(getattr(opt, "tiny_disable_wandb", True)):
+            wandb_mode = "disabled"
+        wandb_kwargs = {
+            "project": "Sign_Diffusion",
+            "name": opt.name,
+            "config": vars(opt),
+        }
+        if wandb_mode is not None:
+            wandb_kwargs["mode"] = wandb_mode
+        wandb.init(**wandb_kwargs)
 
     trainer = DenoiserTrainer(opt, denoiser, vae, scheduler)
     trainer.train(
@@ -705,7 +812,11 @@ def main():
         eval_wrapper=None,
         plot_eval=None,
     )
-    wandb.finish()
+    if bool(getattr(opt, "is_master", True)):
+        wandb.finish()
+    _dist_barrier(opt)
+    if _dist_is_initialized():
+        dist.destroy_process_group()
 
 
 if __name__ == "__main__":

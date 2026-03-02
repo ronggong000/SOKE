@@ -33,7 +33,7 @@ python train_denoiser_v2_how2sign.py \
     --amp_dtype bf16 \
     --batch_size 8 \
     --num_workers 8 \
-    --max_epoch 350 \
+    --max_epoch 500 \
     --is_continue
 
 echo "Task $SLURM_ARRAY_TASK_ID finished."

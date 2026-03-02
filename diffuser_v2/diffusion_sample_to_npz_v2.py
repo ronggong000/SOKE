@@ -21,6 +21,25 @@ _SOKE_ROOT = os.path.abspath(os.path.join(_THIS_DIR, ".."))
 if _SOKE_ROOT not in sys.path:
     sys.path.append(_SOKE_ROOT)
 
+from vae_adapter import (
+    decode_latent_to_pose3d,
+    infer_latent_shape_from_vae,
+    load_vae_model,
+    prepare_vae_opt,
+)
+
+
+def _require_cuda_device() -> torch.device:
+    os.environ.setdefault("PYTORCH_NVML_BASED_CUDA_CHECK", "1")
+    cuda_ok = torch.cuda.is_available()
+    if not cuda_ok:
+        raise RuntimeError(
+            "Diffusion inference requires CUDA, but torch.cuda.is_available() is False. "
+            f"torch={torch.__version__} built_cuda={torch.version.cuda} "
+            f"CUDA_VISIBLE_DEVICES={os.environ.get('CUDA_VISIBLE_DEVICES', '<unset>')}"
+        )
+    return torch.device("cuda")
+
 # -------------------------
 # config loader (txt/yaml)
 # -------------------------
@@ -234,121 +253,40 @@ def normalize_gloss_for_tokens(gloss: str) -> str:
     return " ".join(out)
 
 
-# -------------------------
-# VAE/QVAE loading
-# -------------------------
-def import_qvae_class():
-    # SOKE layout: use mymodel/vae
-    sys.path.append(os.path.join(_SOKE_ROOT, "mymodel", "vae"))
-    from qvae_model_rod3_fixed_length import VAE
-    return VAE
-
-def inject_joint_constants(vae_opt):
-    from mGPT.utils.joints_list import (
-        SMPLX_JOINT_LANDMARK_NAMES,
-        SELECTED_JOINT_INDICES,
-        SELECTED_JOINT_LANDMARK_INDICES,
-        SELECTED_JOINT_LANDMARK_BODY_EVAL,
-        SELECTED_JOINT_LANDMARK_LHAND_EVAL,
-        SELECTED_JOINT_LANDMARK_RHAND_EVAL,
-        SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST,
-        SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX,
-        SELECTED_JOINT_INDICES_BODY_ONLY,
-        SELECTED_JOINT_INDICES_NEIGHBOR_LIST,
-    )
-    from mGPT.utils.smplx_vertex_group import UPPER_BODY_VERTEX, LEFT_HAND_VERTEX, RIGHT_HAND_VERTEX
-
-    vae_opt.SMPLX_JOINT_LANDMARK_NAMES = SMPLX_JOINT_LANDMARK_NAMES
-    vae_opt.SELECTED_JOINT_INDICES = SELECTED_JOINT_INDICES
-    vae_opt.SELECTED_JOINT_LANDMARK_INDICES = SELECTED_JOINT_LANDMARK_INDICES
-    vae_opt.SELECTED_JOINT_LANDMARK_BODY_EVAL = SELECTED_JOINT_LANDMARK_BODY_EVAL
-    vae_opt.SELECTED_JOINT_LANDMARK_LHAND_EVAL = SELECTED_JOINT_LANDMARK_LHAND_EVAL
-    vae_opt.SELECTED_JOINT_LANDMARK_RHAND_EVAL = SELECTED_JOINT_LANDMARK_RHAND_EVAL
-    vae_opt.SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST = SELECTED_JOINT_LANDMARK_INDICES_NEIGHBOR_LIST
-    vae_opt.SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX = SELECTED_JOINT_LANDMARK_INDICES_LANDMARK_INDEX
-    vae_opt.SELECTED_JOINT_INDICES_BODY_ONLY = SELECTED_JOINT_INDICES_BODY_ONLY
-    vae_opt.SELECTED_JOINT_INDICES_NEIGHBOR_LIST = SELECTED_JOINT_INDICES_NEIGHBOR_LIST
-    vae_opt.UPPER_BODY_VERTEX = UPPER_BODY_VERTEX
-    vae_opt.LEFT_HAND_VERTEX = LEFT_HAND_VERTEX
-    vae_opt.RIGHT_HAND_VERTEX = RIGHT_HAND_VERTEX
-    vae_opt.joints_landmark_num = len(SELECTED_JOINT_LANDMARK_INDICES)
-    vae_opt.joints_num = len(SELECTED_JOINT_INDICES)
-    return vae_opt
-
 def load_vae(vae_opt_path: str, vae_ckpt_path: str, device: torch.device):
     vae_opt = load_config(vae_opt_path)
-    vae_opt.device = device
     if not hasattr(vae_opt, "data_format"):
         vae_opt.data_format = "motion_dataset_rod3_fixed_length"
-    vae_opt = inject_joint_constants(vae_opt)
-
-    VAE = import_qvae_class()
-    vae = VAE(vae_opt).to(device)
-
-    ckpt = torch.load(vae_ckpt_path, map_location="cpu")
-    if isinstance(ckpt, dict) and "vae" in ckpt:
-        vae.load_state_dict(ckpt["vae"], strict=True)
-    elif isinstance(ckpt, dict):
-        vae.load_state_dict(ckpt, strict=True)
-    else:
-        raise RuntimeError("VAE checkpoint is not a dict")
-
-    if hasattr(vae, "freeze"):
-        vae.freeze()
-    else:
-        vae.eval()
-        for p in vae.parameters():
-            p.requires_grad_(False)
-
-    vae.eval()
-    return vae
+    vae_opt = prepare_vae_opt(vae_opt, device=device)
+    return load_vae_model(vae_opt, vae_ckpt_path)
 
 
 # -------------------------
 # denoiser loader
 # -------------------------
 def _resolve_rag_metadata_path(opt, base_dir: str):
-    meta_path = str(getattr(opt, "rag_metadata_path", "") or "").strip()
-    if meta_path and os.path.isfile(meta_path):
-        return meta_path
+    from models.denoiser.rag import resolve_rag_metadata_path as _resolve_meta
 
-    candidates = []
-    rag_wmap_path = str(getattr(opt, "rag_wmap_path", "") or "").strip()
-    if rag_wmap_path:
-        if os.path.isdir(rag_wmap_path):
-            candidates.append(os.path.join(rag_wmap_path, "dataset_metadata.json"))
-        else:
-            candidates.append(os.path.join(os.path.dirname(rag_wmap_path), "dataset_metadata.json"))
-    vae_dir = str(getattr(opt, "vae_path", "") or "").strip()
-    if vae_dir:
-        candidates.append(os.path.join(vae_dir, "dataset_metadata.json"))
-    candidates.append(os.path.join(base_dir, "dataset_metadata.json"))
-
-    for cand in candidates:
-        if cand and os.path.isfile(cand):
-            return cand
-    return None
+    return _resolve_meta(
+        rag_metadata_path=getattr(opt, "rag_metadata_path", None),
+        rag_wmap_path=getattr(opt, "rag_wmap_path", None),
+        rag_dataset_root=getattr(opt, "rag_dataset_root", None),
+        dataset_root=getattr(opt, "dataset_root", None) or getattr(opt, "vae_path", None),
+        meta_name=getattr(opt, "rag_metadata_filename", "dataset_metadata.json"),
+        base_dir=base_dir,
+    )
 
 
 def _resolve_rag_wmap_root(opt, base_dir: str):
-    rag_wmap_path = str(getattr(opt, "rag_wmap_path", "") or "").strip()
-    candidates = []
-    if rag_wmap_path:
-        if os.path.isdir(rag_wmap_path):
-            candidates.append(rag_wmap_path)
-        else:
-            candidates.append(os.path.dirname(rag_wmap_path))
-    vae_dir = str(getattr(opt, "vae_path", "") or "").strip()
-    if vae_dir:
-        candidates.append(vae_dir)
-    candidates.append(base_dir)
+    from models.denoiser.rag import resolve_rag_wmap_source as _resolve_source
 
-    for cand in candidates:
-        jsonl = os.path.join(cand, "aslcitizen_qvae_tokens.jsonl")
-        jsonf = os.path.join(cand, "aslcitizen_qvae_tokens.json")
-        if os.path.isfile(jsonl) or os.path.isfile(jsonf):
-            return cand
-    return None
+    return _resolve_source(
+        rag_wmap_path=getattr(opt, "rag_wmap_path", None),
+        rag_dataset_root=getattr(opt, "rag_dataset_root", None),
+        dataset_root=getattr(opt, "dataset_root", None) or getattr(opt, "vae_path", None),
+        meta_path=getattr(opt, "rag_metadata_path", None),
+        base_dir=base_dir,
+    )
 
 
 def _infer_rag_codebook_sizes(meta: dict, rag_k: int):
@@ -386,7 +324,11 @@ def _load_rag_resources(opt, denoiser_opt_path: str, device: torch.device, stric
 
     base_dir = os.path.dirname(os.path.abspath(denoiser_opt_path))
     try:
-        from models.denoiser.rag import build_blueprint_batch, _load_wlasl_map
+        from models.denoiser.rag import (
+            _load_wlasl_map,
+            build_blueprint_batch,
+            infer_rag_layout,
+        )
     except Exception as exc:
         if strict_rag:
             raise
@@ -404,26 +346,40 @@ def _load_rag_resources(opt, denoiser_opt_path: str, device: torch.device, stric
     with open(meta_path, "r", encoding="utf-8") as f:
         meta = json.load(f)
 
-    rag_k = int(getattr(opt, "rag_K", meta.get("K", 13)))
-    codebook_sizes = _infer_rag_codebook_sizes(meta, rag_k)
+    rag_layout = infer_rag_layout(
+        meta,
+        rag_k=getattr(opt, "rag_K", None),
+        rag_slot_names=getattr(opt, "rag_slot_names", ""),
+    )
+    rag_k = int(rag_layout["rag_k"])
+    codebook_sizes = list(rag_layout["codebook_sizes"])
     pad_token_ids = torch.tensor([int(cb) + 1 for cb in codebook_sizes], device=device, dtype=torch.long)
 
-    wmap_root = _resolve_rag_wmap_root(opt, base_dir)
-    if not wmap_root:
-        msg = f"[RAG] cannot resolve wmap root from rag_wmap_path={getattr(opt, 'rag_wmap_path', None)}"
+    wmap_source = _resolve_rag_wmap_root(opt, base_dir)
+    if not wmap_source:
+        msg = f"[RAG] cannot resolve token source from rag_wmap_path={getattr(opt, 'rag_wmap_path', None)}"
         if strict_rag:
             raise FileNotFoundError(msg)
         print(f"[RAG][WARN] {msg}")
         return None
 
-    wmap = _load_wlasl_map(wmap_root)
-    print(f"[RAG] ready: meta={meta_path} wmap_root={wmap_root} K={rag_k}")
+    wmap = _load_wlasl_map(
+        wmap_source,
+        rag_meta=meta,
+        slot_indices=rag_layout["slot_indices"],
+        gloss_csv_dir=getattr(opt, "rag_gloss_csv_dir", ""),
+        gloss_source_col=getattr(opt, "rag_gloss_source_col", "Video file"),
+        gloss_target_col=getattr(opt, "rag_gloss_target_col", "my_gloss"),
+        rag_weight_dir=getattr(opt, "rag_weight_dir", ""),
+    )
+    print(f"[RAG] ready: meta={meta_path} source={wmap_source} K={rag_k} slots={rag_layout['slot_names']}")
     return {
         "build_blueprint_batch": build_blueprint_batch,
         "wmap": wmap,
         "pad_token_ids": pad_token_ids,
         "rag_k": rag_k,
         "codebook_sizes": codebook_sizes,
+        "slot_names": list(rag_layout["slot_names"]),
     }
 
 
@@ -453,9 +409,11 @@ def load_denoiser(
         candidates = [
             os.path.join(base_dir, "gloss_vocab.json"),
             os.path.join(base_dir, "gloss_vocab_v3.json"),
+            os.path.join(base_dir, "gloss_vocab_how2sign_dictionary.json"),
             os.path.join(base_dir, "vocab", "gloss_vocab.json"),
             os.path.join(base_dir, "model", "gloss_vocab_v3.json"),
             os.path.join(base_dir, "model", "gloss_vocab.json"),
+            os.path.join(base_dir, "model", "gloss_vocab_how2sign_dictionary.json"),
             "gloss_vocab.json",
         ]
         for cand in candidates:
@@ -471,6 +429,14 @@ def load_denoiser(
     print(f"[DenoiserOpt] use_precomputed_text_emb={opt.use_precomputed_text_emb}, "
           f"use_gloss_tokens={opt.use_gloss_tokens}, gloss_embed_mode={opt.gloss_embed_mode}, "
           f"gloss_layers={opt.gloss_layers}, use_cond_film={opt.use_cond_film}")
+
+    if bool(getattr(opt, "use_rag", False)):
+        try:
+            from models.denoiser.rag import preconfigure_rag_opt
+            preconfigure_rag_opt(opt, base_dir=os.path.dirname(os.path.abspath(denoiser_opt_path)))
+        except Exception:
+            if strict_rag:
+                raise
 
     denoiser = Denoiser(opt, vae_latent_dim).to(device)
     denoiser.eval()
@@ -638,8 +604,8 @@ def sample_from_noise_gloss_only(
     text_cond = [["", gloss_text]]
     text_uncond = [["", ""]]   # empty gloss
 
-    bp_tokens_cond, bp_pad_mask_cond = None, None
-    bp_tokens_cfg, bp_pad_mask_cfg = None, None
+    bp_tokens_cond, bp_pad_mask_cond, bp_weights_cond = None, None, None
+    bp_tokens_cfg, bp_pad_mask_cfg, bp_weights_cfg = None, None, None
     if rag_resources is not None and bool(getattr(den_opt, "use_rag", False)):
         build_blueprint_batch = rag_resources["build_blueprint_batch"]
         rag_k = int(rag_resources["rag_k"])
@@ -652,10 +618,14 @@ def sample_from_noise_gloss_only(
             max_words=int(getattr(den_opt, "rag_max_words", 64)),
             per_word_max_T=int(getattr(den_opt, "rag_per_word_max_T", 1)),
             total_max_T=int(getattr(den_opt, "rag_total_max_T", 384)),
+            frame_subsample=int(getattr(den_opt, "rag_frame_subsample", 0)),
+            slot_names=rag_resources.get("slot_names"),
+            weight_key=str(getattr(den_opt, "rag_weight_key", "soft_w")),
+            weight_max_mix=float(getattr(den_opt, "rag_weight_max_mix", 0.5)),
             epoch=0,
             mode="infer",
         )
-        bp_tokens_cond, bp_pad_mask_cond, bp_stats = build_blueprint_batch(
+        bp_tokens_cond, bp_pad_mask_cond, bp_weights_cond, bp_stats = build_blueprint_batch(
             glosses=[gloss_text],
             names=[sample_name],
             **common_kwargs,
@@ -665,7 +635,7 @@ def sample_from_noise_gloss_only(
             f"Tb={bp_stats['Tb']} (hit={bp_stats['hit_words']}/{bp_stats['total_words']})"
         )
         if cfg_scale is not None and float(cfg_scale) > 1.0:
-            bp_tokens_cfg, bp_pad_mask_cfg, _ = build_blueprint_batch(
+            bp_tokens_cfg, bp_pad_mask_cfg, bp_weights_cfg, _ = build_blueprint_batch(
                 glosses=["", gloss_text],
                 names=["", sample_name],
                 **common_kwargs,
@@ -686,6 +656,7 @@ def sample_from_noise_gloss_only(
                 need_attn=False,
                 use_cached_clip=False,
                 blueprint_tokens=bp_tokens_cfg,
+                blueprint_weights=bp_weights_cfg,
                 blueprint_pad_mask=bp_pad_mask_cfg,
             )
             pred_uncond, pred_cond = torch.chunk(pred, 2, dim=0)
@@ -699,6 +670,7 @@ def sample_from_noise_gloss_only(
                 need_attn=False,
                 use_cached_clip=False,
                 blueprint_tokens=bp_tokens_cond,
+                blueprint_weights=bp_weights_cond,
                 blueprint_pad_mask=bp_pad_mask_cond,
             )
 
@@ -723,30 +695,11 @@ def _build_scheduler(den_opt):
 
 
 def _infer_latent_shape(vae, num_frames: int, device: torch.device):
-    joints_num = int(getattr(vae.opt, "joints_num", 43))
-    d_flat = joints_num * 3
-    dummy = torch.zeros((1, int(num_frames), d_flat), device=device, dtype=torch.float32)
-    z_tmp, _ = vae.encode(dummy)
-    if z_tmp.dim() != 4:
-        raise RuntimeError(f"vae.encode(dummy) must return [B,Tz,13,D], got {tuple(z_tmp.shape)}")
-    return z_tmp.shape
+    return infer_latent_shape_from_vae(vae, num_frames=int(num_frames), device=device)
 
 
 def _decode_and_expand_to_full(vae, z_hat: torch.Tensor, target_frames: int):
-    pred = vae_decode_to_raw(vae, z_hat)
-    if isinstance(pred, (tuple, list)):
-        pred = pred[0]
-
-    if pred.dim() == 4:
-        poses_sel = pred[0].detach().cpu().numpy()  # [T, Js, 3]
-    elif pred.dim() == 3:
-        pred_np = pred[0].detach().cpu().numpy()    # [T, D_flat]
-        if pred_np.shape[1] % 3 != 0:
-            raise RuntimeError(f"Decoded D_flat not divisible by 3: {pred_np.shape}")
-        j_num = pred_np.shape[1] // 3
-        poses_sel = pred_np.reshape(pred_np.shape[0], j_num, 3)
-    else:
-        raise RuntimeError(f"Unexpected decoded dim: {pred.dim()}")
+    poses_sel = decode_latent_to_pose3d(vae, z_hat)[0].detach().cpu().numpy()
 
     target = int(target_frames)
     t_len = poses_sel.shape[0]
@@ -916,7 +869,7 @@ def main():
     parser.add_argument("--output_dir", type=str, default=None, help="batch mode output root")
 
     args = parser.parse_args()
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = _require_cuda_device()
     print("Device:", device)
 
     ckpt_dirs = []

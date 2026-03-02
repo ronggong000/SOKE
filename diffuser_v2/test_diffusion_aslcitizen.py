@@ -45,6 +45,18 @@ def _aslc_alias(metrics: dict):
     return out
 
 
+def _require_cuda_device() -> torch.device:
+    os.environ.setdefault("PYTORCH_NVML_BASED_CUDA_CHECK", "1")
+    cuda_ok = torch.cuda.is_available()
+    if not cuda_ok:
+        raise RuntimeError(
+            "Diffusion evaluation requires CUDA, but torch.cuda.is_available() is False. "
+            f"torch={torch.__version__} built_cuda={torch.version.cuda} "
+            f"CUDA_VISIBLE_DEVICES={os.environ.get('CUDA_VISIBLE_DEVICES', '<unset>')}"
+        )
+    return torch.device("cuda")
+
+
 def main():
     parser = argparse.ArgumentParser("Evaluate diffusion checkpoint on ASLcitizen split with MR+DTW")
     parser.add_argument("--checkpoint_dir", required=True, type=str, help="folder with opt.txt and model/latest.tar")
@@ -82,7 +94,7 @@ def main():
     if not data_dir or (not os.path.isdir(data_dir)):
         raise FileNotFoundError(f"data_dir not found: {data_dir}")
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = _require_cuda_device()
     print("Device:", device)
 
     vae_opt_path = args.vae_opt

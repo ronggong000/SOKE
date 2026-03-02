@@ -28,14 +28,26 @@ class VQVAE(nn.Module):
         self.conv_dec = STConvDecoderNoTime(opt, self.conv_enc)
 
         if opt.dataset_name != "HIERARCHICAL":
-            raise ValueError("vqvae_not currently expects dataset_name='HIERARCHICAL' (13 latent nodes).")
+            raise ValueError("vqvae_not currently expects dataset_name='HIERARCHICAL'.")
 
+        self.latent_tokens_per_frame = self._infer_latent_tokens_per_frame()
         self.cb_size_body = getattr(opt, "codebook_size_body", 96)
         self.cb_size_hand = getattr(opt, "codebook_size_hand", 192)
         self.commitment_cost = getattr(opt, "commitment_cost", 0.25)
 
         self.quantizers = nn.ModuleList()
         self.grouping_schedule = self._setup_quantizers(opt.codebook_grouping)
+
+    def _infer_latent_tokens_per_frame(self):
+        if self.opt.dataset_name != "HIERARCHICAL":
+            raise ValueError(f"Unsupported dataset_name: {self.opt.dataset_name}")
+        if self.opt.n_layers <= 0:
+            return self.opt.joints_num
+        if self.opt.n_layers == 1:
+            return 16
+        if self.opt.n_layers == 2:
+            return 13
+        return 3
 
     def _setup_quantizers(self, strategy):
         schedule = []
@@ -46,38 +58,59 @@ class VQVAE(nn.Module):
             q_idx = len(self.quantizers) - 1
             schedule.append({"name": name, "ids": node_ids, "q_idx": q_idx})
 
-        if strategy == "default":
-            add_group("body_arms", [0, 1, 2], self.cb_size_body)
-            add_group("shared_hands", list(range(3, 13)), self.cb_size_hand)
-        elif strategy == "arm_mirror":
-            add_group("torso", [0], self.cb_size_body)
-            add_group("shared_arms", [1, 2], self.cb_size_body)
-            add_group("shared_hands", list(range(3, 13)), self.cb_size_hand)
-        elif strategy == "thumb_sep":
-            add_group("torso", [0], self.cb_size_body)
-            add_group("shared_arms", [1, 2], self.cb_size_body)
-            add_group("shared_thumbs", [7, 12], self.cb_size_hand)
-            add_group("shared_fingers", [3, 4, 5, 6, 8, 9, 10, 11], self.cb_size_hand)
-        elif strategy == "finger_distinct":
-            add_group("torso", [0], self.cb_size_body)
-            add_group("shared_arms", [1, 2], self.cb_size_body)
-            add_group("idx", [3, 8], self.cb_size_hand)
-            add_group("mid", [4, 9], self.cb_size_hand)
-            add_group("pnk", [5, 10], self.cb_size_hand)
-            add_group("rng", [6, 11], self.cb_size_hand)
-            add_group("tmb", [7, 12], self.cb_size_hand)
-        elif strategy == "full_book":
-            add_group("node_0_torso", [0], self.cb_size_body)
-            add_group("node_1_larm", [1], self.cb_size_body)
-            add_group("node_2_rarm", [2], self.cb_size_body)
-            for i, name in enumerate(["l_idx", "l_mid", "l_pnk", "l_rng", "l_tmb"]):
-                add_group(name, [3 + i], self.cb_size_hand)
-            for i, name in enumerate(["r_idx", "r_mid", "r_pnk", "r_rng", "r_tmb"]):
-                add_group(name, [8 + i], self.cb_size_hand)
+        if self.latent_tokens_per_frame == 13:
+            if strategy == "default":
+                add_group("body_arms", [0, 1, 2], self.cb_size_body)
+                add_group("shared_hands", list(range(3, 13)), self.cb_size_hand)
+            elif strategy == "arm_mirror":
+                add_group("torso", [0], self.cb_size_body)
+                add_group("shared_arms", [1, 2], self.cb_size_body)
+                add_group("shared_hands", list(range(3, 13)), self.cb_size_hand)
+            elif strategy == "thumb_sep":
+                add_group("torso", [0], self.cb_size_body)
+                add_group("shared_arms", [1, 2], self.cb_size_body)
+                add_group("shared_thumbs", [7, 12], self.cb_size_hand)
+                add_group("shared_fingers", [3, 4, 5, 6, 8, 9, 10, 11], self.cb_size_hand)
+            elif strategy == "finger_distinct":
+                add_group("torso", [0], self.cb_size_body)
+                add_group("shared_arms", [1, 2], self.cb_size_body)
+                add_group("idx", [3, 8], self.cb_size_hand)
+                add_group("mid", [4, 9], self.cb_size_hand)
+                add_group("pnk", [5, 10], self.cb_size_hand)
+                add_group("rng", [6, 11], self.cb_size_hand)
+                add_group("tmb", [7, 12], self.cb_size_hand)
+            elif strategy == "full_book":
+                add_group("node_0_torso", [0], self.cb_size_body)
+                add_group("node_1_larm", [1], self.cb_size_body)
+                add_group("node_2_rarm", [2], self.cb_size_body)
+                for i, name in enumerate(["l_idx", "l_mid", "l_pnk", "l_rng", "l_tmb"]):
+                    add_group(name, [3 + i], self.cb_size_hand)
+                for i, name in enumerate(["r_idx", "r_mid", "r_pnk", "r_rng", "r_tmb"]):
+                    add_group(name, [8 + i], self.cb_size_hand)
+            else:
+                raise ValueError(f"Unknown codebook grouping strategy: {strategy}")
+        elif self.latent_tokens_per_frame == 3:
+            if strategy == "default":
+                add_group("body", [0], self.cb_size_body)
+                add_group("shared_hands", [1, 2], self.cb_size_hand)
+            elif strategy == "full_book":
+                add_group("body", [0], self.cb_size_body)
+                add_group("left_hand", [1], self.cb_size_hand)
+                add_group("right_hand", [2], self.cb_size_hand)
+            else:
+                raise ValueError(
+                    f"Codebook grouping '{strategy}' is not defined for {self.latent_tokens_per_frame} latent nodes. "
+                    "Use 'default' for shared hands or 'full_book' for separate hand codebooks."
+                )
         else:
-            raise ValueError(f"Unknown codebook grouping strategy: {strategy}")
+            raise ValueError(
+                f"Unsupported latent node count {self.latent_tokens_per_frame} for dataset {self.opt.dataset_name}."
+            )
 
-        print(f"Codebook Strategy [{strategy}]: Created {len(self.quantizers)} quantizers.")
+        print(
+            f"Codebook Strategy [{strategy}]: Created {len(self.quantizers)} quantizers for "
+            f"{self.latent_tokens_per_frame} tokens/frame."
+        )
         return schedule
 
     def freeze(self):
@@ -159,8 +192,10 @@ class VQVAE(nn.Module):
     @torch.no_grad()
     def decode_from_tokens(self, tokens):
         b, t, k = tokens.shape
-        if k != 13:
-            raise ValueError(f"Expected 13 tokens/frame for HIERARCHICAL, got {k}.")
+        if k != self.latent_tokens_per_frame:
+            raise ValueError(
+                f"Expected {self.latent_tokens_per_frame} tokens/frame for HIERARCHICAL, got {k}."
+            )
 
         z_quant = torch.zeros(b, t, k, self.latent_dim, device=tokens.device)
 
